@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cashcoredb',          # Your PostgreSQL database name
+        'USER': 'postgres',        # Your PostgreSQL username
+        'PASSWORD': 'cashcore',       # Your PostgreSQL password
+        'HOST': 'localhost',            # Since PostgreSQL is running locally
+        'PORT': '5432',                 # Default PostgreSQL port
     }
 }
 
