@@ -1,4 +1,4 @@
-Django==4.2.6
+Django>=4.2.16
 psycopg2==2.9.7
 python-dotenv==1.0.0
 requests==2.31.0
