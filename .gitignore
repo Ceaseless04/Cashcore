@@ -1,1 +1,8 @@
 backend/.env
+
+backend/server/db.sqlite3
+
+backend/server/server/__pycache__
+
+backend/server/restfulapi/__pycache__
+
