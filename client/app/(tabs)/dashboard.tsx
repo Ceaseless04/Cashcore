@@ -15,6 +15,9 @@ const colorPalette = {
   green: "#28ce78",
 };
 
+const boxShadowForContainers = " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"
+
+
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
 const dummyMonthlySub: ListItem[] = [
@@ -370,7 +373,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 25,
-    gap: 20,
+    gap:  20,
+    backgroundImage: `radial-gradient(circle, rgba(40, 206, 120, .6) 5%, rgba(24, 24, 24, .8) 34%, rgba(24,24,24, .7) 130%)`,
   },
   widgetContainer: {
     flexDirection: "row",
@@ -391,7 +395,8 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     padding: 20,
     marginBottom: 20,
-    backgroundColor: colorPalette.medium,
+    boxShadow: boxShadowForContainers,
+    backgroundColor: `rgba(50, 50, 50, .70)`,
   },
   widgetTitle: {
     fontSize: 15,
@@ -473,7 +478,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
-    backgroundColor: colorPalette.medium,
     paddingHorizontal: 10,
     alignItems: "center",
   },
@@ -486,8 +490,9 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   accountSummaryCard: {
-    backgroundColor: colorPalette.medium,
-    borderRadius: 10,
+    backgroundColor: `rgba(50, 50, 50, .85)`,
+    boxShadow: boxShadowForContainers,
+    borderRadius: 15,
     padding: 15,
   },
   topContainer: {
@@ -531,12 +536,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   cashFlowContainer: {
-    backgroundColor: colorPalette.medium,
+    backgroundColor: `rgba(50, 50, 50, .70)`,
+    boxShadow: boxShadowForContainers,
     minWidth: "65%",
     maxWidth: "60%",
     borderRadius: 10,
     padding: 15,
-    color: colorPalette.light,
   },
   cashFlowText: {
     color: colorPalette.light,
