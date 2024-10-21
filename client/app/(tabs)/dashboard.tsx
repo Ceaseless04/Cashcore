@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 
-const colorPallete = {
+const colorPalette = {
   light: "#eeeeee",
   medium: "#323232",
   dark: "#181818",
@@ -41,66 +41,82 @@ export default function Dashboard(): JSX.Element {
     useState<ListItem[]>(dummyMonthlySub);
   const [transactions, setTransactions] =
     useState<ListItem[]>(dummyTransactions);
-  const [startingBalance, setStartingBalance] = useState<number>(5000);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.subContainer}>
-      <View style={styles.topContainer}>
-        <View style={styles.summaryContainers}>
-          <View style={styles.accountBalanceContainer}>
-            <Text style={styles.accountBalanceText}>Account Balance</Text>
-            <Text style={styles.accountBalanceValue}>$5000</Text>
+    <View style={styles.dashboardContainer}>
+      <View style={styles.contentWrapper}>
+        <View style={styles.topContainer}>
+          <View style={styles.summaryContainers}>
+            <BalanceContainer balance={50000}/>
+            <SummaryCard title="Monthly Income:" percentage={.18} value="$4200" />
+            <SummaryCard title="Monthly Expenses:" percentage={-.10} value="$690" />
           </View>
-          <View style={styles.summaryContainer}>
-            <View style={styles.summaryTopContainer}>
-              <Text style={styles.summaryContainerText}>Monthly Income:</Text>
-              <Text style={styles.summaryContainerPercentage}>+%18</Text>
-            </View>
 
-            <Text style={styles.sumamryContainerValue}>$4200</Text>
-          </View>
-          <View style={styles.summaryContainer}>
-            <View style={styles.summaryTopContainer}>
-              <Text style={styles.summaryContainerText}>Monthly Income:</Text>
-              <Text style={styles.summaryContainerPercentage}>+%18</Text>
+          <View style={styles.cashFlowContainer}>
+            <Text style={styles.cashFlowText}>Cash Flow</Text>
+            <View style={styles.cashFlowChart}>
+              <Text style={styles.cashFlowChartText}>Cash Flow Chart</Text>
             </View>
-
-            <Text style={styles.sumamryContainerValue}>$4200</Text>
           </View>
         </View>
 
-        <View style={styles.cashFlowContainer}>
-          <Text style={styles.cashFlowText}>Cash Flow</Text>
-          <View style={styles.cashFlowChart}>
-            <Text style={styles.cashFlowChartText}>Cash Flow Chart</Text>
-          </View>
+        <View style={styles.widgetContainer}>
+          <Widget
+            widgetTitle="Budgets"
+            widgetAddButtonTitle="Add Budget"
+            setWidgetList={setBudgetList}
+            list={budgetList}
+            showAddButton
+            showSavings
+          />
+          <Widget
+            widgetTitle="Monthly Subscriptions"
+            setWidgetList={setMonthlySubscription}
+            list={monthlySubscription}
+            showDate
+          />
+          <Widget
+            widgetTitle="Transactions"
+            setWidgetList={setTransactions}
+            list={transactions}
+            transactionAnalysis
+            showDate
+          />
         </View>
       </View>
+    </View>
+  );
+}
 
-      <View style={styles.widgetContainer}>
-        <Widget
-          widgetTitle="Budgets"
-          widgetAddButtonTitle="Add Budget"
-          setWidgetList={setBudgetList}
-          list={budgetList}
-          showAddButton
-          showSavings
-        />
-        <Widget
-          widgetTitle="Monthly Subscriptions"
-          setWidgetList={setMonthlySubscription}
-          list={monthlySubscription}
-          showDate
-        />
-        <Widget
-          widgetTitle="Transactions"
-          setWidgetList={setTransactions}
-          list={transactions}
-          transactionAnalysis
-          showDate
-        />
-      </View></View>
+interface SummaryCardProps {
+  title: string;
+  percentage: number;
+  value: string;
+}
+
+function SummaryCard({ title, percentage, value }: SummaryCardProps): JSX.Element {
+  return (
+    <View style={styles.accountSummaryCard}>
+      <View style={styles.summaryHeader}>
+        <Text style={styles.summaryTitleText}>{title}</Text>
+        <Text style={[styles.summaryContainerPercentage, {color: percentage < 0 ? "red" : "green"}]}>
+          {percentage < 0 ? `-$${percentage*-100}` : `+$${percentage*100}`}
+        </Text>
+      </View>
+      <Text style={styles.sumamryContainerValue}>{value}</Text>
+    </View>
+  );
+}
+
+interface BalanceContainerProps {
+  balance: number;
+}
+
+function BalanceContainer({ balance }: BalanceContainerProps): JSX.Element {
+  return (
+    <View style={styles.accountBalanceContainer}>
+      <Text style={styles.accountBalanceText}>Account Balance</Text>
+      <Text style={styles.accountBalanceValue}>${balance}</Text>
     </View>
   );
 }
@@ -162,120 +178,199 @@ function Widget({
   };
 
   return (
-    <View style={styles.widget}>
-      <View style={styles.widgetHeader}>
-        <Text style={styles.widgetTitle}>{widgetTitle}</Text>
-
-        {!isAdding && showAddButton && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setIsAdding(true)}
-          >
-            <Text style={styles.buttonText}>{widgetAddButtonTitle}</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+    <View style={styles.widgetCard}>
+      <WidgetHeader
+        widgetTitle={widgetTitle}
+        widgetAddButtonTitle={widgetAddButtonTitle}
+        isAdding={isAdding}
+        setIsAdding={setIsAdding}
+        showAddButton={showAddButton}
+      />
 
       {isAdding && (
-        <View style={styles.inputContainer}>
-          <Text style={styles.labelAdd}>Item Name:</Text>
-          <TextInput
-            style={styles.input}
-            value={newName}
-            onChangeText={setNewName}
-            placeholder="Enter item name"
-            placeholderTextColor="grey"
-          />
-
-          <Text style={styles.labelAdd}>Amount:</Text>
-          <TextInput
-            style={styles.input}
-            value={newValue}
-            onChangeText={setNewValue}
-            placeholder="Enter item amount"
-            placeholderTextColor="grey"
-          />
-
-          <View style={styles.addButtons}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setIsAdding(false);
-                setNewName("");
-                setNewValue("");
-              }}
-            >
-              <Text style={styles.buttonText}>Cancel</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                if (newName && newValue) handleAddToList();
-                else alert("Insert both values!");
-              }}
-            >
-              <Text style={styles.buttonText}>Add</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <FormInputContainer
+          newName={newName}
+          setNewName={setNewName}
+          newValue={newValue}
+          setNewValue={setNewValue}
+          handleAddToList={handleAddToList}
+          setIsAdding={setIsAdding}
+        />
       )}
-
       <FlatList
         style={styles.widgetList}
         data={list.length >= 5 ? list.slice(0, 5) : list}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <View style={styles.widgetListItems}>
-            <View style={styles.itemDescription}>
-              <Text style={styles.widgetListItem}>{`${item.name}`}</Text>
-              {showDate && <Text style={styles.itemDate}>{item.date}</Text>}
-              {showSavings && (
-                <Text style={styles.itemDate}>Savings Goal: $5000</Text>
-              )}
-            </View>
-            <View style={styles.itemValue}>
-              {showSavings && <Text style={styles.savings}>Savings: </Text>}
-              <Text
-                style={[
-                  styles.widgetListItem,
-                  {
-                    color:
-                      transactionAnalysis && item.amount >= 0
-                        ? colorPallete.green
-                        : colorPallete.light,
-                  },
-                ]}
-              >
-                {transactionAnalysis
-                  ? item.amount < 0
-                    ? `-$${item.amount * -1}`
-                    : `+$${item.amount}`
-                  : `$${item.amount}`}{" "}
-                {/* Fixed here */}
-              </Text>
-            </View>
-          </View>
+          <ListItem
+            item={item}
+            showDate={showDate}
+            showSavings={showSavings}
+            transactionAnalysis={transactionAnalysis}
+          />
         )}
       />
     </View>
   );
 }
 
+interface WidgetHeaderProps {
+  widgetTitle: string;
+  widgetAddButtonTitle?: string;
+  isAdding: boolean;
+  setIsAdding: React.Dispatch<React.SetStateAction<boolean>>;
+  showAddButton: boolean;
+}
+
+function WidgetHeader({
+  widgetTitle,
+  widgetAddButtonTitle = "Add",
+  isAdding,
+  setIsAdding,
+  showAddButton,
+}: WidgetHeaderProps): JSX.Element {
+  return (
+    <View style={styles.widgetHeader}>
+      <Text style={styles.widgetTitle}>{widgetTitle}</Text>
+
+      {!isAdding && showAddButton && (
+        <TouchableOpacity
+          style={styles.widgetActionButton}
+          onPress={() => setIsAdding(true)}
+        >
+          <Text style={styles.widgetActionButtonText}>
+            {widgetAddButtonTitle}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+}
+
+interface FormInputContainerProps {
+  newName: string;
+  setNewName: React.Dispatch<React.SetStateAction<string>>;
+  newValue: string;
+  setNewValue: React.Dispatch<React.SetStateAction<string>>;
+  handleAddToList: () => void;
+  setIsAdding: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function FormInputContainer({
+  newName,
+  setNewName,
+  newValue,
+  setNewValue,
+  handleAddToList,
+  setIsAdding,
+}: FormInputContainerProps): JSX.Element {
+  return (
+    <View style={styles.widgetInputContainer}>
+      <Text style={styles.labelAdd}>Item Name:</Text>
+      <TextInput
+        style={styles.widgetInputField}
+        value={newName}
+        onChangeText={setNewName}
+        placeholder="Enter item name"
+        placeholderTextColor="grey"
+      />
+
+      <Text style={styles.labelAdd}>Amount:</Text>
+      <TextInput
+        style={styles.widgetInputField}
+        value={newValue}
+        onChangeText={setNewValue}
+        placeholder="Enter item amount"
+        placeholderTextColor="grey"
+      />
+
+      <View style={styles.addButtons}>
+        <TouchableOpacity
+          style={styles.widgetActionButton}
+          onPress={() => {
+            setIsAdding(false);
+            setNewName("");
+            setNewValue("");
+          }}
+        >
+          <Text style={styles.widgetActionButtonText}>Cancel</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.widgetActionButton}
+          onPress={() => {
+            if (newName && newValue) handleAddToList();
+            else alert("Insert both values!");
+          }}
+        >
+          <Text style={styles.widgetActionButtonText}>Add</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+interface ListItemProps {
+  item: { name: string; amount: number; date?: string };
+  showDate?: boolean;
+  showSavings?: boolean;
+  transactionAnalysis?: boolean;
+}
+
+function ListItem({
+  item,
+  showDate = false,
+  showSavings = false,
+  transactionAnalysis = false,
+}: ListItemProps): JSX.Element {
+  return (
+    <View style={styles.widgetListItems}>
+      <View style={styles.listItemDescription}>
+        <Text style={styles.widgetListItem}>{item.name}</Text>
+        {showDate && <Text style={styles.listItemDate}>{item.date}</Text>}
+        {showSavings && (
+          <Text style={styles.listItemDate}>Savings Goal: $5000</Text>
+        )}
+      </View>
+
+      <View style={styles.listItemValue}>
+        {showSavings && <Text style={styles.savings}>Savings: </Text>}
+        <Text
+          style={[
+            styles.widgetListItem,
+            {
+              color:
+                transactionAnalysis && item.amount >= 0
+                  ? colorPalette.green
+                  : colorPalette.light,
+            },
+          ]}
+        >
+          {transactionAnalysis
+            ? item.amount < 0
+              ? `-$${item.amount * -1}`
+              : `+$${item.amount}`
+            : `$${item.amount}`}{" "}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
+  dashboardContainer: {
     flex: 1,
     justifyContent: "flex-end",
-    backgroundColor: colorPallete.dark,
+    backgroundColor: colorPalette.dark,
   },
-  subContainer: {
+  contentWrapper: {
     minWidth: "100%",
-    justifyContent: "flex-end", 
+    justifyContent: "flex-end",
     alignItems: "center",
-    paddingHorizontal: 25, 
+    paddingHorizontal: 25,
     paddingBottom: 25,
-    gap: 20
+    gap: 20,
   },
   widgetContainer: {
     flexDirection: "row",
@@ -288,7 +383,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     gap: 2,
   },
-  widget: {
+  widgetCard: {
     minWidth: "30%",
     maxWidth: "30%",
     maxHeight: "100%",
@@ -296,7 +391,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     padding: 20,
     marginBottom: 20,
-    backgroundColor: colorPallete.medium,
+    backgroundColor: colorPalette.medium,
   },
   widgetTitle: {
     fontSize: 15,
@@ -309,41 +404,41 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     padding: 10,
     borderRadius: 5,
-    backgroundColor: colorPallete.dark,
+    backgroundColor: colorPalette.dark,
   },
   widgetListItem: {
     fontSize: 14,
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
-  button: {
+  widgetActionButton: {
     padding: 5,
     borderRadius: 5,
     alignItems: "center",
     marginVertical: 5,
-    backgroundColor: colorPallete.green,
+    backgroundColor: colorPalette.green,
   },
-  buttonText: {
+  widgetActionButtonText: {
     fontSize: 12,
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
-  inputContainer: {
+  widgetInputContainer: {
     marginVertical: 10,
   },
-  input: {
+  widgetInputField: {
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,
     marginBottom: 5,
     fontSize: 10,
-    borderColor: colorPallete.light,
-    color: colorPallete.light,
+    borderColor: colorPalette.light,
+    color: colorPalette.light,
   },
   addButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   widgetList: {},
-  accountBalanceContaier: {
+  accountBalanceContainer: {
     marginBottom: 30,
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -352,37 +447,37 @@ const styles = StyleSheet.create({
   labelAdd: {
     fontSize: 14,
     marginBottom: 3,
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
   graphsContainer: {
     padding: 10,
     borderRadius: 4,
     fontSize: 18,
-    color: colorPallete.light,
-    backgroundColor: colorPallete.medium,
+    color: colorPalette.light,
+    backgroundColor: colorPalette.medium,
   },
-  itemDescription: {
+  listItemDescription: {
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
-  itemDate: {
+  listItemDate: {
     fontSize: 12,
     marginTop: 3,
     color: "grey",
   },
-  itemValue: {
+  listItemValue: {
     justifyContent: "center",
   },
   widgetHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
-    backgroundColor: colorPallete.medium,
+    backgroundColor: colorPalette.medium,
     paddingHorizontal: 10,
     alignItems: "center",
   },
-  itemValue: {
+  listItemValue: {
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
@@ -390,8 +485,8 @@ const styles = StyleSheet.create({
   savings: {
     color: "grey",
   },
-  summaryContainer: {
-    backgroundColor: colorPallete.medium,
+  accountSummaryCard: {
+    backgroundColor: colorPalette.medium,
     borderRadius: 10,
     padding: 15,
   },
@@ -400,63 +495,62 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     minWidth: "80%",
   },
-  summaryTopContainer: {
+  summaryHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "space-between",
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
   sumamryContainerValue: {
-    color: colorPallete.light,
+    color: colorPalette.light,
     fontSize: 45,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  summaryContainerText: {
-    color: colorPallete.light,
+  summaryTitleText: {
+    color: colorPalette.light,
     fontSize: 14,
   },
   summaryContainerPercentage: {
-    color: colorPallete.green,
     fontSize: 14,
-  }, 
+  },
   summaryContainers: {
     flexDirection: "column",
     justifyContent: "flex-start",
     minWidth: "30%",
-    gap: 10
+    gap: 10,
   },
   accountBalanceContainer: {
     flexDirection: "column",
   },
   accountBalanceText: {
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
   accountBalanceValue: {
-    color: colorPallete.light,
+    color: colorPalette.light,
     fontSize: 45,
     fontWeight: "bold",
   },
   cashFlowContainer: {
-    backgroundColor: colorPallete.medium,
+    backgroundColor: colorPalette.medium,
     minWidth: "65%",
     maxWidth: "60%",
     borderRadius: 10,
     padding: 15,
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
   cashFlowText: {
-    color: colorPallete.light,
+    color: colorPalette.light,
   },
   cashFlowChart: {
-    color: colorPallete.light,
+    color: colorPalette.light,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   cashFlowChartText: {
     fontSize: 50,
     fontWeight: "bold",
-    color: colorPallete.light,
-  }
+    color: colorPalette.light,
+  },
 });
