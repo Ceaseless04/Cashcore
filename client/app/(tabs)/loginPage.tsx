@@ -25,8 +25,9 @@ export default function loginPage() {
 
   return (
     <View style={styles.container}>
-      <form>
+
         <h2 style={styles.title}>Login</h2>
+
         <TextInput
           style={styles.inputFields}
           placeholderTextColor={"#979797"}
@@ -35,22 +36,37 @@ export default function loginPage() {
           value={username}
           onChangeText={SetUserName}
         ></TextInput>
-        {errors.username ? <Text>{errors.username}</Text> : null}
+
+        {
+          //indication of error for username TextInput
+          errors.username ? <Text>{errors.username}</Text> : null
+        }
+
         <TextInput
-          placeholderTextColor={"#979797"}
           style={styles.inputFields}
+          placeholderTextColor={"#979797"}
           textContentType="password"
           placeholder="Password"
-          secureTextEntry={true}
           value={password}
           onChangeText={SetPassword}
+          secureTextEntry={true}
         ></TextInput>
-        {errors.password ? <Text>{errors.password}</Text> : null}
+
+        {
+          //error indication for password TextInput
+          errors.password ? <Text>{errors.password}</Text> : null
+        }
+
+        /**
+          The container for the remember me checkbox and Forgot password link
+         */
         <div style={styles.linksContainer}>
+
           <div>
             <input id="rememberMeBox" value={rememberMe} type="checkbox" />
             Remember Me?
           </div>
+
           <div>
             <a
               style={styles.links}
@@ -59,21 +75,32 @@ export default function loginPage() {
               Forgot Password?
             </a>
           </div>
+          
         </div>
+
+        /**
+          Login Button
+         */
         <Button
           title="Log In"
           accessibilityLabel="Log into this Cashcore with youre account"
           onPress={onLoginButtonPress}
         />
+
+        /**
+          Container that holds the "Dont have an account?" link
+         */
         <div style={styles.linksContainer}>
+
           <a
             style={styles.links}
             href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           >
             Don't Have an Account?
           </a>
+
         </div>
-      </form>
+
     </View>
   );
 }
