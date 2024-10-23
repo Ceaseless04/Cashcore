@@ -1,15 +1,8 @@
-# Cashcore
+Supplemental branch for # Cashcore
 A fintech app for college students to track and manage their budget/spending, track their stocks, home loans, and savings
 
-Yaohua Hu Branch 10/10/2024
-Sandboxing django web application
-
-Helpful Commands
-
-pip install django # install django
-
-django-admin startproject demo # Generate basic folder structure for Django web application
-
-python manage.py startapp myapp # Create application within base django web template structure
-
-python manage.py runserver # run web server on localhost
+ 10/23/2024
+Adding docker files for containerization - Yaohua Hu
+TODO:
+1. proposed implementation of Docker for the project
+2. Review, test, reconfigure, .yml, Dockerfile, dockercompose ect. then push to main
