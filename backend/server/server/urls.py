@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('restapi/', include('restfulapi.urls')), #default --> http://localhost:8000/restapi/
+    path('restapi/', include('restfulapi.urls')), # http://localhost:8000/restapi/
     # url paths to other apps can be provided here
 ]
 

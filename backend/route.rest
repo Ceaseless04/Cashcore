@@ -1,0 +1,137 @@
+
+### Generic -- USER -- API
+
+GET http://localhost:8000/restapi/users/
+
+###
+
+POST http://localhost:8000/restapi/users/
+Content-Type: application/json
+
+{
+    "username": "username21",
+    "fullName": "name21",
+    "email": "name21@gmail.com",
+    "password_hash": "username21"
+}
+
+
+
+
+### Custom -- USER -- API
+
+GET http://localhost:8000/restapi/users/10/
+
+###
+
+PUT http://localhost:8000/restapi/users/10/
+Content-Type: application/json
+
+{
+    "username": "username--1",
+    "fullName": "name1",
+    "email": "name1@gmail.com",
+    "password_hash": "username1"
+}
+
+###
+
+DELETE http://localhost:8000/restapi/users/16/
+
+###
+
+PATCH http://localhost:8000/restapi/users/15/
+
+
+
+
+
+### Generic -- Budget -- API
+
+GET http://localhost:8000/restapi/budgets/
+
+###
+
+POST http://localhost:8000/restapi/budgets/
+Content-Type: application/json
+
+{
+    "userID": 17,
+    "name": "Rent Budget",
+    "totalAmount": -650,
+    "spentAmount": -420.2
+}
+
+### Custom -- User Budget -- API
+
+GET http://localhost:8000/restapi/budgets/user10/
+
+### Custom -- Budget -- API
+
+GET http://localhost:8000/restapi/budgets/3/
+
+###
+
+PUT http://localhost:8000/restapi/budgets/4/
+Content-Type: application/json
+
+{
+    "userID": 10,
+    "name": "New---- Budget",
+    "totalAmount": 1500,
+    "spentAmount": 1200.70
+}
+
+###
+
+DELETE http://localhost:8000/restapi/budgets/11/
+
+
+
+
+
+
+### Generic -- Loan -- API
+
+GET http://localhost:8000/restapi/loans/
+
+###
+
+POST http://localhost:8000/restapi/loans/
+Content-Type: application/json
+
+{
+    "userID": 2,
+    "loanType": "Something",
+    "principalAmount": 420.2,
+    "interestRate": 10,
+    "termMonths": 10,
+    "remainingBalance": 100
+}
+
+### Custom -- User Loan -- API
+
+GET http://localhost:8000/restapi/loans/user10/
+
+### Custom -- Loan -- API
+
+GET http://localhost:8000/restapi/loans/3/
+
+###
+
+PUT http://localhost:8000/restapi/loans/3/
+Content-Type: application/json
+
+{
+    "userID": 2,
+    "loanType": "Something----new",
+    "principalAmount": 420.2,
+    "interestRate": 650,
+    "termMonths": 10,
+    "remainingBalance": 100
+}
+
+###
+
+DELETE http://localhost:8000/restapi/loans/7/
+
