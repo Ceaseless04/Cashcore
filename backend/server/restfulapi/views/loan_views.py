@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ..models import User, Loan
+from ..models import CustomUser, Loan
+from django.contrib.auth.models import User
 from ..serializers import LoanSerializer
 from django.http import Http404
 
@@ -16,7 +17,7 @@ from django.http import Http404
 
 # 8000/restapi/loans/
 # Post 1 && Get All
-class LoanListCreate(generics.ListCreateAPIView): #WORKS
+class LoanListCreate(generics.ListCreateAPIView): # --WORKS
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
 
@@ -33,7 +34,7 @@ class LoanListCreate(generics.ListCreateAPIView): #WORKS
 
 
 # 8000/restapi/loans/<str:user>/
-class LoanUserDetail(APIView): # WORKS
+class LoanUserDetail(APIView): # --WORKS
     def get(self, request, user, format=None):
         loans = Loan.objects.filter(userID=int(''.join(filter(str.isdigit, user))))
         serializer = LoanSerializer(loans, many=True)
@@ -48,12 +49,12 @@ class LoanDetail(APIView):
         except Loan.DoesNotExist:
             raise Http404
     
-    def get(self, request, pk, format=None): #WORKS
+    def get(self, request, pk, format=None): # --WORKS
         loan = self.get_object(pk)
         serializer = LoanSerializer(loan)
         return Response(serializer.data)
     
-    def put(self, request, pk, format=None): #WORKS
+    def put(self, request, pk, format=None): # --WORKS
         loan = self.get_object(pk)
         serializer = LoanSerializer(loan, data=request.data)
         if serializer.is_valid():
@@ -61,7 +62,7 @@ class LoanDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def delete(self, request, pk, format=None): #WORKS --> Delete 1 (cascade is working)
+    def delete(self, request, pk, format=None): # --WORKS & Cascade (w USER default model)
         loan = self.get_object(pk)
         loan.delete()
         return Response({"message": f"Loan {pk} Successfully Deleted."}, status=status.HTTP_204_NO_CONTENT)
