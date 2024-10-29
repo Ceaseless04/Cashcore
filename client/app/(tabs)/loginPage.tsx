@@ -26,7 +26,17 @@ export default function loginPage() {
   return (
     <View style={styles.container}>
 
-        <h2 style={styles.title}>Login</h2>
+        <div style={styles.titleContainer}>
+          
+          <p style={styles.title}><img style={styles.titleImage} src="https://cdn.britannica.com/06/150806-050-6AE99C98/Proboscis-monkey.jpg"></img>Login</p>
+        </div>
+
+        {/**
+         * The h3 tag will have a check for if the use has been on the platform before, if the user has been on before, it will say welcome back, otherwise just say Create a new account
+         */}
+        <div>
+          <h3> Welcome Back!!!!</h3>
+        </div>
 
         <TextInput
           style={styles.inputFields}
@@ -57,9 +67,9 @@ export default function loginPage() {
           errors.password ? <Text>{errors.password}</Text> : null
         }
 
-        /**
+        {/**
           The container for the remember me checkbox and Forgot password link
-         */
+         */}
         <div style={styles.linksContainer}>
 
           <div>
@@ -75,21 +85,21 @@ export default function loginPage() {
               Forgot Password?
             </a>
           </div>
-          
+
         </div>
 
-        /**
+        {/**
           Login Button
-         */
+         */}
         <Button
           title="Log In"
           accessibilityLabel="Log into this Cashcore with youre account"
           onPress={onLoginButtonPress}
         />
 
-        /**
+        {/* /**
           Container that holds the "Dont have an account?" link
-         */
+         */}
         <div style={styles.linksContainer}>
 
           <a
@@ -107,25 +117,41 @@ export default function loginPage() {
 
 const styles = StyleSheet.create({
   container: {
+    height: "90%",
     width: "50%",
     maxWidth: 750,
-    color: "#979797",
-    margin: "auto",
+    color: "white",
+    marginVertical: "auto",
+    marginLeft: "50%",
+    marginRight: "5%",
     alignItems: "center",
     backgroundColor: "#3E3E3E",
-    borderRadius: 10,
-    padding: 10,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+  },
+
+  titleContainer:{
+    margin:"2%",
+    flexDirection: "row",
+    padding: 0,
   },
 
   title: {
-    textAlign: "center",
+    justifyContent: "space-evenly",
+    textAlign:"center",
+    fontSize: 100,
+  },
+
+  titleImage:{
+    flex:1,
+    maxWidth:100
   },
 
   inputFields: {
     alignContent: "center",
     width: "80%",
-    display: "flex",
-    margin: "10%",
+    margin: "2%",
+    borderRadius: 5,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
@@ -135,6 +161,7 @@ const styles = StyleSheet.create({
   },
 
   linksContainer: {
+    direction: "ltr",
     marginTop: 20,
     marginBottom: 20,
   },
