@@ -139,7 +139,7 @@ Content-Type: application/json
 
 {
     "userID": 2,
-    "loanType": "Home Loan",
+    "loanType": "New---- Loan",
     "principalAmount": 250000,
     "interestRate": 3.8,
     "termMonths": 360,
@@ -171,7 +171,7 @@ Content-Type: application/json
 
 ###     def delete(self, request, pk, format=None)
 
-DELETE http://localhost:8000/restapi/loans/3/
+DELETE http://localhost:8000/restapi/loans/5/
 
 
 

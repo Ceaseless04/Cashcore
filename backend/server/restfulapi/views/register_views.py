@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from ..serializers import UserSerializer
 
-# 8000/register/
+# 8000/restapi/register/
 # Handles --> POST 1 USER
 class RegisterView(generics.CreateAPIView): # --WORKS
     permission_classes = [AllowAny]  # Allow any user to register

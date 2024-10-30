@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from ..models import User
 from ..serializers import LoginSerializer
 
-
+# 8000/restapi/login/
 class LoginView(APIView): # --WORKS
 
     def post(self, request):
