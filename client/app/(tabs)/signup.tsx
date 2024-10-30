@@ -1,46 +1,50 @@
-import { Image, StyleSheet, Platform, Button } from 'react-native';
+import { Image, StyleSheet, Platform, Button,TouchableOpacity } from 'react-native';
 import { View, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import colorPalette from '../utils/colors';
+import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 
 export default function SignUpScreen() {
   return (
     <View style={styles.container}>
- 
-        <View style={styles.innerContainer}>
-            <Text style={styles.title}> Sign Up </Text>
-            <Text> Some text about signign up and stuff idk, play NiGHTS into dreams pls  </Text>
+      <View style={styles.innerContainer}>
+        <View style={styles.headingTextContainer}>
+          <Text style={styles.headingText}>Control</Text>
+          <Text style={[styles.headingText, {color: "green"}]}>Your</Text>
+          <Text style={styles.headingText}>Finances</Text>
+        </View>
+        <View style={styles.signUpContainer}>
+          
+            <Text style={styles.title}>CashCore</Text>          
+            <Text style={styles.subtitle}>Create a New Account </Text>
+            <Text style={styles.description}>Let's start your journey.  </Text>
 
-            <View style = {styles.signUpContainer}>
-                <Text> First Name </Text>
+            <View style = {styles.signUpFormContainer}>
                 <TextInput 
                     style = {styles.input}
-                    placeholder = "first name"
+                    placeholder = "Name"
                 />
 
-                <Text> Email </Text>
                 <TextInput 
                     style = {styles.input}
-                    placeholder = "email"
+                    placeholder = "Email"
                 />
 
-                <Text> Passsword  </Text>
                 <TextInput 
                     style = {styles.input}
                     placeholder = "Password"
                 />
 
-            <Text style = {styles.header}> Phone  </Text>
-                <TextInput 
+                {/* <TextInput 
                     style = {styles.input}
                     placeholder = "Phone"
-                />
-
-                <Button title={"clikc on me lol"}>
-                    CLick on me lol
-                </Button>
-
+                /> */}
+               <TouchableOpacity style={styles.signUpBtn} onPress={() => alert('Button Pressed')}>
+                  <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
             </View>
-
+            <Text style={{color: "grey"}}>Already have an account? <Text style={{color:"white"}}>Login Here</Text></Text>
+            </View>
         </View>
 
 
@@ -55,25 +59,63 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: "green"
     },
     innerContainer: {
       alignItems: 'center',
+      flexDirection: 'row',
+      backgroundColor: "red",
+      width: "80%",
+      height: "80%",      justifyContent: 'center',
+      gap: 50,
+    },
+    headingTextContainer: {
+      backgroundColor: "orange",
+      alignItems: "center",
+    },
+    headingText: {
+      fontSize: 50,
+      fontWeight: 'bold',
+      color: "white",
+    },
+    signUpContainer: {
+      backgroundColor: colorPalette.medium,
+      paddingVertical: 20,
+      borderRadius: 10,
+      minWidth: '40%',
+      minHeight: "100%",
+      // justifyContent: 'center',
+      alignItems: 'center',
     },
     title: {
-      color: 'blue', 
-      fontSize: 40
+      color: 'white', 
+      fontSize: 40,
+      fontWeight: 'bold',
+      marginBottom: 30,
+    },
+    subtitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: 'white',
+      marginBottom: 20,
+    },
+    description: {
+      color: 'white',
+      marginBottom: 30
     },
 
-    signUpContainer: {
-        paddingHorizontal: '20%',
-        marginTop: '5%',
-        borderWidth: 1,    
-        borderRadius: 5,  
-        paddingTop: '10%',
-        paddingBottom: '20%',
-        flex: 1,
+    signUpFormContainer: {
+        // paddingHorizontal: '20%',
+        // marginTop: '5%',
+        // borderWidth: 1,    
+        // borderRadius: 5,  
+        // paddingTop: '10%',
+        // paddingBottom: '20%',
+        // flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      // alignItems: 'center',
+      // backgroundColor: "yellow",
+      minWidth: "70%"
 
     },
 
@@ -82,13 +124,27 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        backgroundColor: 'white',
-        marginBottom: '10%',
-        borderRadius: 10,
-        width: '180%',
+        // backgroundColor: ,
+        marginBottom: '6%',
+        borderRadius: 4,
+        color: 'grey',
+        borderColor: "grey",
+        width: '100%',
         borderWidth: 1,    
-        padding: 0.8
+        padding: 3,
+        paddingLeft: 10,
+    },
+    signUpBtn: {
+      backgroundColor: "lightgreen",
+      alignItems: "center",
+      borderRadius: 3,
+      padding: 3,
+      marginBottom: 20,
+    },
+    buttonText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: 'white',
     }
-
   });
 
