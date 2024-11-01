@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import colorPalette from '../utils/colors';
 import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
+import { boxShadowForContainers } from '../utils/dashboardContainerBoxShadow';
 
 export default function SignUpScreen() {
   return (
@@ -10,7 +11,7 @@ export default function SignUpScreen() {
       <View style={styles.innerContainer}>
         <View style={styles.headingTextContainer}>
           <Text style={styles.headingText}>Control</Text>
-          <Text style={[styles.headingText, {color: "green"}]}>Your</Text>
+          <Text style={[styles.headingText, {color: colorPalette.green}]}>Your</Text>
           <Text style={styles.headingText}>Finances</Text>
         </View>
         <View style={styles.signUpContainer}>
@@ -34,20 +35,13 @@ export default function SignUpScreen() {
                     style = {styles.input}
                     placeholder = "Password"
                 />
-
-                {/* <TextInput 
-                    style = {styles.input}
-                    placeholder = "Phone"
-                /> */}
                <TouchableOpacity style={styles.signUpBtn} onPress={() => alert('Button Pressed')}>
                   <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={{color: "grey"}}>Already have an account? <Text style={{color:"white"}}>Login Here</Text></Text>
+            <Text style={styles.haveAccountText}>Already have an account? <Text style={{color:"white"}}>Login Here</Text></Text>
             </View>
         </View>
-
-
 
     </View>
   );
@@ -59,39 +53,59 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: "green"
+      backgroundColor: "black",
+      // backgroundImage: "radial-gradient(#f69d3c, #3f87a6)",
+      // backgroundColor: "grey",
+      // fontFamily: "Inter"
+      // backgroundColor:"hsla(22,0%,0%,1)",
+      backgroundImage: 
+        `radial-gradient(at 28% 6%, hsla(170,79%,36%,0.84) 0px, transparent 50%),
+        radial-gradient(at 83% 19%, hsla(124,54%,45%,1) 0px, transparent 50%),
+        radial-gradient(at 81% 74%, hsla(180,79%,36%,0.55) 0px, transparent 50%),
+        radial-gradient(at 84% 91%, hsla(71,46%,64%,0.59) 0px, transparent 50%),
+        radial-gradient(at 54% 46%, hsla(175,79%,31%,1) 0px, transparent 50%),
+        radial-gradient(at 12% 76%, hsla(84,66%,48%,0.55) 0px, transparent 50%)`,
+
+
+
     },
+    
     innerContainer: {
       alignItems: 'center',
       flexDirection: 'row',
-      backgroundColor: "red",
+      // backgroundColor: "red",
       width: "80%",
-      height: "80%",      justifyContent: 'center',
-      gap: 50,
+      height: "80%",      
+      justifyContent: 'center',
+      gap: 80,
     },
     headingTextContainer: {
-      backgroundColor: "orange",
+      // backgroundColor: "orange",
       alignItems: "center",
     },
     headingText: {
-      fontSize: 50,
+      fontSize: 70,
+      fontFamily: "Space Grotesk Light",
       fontWeight: 'bold',
       color: "white",
     },
     signUpContainer: {
       backgroundColor: colorPalette.medium,
       paddingVertical: 20,
-      borderRadius: 10,
-      minWidth: '40%',
+      borderRadius: 15,
+      minWidth: '45%',
       minHeight: "100%",
-      // justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: `rgba(70, 70, 70, .62)`,
+      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+      
     },
     title: {
       color: 'white', 
       fontSize: 40,
       fontWeight: 'bold',
       marginBottom: 30,
+      // fontFamily: "Inter Thin",
     },
     subtitle: {
       fontSize: 20,
@@ -115,7 +129,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       // alignItems: 'center',
       // backgroundColor: "yellow",
-      minWidth: "70%"
+      minWidth: "67%"
 
     },
 
@@ -127,24 +141,30 @@ const styles = StyleSheet.create({
         // backgroundColor: ,
         marginBottom: '6%',
         borderRadius: 4,
-        color: 'grey',
-        borderColor: "grey",
+        color: "#979797",
+        borderColor: "#979797",
         width: '100%',
         borderWidth: 1,    
-        padding: 3,
+        padding: 4,
         paddingLeft: 10,
     },
     signUpBtn: {
-      backgroundColor: "lightgreen",
+      backgroundColor: colorPalette.green,
       alignItems: "center",
       borderRadius: 3,
-      padding: 3,
+      paddingTop: 3,
+      paddingBottom: 6,
       marginBottom: 20,
     },
     buttonText: {
-      fontSize: 18,
-      fontWeight: 'bold',
+      fontSize: 19,
       color: 'white',
+    },
+    haveAccountText: {
+      color: 'grey',
+      fontSize: 13,    
     }
   });
+
+  
 
