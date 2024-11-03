@@ -1,0 +1,382 @@
+
+### ----------- RESGITER & LOGIN TESTING -----------
+
+### class RegisterView(generics.CreateAPIView)
+
+POST http://localhost:8000/restapi/register/
+Content-Type: application/json
+
+{
+    "username": "username6",
+    "email": "name6@gmail.com",
+    "first_name": "Sam",
+    "last_name": "Posh",
+    "password": "username6"
+}
+
+### class LoginView(APIView)
+
+POST http://localhost:8000/restapi/login/
+Content-Type: application/json
+
+{
+    "username": "username6",
+    "password": "username6"
+}
+
+
+
+
+
+
+
+
+
+
+### ----------- USER TESTING -----------
+
+### class UserList(generics.ListAPIView)
+
+GET http://localhost:8000/restapi/users/
+
+### class UserDetail(APIView)
+###     def get(self, request, pk)
+
+GET http://localhost:8000/restapi/users/2/
+
+###     def put(self, request, pk)
+
+PUT http://localhost:8000/restapi/users/2/
+Content-Type: application/json
+
+{
+    "username": "username3",
+    "email": "name3@gmail.com",
+    "first_name": "John",
+    "last_name": "Lennon",
+    "password": "username3"
+}
+
+###     def delete(self, request, pk)
+
+DELETE http://localhost:8000/restapi/users/5/
+
+###     def patch(self, request, pk)
+
+PATCH http://localhost:8000/restapi/customusers/15/
+
+
+
+
+
+
+
+
+
+
+### ----------- BUDGET TESTING -----------
+
+### class BudgetListCreate(generics.ListCreateAPIView)
+
+GET http://localhost:8000/restapi/budgets/
+
+###     def post(self, request, format=None)
+
+POST http://localhost:8000/restapi/budgets/
+Content-Type: application/json
+
+{
+    "userID": 6,
+    "name": "Entertainment Budget",
+    "totalAmount": 100.00,
+    "spentAmount": 80.50
+}
+
+### class BudgetUserDetail(APIView)
+
+GET http://localhost:8000/restapi/budgets/user2/
+
+### class BudgetDetail(APIView)
+###     def get(self, request, pk, format=None)
+
+GET http://localhost:8000/restapi/budgets/5/
+
+###     def put(self, request, pk, format=None)
+
+PUT http://localhost:8000/restapi/budgets/3/
+Content-Type: application/json
+
+{
+    "userID": 5,
+    "name": "Food Budget",
+    "totalAmount": "330.00",
+    "spentAmount": "220.50"
+}
+
+###     def delete(self, request, pk, format=None)
+
+DELETE http://localhost:8000/restapi/budgets/5/
+
+
+
+
+
+
+
+
+
+
+### ----------- LOAN TESTING -----------
+
+### class LoanListCreate(generics.ListCreateAPIView)
+
+GET http://localhost:8000/restapi/loans/
+
+###     def post(self, request, format=None)
+
+POST http://localhost:8000/restapi/loans/
+Content-Type: application/json
+
+{
+    "userID": 2,
+    "loanType": "Home Loan",
+    "principalAmount": 250000,
+    "interestRate": 3.8,
+    "termMonths": 360,
+    "remainingBalance": 230000
+}
+
+### class LoanUserDetail(APIView)
+
+GET http://localhost:8000/restapi/loans/user6/
+
+### class LoanDetail(APIView)
+###     def get_object(self, pk)
+
+GET http://localhost:8000/restapi/loans/2/
+
+###     def put(self, request, pk, format=None)
+
+PUT http://localhost:8000/restapi/loans/2/
+Content-Type: application/json
+
+{
+    "userID": 6,
+    "loanType": "Car Loan------NEW",
+    "principalAmount": 0.00,
+    "interestRate": 0.00,
+    "termMonths": 0,
+    "remainingBalance": 0.00,
+}
+
+###     def delete(self, request, pk, format=None)
+
+DELETE http://localhost:8000/restapi/loans/3/
+
+
+
+
+
+
+
+
+
+
+### ----------- SAVING TESTING -----------
+
+### class SavingListCreate(generics.ListCreateAPIView)
+
+GET http://localhost:8000/restapi/savings/
+
+###     def post(self, request, format=None)
+
+POST http://localhost:8000/restapi/savings/
+Content-Type: application/json
+
+{
+    "userID": 2,
+    "goalName": "New Car",
+    "targetAmount": 20000,
+    "currentAmount": 5000
+}
+
+### class SavingUserDetail(APIView)
+
+GET http://localhost:8000/restapi/savings/user6/
+
+### class SavingDetail(APIView)
+###     def get(self, request, pk, format=None)
+
+GET http://localhost:8000/restapi/savings/2/
+
+### def put(self, request, pk, format=None)
+
+PUT http://localhost:8000/restapi/savings/3/
+Content-Type: application/json
+
+{
+    "userID": 6,
+    "goalName": "Home Down Payment------NEW",
+    "targetAmount": 30000.00,
+    "currentAmount": 10000.00
+}
+
+###     def delete(self, request, pk, format=None)
+
+DELETE http://localhost:8000/restapi/savings/6/
+
+
+
+
+
+
+
+
+
+
+### ----------- STOCK TESTING -----------
+
+### class StockListCreate(generics.ListCreateAPIView)
+
+GET http://localhost:8000/restapi/stocks/
+
+###     def post(self, request, format=None)
+
+POST http://localhost:8000/restapi/stocks/
+Content-Type: application/json
+
+{
+    "userID": 6,
+    "stockSymbol": "NVDA",
+    "sharesOwned": 6,
+    "purchasePrice": 220.00,
+    "currentPrice": 230.00
+}
+
+### class StockUserDetail(APIView)
+
+GET http://localhost:8000/restapi/stocks/user2/
+
+### class StockDetail(APIView)
+###     def get(self, request, pk, format=None)
+
+GET http://localhost:8000/restapi/stocks/1/
+
+###     def put(self, request, pk, format=None)
+
+PUT http://localhost:8000/restapi/stocks/3/
+Content-Type: application/json
+
+{
+    "userID": 6,
+    "stockSymbol": "FB",
+    "sharesOwned": 20.00,
+    "purchasePrice": 330.00,
+    "currentPrice": 350.00
+}
+
+###     def delete(self, request, pk, format=None)
+
+DELETE http://localhost:8000/restapi/stocks/4/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Generic -- CUSTOM USER -- API
+
+GET http://localhost:8000/restapi/customusers/
+
+###
+
+POST http://localhost:8000/restapi/customusers/
+Content-Type: application/json
+
+{
+    "username": "username21",
+    "fullName": "name21",
+    "email": "name21@gmail.com",
+    "password_hash": "username21"
+}
+
+
+### Custom -- CUSTOM USER -- API
+
+GET http://localhost:8000/restapi/customusers/10/
+
+###
+
+PUT http://localhost:8000/restapi/customusers/10/
+Content-Type: application/json
+
+{
+    "username": "username--1",
+    "fullName": "name1",
+    "email": "name1@gmail.com",
+    "password_hash": "username1"
+}
+
+###
+
+DELETE http://localhost:8000/restapi/customusers/1/
+
+###
+
+PATCH http://localhost:8000/restapi/customusers/15/
+
+
+
+
+
+
+
+
+
+
+
+
+### Custiom -- Login -- API
+
+POST http://localhost:8000/restapi/login/
+Content-Type: application/json
+
+{
+    "username": "username--2",
+    "password": "username2"
+}
+
+
