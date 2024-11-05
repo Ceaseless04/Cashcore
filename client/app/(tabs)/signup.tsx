@@ -1,11 +1,65 @@
-import { Image, StyleSheet, Platform, Button,TouchableOpacity } from 'react-native';
-import { View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import colorPalette from '../utils/colors';
-import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
-import { boxShadowForContainers } from '../utils/dashboardContainerBoxShadow';
+import React, { useState } from 'react';
+import Toast from 'react-native-toast-message';
 
 export default function SignUpScreen() {
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signUp = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/restapi/register/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: userName, // Or use email as username?
+          email: email,
+          first_name: userName,
+          password: password,
+        }),
+      });
+
+      if (response.ok || response.status === 201) {
+        Toast.show({
+          type: 'success',
+          text1: 'Success',
+          text2: 'You have signed up successfully!',
+        });
+      } else {
+        const errorData = await response.json();
+        let errorMessage = 'Sign-up failed';
+
+        // Parse error message based on potential structure
+        if (errorData.detail) {
+          errorMessage = errorData.detail;
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        } else if (typeof errorData === 'object') {
+          const firstErrorKey = Object.keys(errorData)[0];
+          errorMessage = errorData[firstErrorKey][0] || errorMessage;
+        }
+
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: errorMessage,
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'An error occurred during sign-up',
+      });
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -24,29 +78,35 @@ export default function SignUpScreen() {
                 <TextInput 
                     style = {styles.input}
                     placeholder = "Name"
+                    value={userName}
+                    onChangeText={setUserName}
                 />
-
                 <TextInput 
                     style = {styles.input}
                     placeholder = "Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType='email-address'
                 />
-
                 <TextInput 
                     style = {styles.input}
                     placeholder = "Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
                 />
-               <TouchableOpacity style={styles.signUpBtn} onPress={() => alert('Button Pressed')}>
+               <TouchableOpacity style={styles.signUpBtn} onPress={signUp}>
                   <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={styles.haveAccountText}>Already have an account? <Text style={{color:"white"}}>Login Here</Text></Text>
+              <Text style={styles.haveAccountText}>
+              Already have an account? 
+              <Text style={{color:"white"}}> Login Here</Text></Text>
             </View>
         </View>
-
-    </View>
+      </View>
   );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -54,10 +114,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: "black",
-      // backgroundImage: "radial-gradient(#f69d3c, #3f87a6)",
-      // backgroundColor: "grey",
-      // fontFamily: "Inter"
-      // backgroundColor:"hsla(22,0%,0%,1)",
       backgroundImage: 
         `radial-gradient(at 28% 6%, hsla(170,79%,36%,0.84) 0px, transparent 50%),
         radial-gradient(at 83% 19%, hsla(124,54%,45%,1) 0px, transparent 50%),
@@ -65,80 +121,59 @@ const styles = StyleSheet.create({
         radial-gradient(at 84% 91%, hsla(71,46%,64%,0.59) 0px, transparent 50%),
         radial-gradient(at 54% 46%, hsla(175,79%,31%,1) 0px, transparent 50%),
         radial-gradient(at 12% 76%, hsla(84,66%,48%,0.55) 0px, transparent 50%)`,
-
-
-
     },
-    
     innerContainer: {
       alignItems: 'center',
       flexDirection: 'row',
-      // backgroundColor: "red",
       width: "80%",
-      height: "80%",      
+      height: "85%",      
       justifyContent: 'center',
       gap: 80,
     },
     headingTextContainer: {
-      // backgroundColor: "orange",
       alignItems: "center",
     },
     headingText: {
       fontSize: 70,
-      fontFamily: "Space Grotesk Light",
+      fontFamily: "Arial",
       fontWeight: 'bold',
       color: "white",
     },
     signUpContainer: {
-      backgroundColor: colorPalette.medium,
       paddingVertical: 20,
       borderRadius: 15,
       minWidth: '45%',
       minHeight: "100%",
       alignItems: 'center',
-      backgroundColor: `rgba(70, 70, 70, .62)`,
-      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
-      
+      backgroundColor: `rgba(70, 70, 70, .64)`,
+      boxShadow: "rgba(0, 0, 0, .2) 0px 7px 29px 0px"  
     },
     title: {
       color: 'white', 
-      fontSize: 40,
+      fontSize: 45,
       fontWeight: 'bold',
       marginBottom: 30,
-      // fontFamily: "Inter Thin",
+      marginTop: 20,
     },
     subtitle: {
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
       color: 'white',
       marginBottom: 20,
     },
     description: {
       color: 'white',
-      marginBottom: 30
+      marginBottom: 30,
+      fontSize: 18
     },
-
     signUpFormContainer: {
-        // paddingHorizontal: '20%',
-        // marginTop: '5%',
-        // borderWidth: 1,    
-        // borderRadius: 5,  
-        // paddingTop: '10%',
-        // paddingBottom: '20%',
-        // flex: 1,
       justifyContent: 'center',
-      // alignItems: 'center',
-      // backgroundColor: "yellow",
       minWidth: "67%"
-
     },
-
     header: {
         marginLeft: 10
     },
-
     input: {
-        // backgroundColor: ,
         marginBottom: '6%',
         borderRadius: 4,
         color: "#979797",
@@ -161,10 +196,7 @@ const styles = StyleSheet.create({
       color: 'white',
     },
     haveAccountText: {
-      color: 'grey',
-      fontSize: 13,    
+      color: 'lightgrey',
+      fontSize: 14,    
     }
   });
-
-  
-
