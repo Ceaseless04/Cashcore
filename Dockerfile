@@ -2,9 +2,9 @@ FROM python:3.9-slim
 
 WORKDIR /Cashcore/backend
 
-RUN pip install --no-cache-dir -r /backend/requirements.txt
+COPY /backend/requirements.txt backend/requirements.txt
 
-COPY backend/requirements.txt /Cashcore/backend/requiremetns.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
 EXPOSE 8000
 
