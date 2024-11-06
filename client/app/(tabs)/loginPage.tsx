@@ -27,7 +27,7 @@ export default function loginPage() {
   };
 
   return (
-    <>
+    <View style={styles.outerContainer}>
       <ImageBackground
         source={require("../../assets/images/bg gradient.png")}
         resizeMode="cover"
@@ -93,7 +93,7 @@ export default function loginPage() {
             }
             <TextInput
               style={styles.inputFields}
-              placeholderTextColor={"#979797"}
+              placeholderTextColor="#979797"
               textContentType="password"
               placeholder="Password"
               value={password}
@@ -129,28 +129,32 @@ export default function loginPage() {
           </View>
         </View>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  outerContainer:{ 
+    flex:1,
+  },
+
   view: {
     flexDirection: "row",
     margin: "auto",
     justifyContent: "center",
     width: "80%",
-    height: "90%",      
+    height: "85%",      
     flexShrink: 0,
     textAlign: "center",
-    gap: 100,
+    gap: 80,
   },
 
   bigTextLeft: {
-    fontSize: 100,
+    fontSize: 70,
     margin: "auto",
     textAlign: "center",
     color: "white",
-    fontWeight: 700,
+    fontWeight: "bold",
   },
 
   container: {
@@ -165,7 +169,6 @@ const styles = StyleSheet.create({
     paddingBottom: "10%",
     padding: 0,
     marginRight: "5%",
-    maxHeight: "90%",
     minWidth:"45%",
     borderRadius: 20,
   },
@@ -181,8 +184,9 @@ const styles = StyleSheet.create({
   inputFields: {
     height: "5%",
     width: "100%",
+    color:"#979797",
     marginVertical: "5%",
-    borderRadius: 6,
+    borderRadius: 4,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
   Button: {
     marginVertical: "2%",
     paddingVertical: "1%",
-    borderRadius: 6,
+    borderRadius: 4,
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderTopWidth: 0,
