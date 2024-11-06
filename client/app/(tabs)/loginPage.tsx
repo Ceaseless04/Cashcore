@@ -54,17 +54,10 @@ export default function loginPage() {
          * Log In page View container
          */}
         <View style={styles.container}>
-          <View
-            style={{ width: "60%", margin: "auto", justifyContent: "center" }}
-          >
-            <text style={styles.title}>
-              <img
-                style={{ maxWidth: 100 }}
-                src="https://cdn.britannica.com/06/150806-050-6AE99C98/Proboscis-monkey.jpg"
-              />{" "}
+
+            <Text style={styles.title}>
               CashCore
-            </text>
-          </View>
+            </Text>
 
           {/**
            * The h3 tag will have a check for if the use has been on the platform before, if the user has been on before, it will say welcome back, otherwise just say Create a new account
@@ -118,13 +111,14 @@ export default function loginPage() {
             {/**
                 Login Button
               */}
-
-            <TouchableOpacity
-              style={styles.Button}
-              onPress={onLoginButtonPress}
-            >
-              <Text style={{ fontSize: 24, color: "white" }}>Log In</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.Button}
+                onPress={onLoginButtonPress}
+              >
+                <Text style={{ fontSize: 24, color: "white" }}>Log In</Text>
+              </TouchableOpacity>
+            </View>
 
             <a
               style={styles.links}
@@ -141,12 +135,12 @@ export default function loginPage() {
 
 const styles = StyleSheet.create({
   view: {
-    width: "100%",
     flexDirection: "row",
     margin: "auto",
-    alignItems: "center",
     justifyContent: "center",
-    flexShrink: 1,
+    width: "80%",
+    height: "90%",      
+    flexShrink: 0,
     textAlign: "center",
     gap: 100,
   },
@@ -161,27 +155,32 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    flexShrink: 0,
     color: "white",
     textAlign: "center",
-    backgroundColor: "#3E3E3E",
+    justifyContent:"center",
+    alignItems:"center",
+    backgroundColor: "rgba(70, 70, 70, .64)",
     paddingTop: "5%",
     paddingBottom: "10%",
     padding: 0,
-    marginRight: "2%",
+    marginRight: "5%",
     maxHeight: "90%",
-    width: "20%",
+    minWidth:"45%",
     borderRadius: 20,
-    borderWidth: 1,
   },
 
   title: {
+    color:"white",
     textAlign: "center",
     fontSize: 56,
     fontWeight: 700,
+    //paddingTop:"5%",
   },
 
   inputFields: {
     height: "5%",
+    width: "100%",
     marginVertical: "5%",
     borderRadius: 6,
     borderLeftWidth: 1,
@@ -192,21 +191,24 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     fontSize: 18,
     paddingLeft: 10,
-    paddingVertical: "2%",
+    paddingVertical: "4%",
   },
 
   linksContainer: {
     //backgroundColor:"red",
     textAlign: "left",
     width: "60%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    paddingBottom: "20%",
+    justifyContent:"center",
+    alignItems:"center",
+    //paddingBottom: "20%",
+  },
+
+  buttonContainer:{
+    width:"100%",
   },
 
   Button: {
     marginVertical: "2%",
-    //height:"10%",
     paddingVertical: "1%",
     borderRadius: 6,
     borderLeftWidth: 0,
