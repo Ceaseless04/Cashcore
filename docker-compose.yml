@@ -1,27 +1,21 @@
-# version: '3.8'
-
 services:
   web:
     build: .
-    command: python backend/server/manage.py runserver 0.0.0.0:80
+    command: python backend/server/manage.py runserver 0.0.0.0:8000
     ports:
-      - "8000:8000"
-    # volumes:
-    #   - .:/app
-    # depends_on:
-    #   - db
+      - ${dbPort}
+    depends_on:
+      - db
     volumes:
       - '.:/app:rw'
       - './data:/data:rw'
 
-  # db:
-  #   image: postgres
-  #   environment:
-  #     - POSTGRES_DB=db_name
-  #     - POSTGRES_USER=db_user
-  #     - POSTGRES_PASSWORD=db_password
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-
-# volumes:
-#   postgres_data:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=${dbName}
+      - POSTGRES_USER=${dbUser}
+      - POSTGRES_PASSWORD=${dbPw}
+  volumes:
+    - postgres_data:
+      - /var/lib/postgresql/data
