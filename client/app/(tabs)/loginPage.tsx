@@ -1,3 +1,14 @@
+import { 
+  SpaceGrotesk_700Bold,
+  useFonts as useSpaceGroteskFonts 
+} from '@expo-google-fonts/space-grotesk';
+import {
+  Inter_400Regular, 
+  Inter_500Medium, 
+  Inter_700Bold,
+  Inter_300Light,
+  useFonts as useInterFonts
+} from '@expo-google-fonts/inter';
 import {
   StyleSheet,
   Text,
@@ -25,6 +36,17 @@ export default function loginPage() {
 
     return Object.keys(errors).length === 0;
   };
+
+  const [spaceGroteskLoaded] = useSpaceGroteskFonts({
+    SpaceGrotesk_700Bold,
+  });
+
+  const [interLoaded] = useInterFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+    Inter_300Light,
+  });
 
   return (
     <View style={styles.outerContainer}>
@@ -62,13 +84,13 @@ export default function loginPage() {
           {/**
            * The h3 tag will have a check for if the use has been on the platform before, if the user has been on before, it will say welcome back, otherwise just say Create a new account
            */}
-          <View>
-            <h1 style={{ textAlign: "center", paddingTop: "5%" }}>
+          <View >
+            <Text style = {styles.welcomeBack}>
               Welcome Back!
-            </h1>
+            </Text>
           </View>
 
-          <View style={styles.linksContainer}>
+          <View style={styles.inputContainer}>
 
             {
               //indication of error for username TextInput
@@ -100,13 +122,14 @@ export default function loginPage() {
               onChangeText={SetPassword}
               secureTextEntry={true}
             ></TextInput>
-
-            <a
-              style={styles.links}
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            >
-              Forgot Password?
-            </a>
+            <View style={styles.links}>
+              <a
+                style={{color: "#979797"}}
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              >
+                Forgot Password?
+              </a>
+            </View>
 
             {/**
                 Login Button
@@ -119,13 +142,20 @@ export default function loginPage() {
                 <Text style={{ fontSize: 24, color: "white" }}>Log In</Text>
               </TouchableOpacity>
             </View>
-
+            
+            <View style={styles.links}>
+              <Text
+              style={{color: "#979797", 
+                fontSize: 18,}}>
+                Don't have an account?
+                </Text>
             <a
-              style={styles.links}
+              style={{color: "#979797"}}
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             >
-              Don't Have an Account?
+              Sign up now
             </a>
+            </View>
           </View>
         </View>
       </View>
@@ -155,6 +185,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontWeight: "bold",
+    fontFamily:"SpaceGrotesk_700Bold",
   },
 
   container: {
@@ -165,12 +196,15 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
     backgroundColor: "rgba(70, 70, 70, .64)",
-    paddingTop: "5%",
-    paddingBottom: "10%",
+    paddingBottom: "15%",
     padding: 0,
     marginRight: "5%",
     minWidth:"45%",
     borderRadius: 20,
+    shadowColor:"#171717",
+    shadowOpacity:0.2,
+    shadowOffset:{width: 2, height: 2},
+    shadowRadius:9,
   },
 
   title: {
@@ -179,6 +213,19 @@ const styles = StyleSheet.create({
     fontSize: 56,
     fontWeight: 700,
     //paddingTop:"5%",
+  },
+
+  welcomeBack:{
+    color:"white",
+    fontSize:32,
+    paddingTop:"15%",
+    fontFamily:"Inter_700Bold",
+    // shadowColor:"#171717",
+    // shadowOpacity:0.5,
+    // shadowOffset:{width: 0, height: 2},
+    // shadowRadius:9,
+    // textAlign: "center", 
+    // paddingTop: "5%",
   },
 
   inputFields: {
@@ -194,13 +241,22 @@ const styles = StyleSheet.create({
     borderColor: "#979797",
     borderStyle: "solid",
     fontSize: 18,
+    fontFamily:"Inter_400Regular",
     paddingLeft: 10,
     paddingVertical: "4%",
   },
 
-  linksContainer: {
+  links: {
+    marginTop: "5%",
+    marginBottom: "5%",
+    fontSize: 18,
+    width:"100%",
+    alignItems:"flex-start",
+    fontFamily:"Inter_300Light"
+  },
+
+  inputContainer: {
     //backgroundColor:"red",
-    textAlign: "left",
     width: "60%",
     justifyContent:"center",
     alignItems:"center",
@@ -212,6 +268,7 @@ const styles = StyleSheet.create({
   },
 
   Button: {
+    fontFamily:"Inter_500Medium",
     marginVertical: "2%",
     paddingVertical: "1%",
     borderRadius: 4,
@@ -222,13 +279,10 @@ const styles = StyleSheet.create({
     backgroundColor:
       "linear-gradient(86deg, rgba(41,159,98,1) 0%, rgba(77,176,136,1) 100%)",
     alignItems: "center",
-  },
-
-  links: {
-    color: "#979797",
-    marginTop: "5%",
-    marginBottom: "5%",
-    fontSize: 18,
+    shadowColor:"#171717",
+    shadowOpacity:0.2,
+    shadowOffset:{width: 2, height: 2},
+    shadowRadius:9,
   },
 
   error: {
