@@ -1,0 +1,11 @@
+import React from "react-native";
+import Routes from "./pages/_router.tsx"
+
+
+export default function Layout() {
+    return(
+        <Routes />
+    )
+}
+
+//used to be a tsx
