@@ -98,12 +98,17 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('dbName'),          # Your PostgreSQL database name
-        'USER': os.getenv('dbUser'),        # Your PostgreSQL username
-        'PASSWORD': os.getenv('dbPw'),       # Your PostgreSQL password
-        'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
-        'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.getenv('dbName'),          # Your PostgreSQL database name
+        #'USER': os.getenv('dbUser'),        # Your PostgreSQL username
+        #'PASSWORD': os.getenv('dbPw'),       # Your PostgreSQL password
+        #'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
+        #'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
+        'ENGINE': 'djongo',
+        'NAME': 'CashCore',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': os.getenv('DB_HOST')        }
     }
 }
 
