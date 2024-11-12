@@ -51,7 +51,7 @@ export default function loginPage() {
   return (
     <View style={styles.outerContainer}>
       <ImageBackground
-        source={require("../../assets/images/bg gradient.png")}
+        source={require("../../depreciated/assets/images/bg gradient.png")}
         resizeMode="cover"
         style={{ width: "100%" }}
       ></ImageBackground>

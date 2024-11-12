@@ -1,0 +1,22 @@
+import React from "react"
+import { NativeRouter, Route, Routes } from "react-router-native";
+
+
+import Home from "./index";
+import Login from "./loginPage";
+
+
+export default function Routing(){
+
+    return(
+        <NativeRouter>
+            <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="/loginPage" element={<Login />}/>
+            </Routes>
+        </NativeRouter>
+    );
+
+}
+
+//used to be a tsx file
