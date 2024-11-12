@@ -34,13 +34,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'myapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
 ]
 
 MIDDLEWARE = [
@@ -79,12 +79,11 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('dbName'),          # Your PostgreSQL database name
-        'USER': os.getenv('dbUser'),        # Your PostgreSQL username
-        'PASSWORD': os.getenv('dbPw'),       # Your PostgreSQL password
-        'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
-        'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
+        'ENGINE': 'djongo',
+        'NAME': 'CashCore',
+        'CLIENT': {
+            'host': 'mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster'
+        }
     }
 }
 
