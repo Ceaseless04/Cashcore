@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import colorPalette from '../utils/colors';
+import React, { useState } from 'react';
 import Toast from 'react-native-toast-message';
 
 export default function SignUpScreen() {
@@ -62,75 +63,140 @@ export default function SignUpScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Sign Up</Text>
-        <Text>Some text about signing up and stuff idk, play NiGHTS into dreams pls</Text>
-
+        <View style={styles.headingTextContainer}>
+          <Text style={styles.headingText}>Control</Text>
+          <Text style={[styles.headingText, {color: colorPalette.green}]}>Your</Text>
+          <Text style={styles.headingText}>Finances</Text>
+        </View>
         <View style={styles.signUpContainer}>
-          <Text>First Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="First Name"
-            value={userName}
-            onChangeText={setUserName}
-          />
+          
+            <Text style={styles.title}>CashCore</Text>          
+            <Text style={styles.subtitle}>Create a New Account </Text>
+            <Text style={styles.description}>Let's start your journey.  </Text>
 
-          <Text>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-          />
-
-          <Text>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-
-          <Button title="Sign Up" onPress={signUp} />
+            <View style = {styles.signUpFormContainer}>
+                <TextInput 
+                    style = {styles.input}
+                    placeholder = "Name"
+                    value={userName}
+                    onChangeText={setUserName}
+                />
+                <TextInput 
+                    style = {styles.input}
+                    placeholder = "Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType='email-address'
+                />
+                <TextInput 
+                    style = {styles.input}
+                    placeholder = "Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+               <TouchableOpacity style={styles.signUpBtn} onPress={signUp}>
+                  <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
+            </View>
+              <Text style={styles.haveAccountText}>
+              Already have an account? 
+              <Text style={{color:"white"}}> Login Here</Text></Text>
+            </View>
         </View>
       </View>
-
-      <Toast />
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  innerContainer: {
-    alignItems: 'center',
-  },
-  title: {
-    color: 'blue',
-    fontSize: 40,
-  },
-  signUpContainer: {
-    paddingHorizontal: '20%',
-    marginTop: '5%',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingTop: '10%',
-    paddingBottom: '20%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    backgroundColor: 'white',
-    marginBottom: '10%',
-    borderRadius: 10,
-    width: '180%',
-    borderWidth: 1,
-    padding: 8,
-  },
-});
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: "black",
+      backgroundImage: 
+        `radial-gradient(at 28% 6%, hsla(170,79%,36%,0.84) 0px, transparent 50%),
+        radial-gradient(at 83% 19%, hsla(124,54%,45%,1) 0px, transparent 50%),
+        radial-gradient(at 81% 74%, hsla(180,79%,36%,0.55) 0px, transparent 50%),
+        radial-gradient(at 84% 91%, hsla(71,46%,64%,0.59) 0px, transparent 50%),
+        radial-gradient(at 54% 46%, hsla(175,79%,31%,1) 0px, transparent 50%),
+        radial-gradient(at 12% 76%, hsla(84,66%,48%,0.55) 0px, transparent 50%)`,
+    },
+    innerContainer: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      width: "80%",
+      height: "85%",      
+      justifyContent: 'center',
+      gap: 80,
+    },
+    headingTextContainer: {
+      alignItems: "center",
+    },
+    headingText: {
+      fontSize: 70,
+      fontFamily: "Arial",
+      fontWeight: 'bold',
+      color: "white",
+    },
+    signUpContainer: {
+      paddingVertical: 20,
+      borderRadius: 15,
+      minWidth: '45%',
+      minHeight: "100%",
+      alignItems: 'center',
+      backgroundColor: `rgba(70, 70, 70, .64)`,
+      boxShadow: "rgba(0, 0, 0, .2) 0px 7px 29px 0px"  
+    },
+    title: {
+      color: 'white', 
+      fontSize: 45,
+      fontWeight: 'bold',
+      marginBottom: 30,
+      marginTop: 20,
+    },
+    subtitle: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      color: 'white',
+      marginBottom: 20,
+    },
+    description: {
+      color: 'white',
+      marginBottom: 30,
+      fontSize: 18
+    },
+    signUpFormContainer: {
+      justifyContent: 'center',
+      minWidth: "67%"
+    },
+    header: {
+        marginLeft: 10
+    },
+    input: {
+        marginBottom: '6%',
+        borderRadius: 4,
+        color: "#979797",
+        borderColor: "#979797",
+        width: '100%',
+        borderWidth: 1,    
+        padding: 4,
+        paddingLeft: 10,
+    },
+    signUpBtn: {
+      backgroundColor: colorPalette.green,
+      alignItems: "center",
+      borderRadius: 3,
+      paddingTop: 3,
+      paddingBottom: 6,
+      marginBottom: 20,
+    },
+    buttonText: {
+      fontSize: 19,
+      color: 'white',
+    },
+    haveAccountText: {
+      color: 'lightgrey',
+      fontSize: 14,    
+    }
+  });
