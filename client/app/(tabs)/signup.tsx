@@ -1,9 +1,8 @@
-import { StyleSheet, TouchableOpacity, View, Text, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, ImageBackground, Animated } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import colorPalette from '../utils/colors';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import * as Font from 'expo-font';
 import { 
   SpaceGrotesk_700Bold,
   useFonts as useSpaceGroteskFonts 
@@ -15,11 +14,6 @@ import {
   Inter_300Light,
   useFonts as useInterFonts  
 } from '@expo-google-fonts/inter'; 
-
-interface FontLoadingState {
-  isLoading: boolean;
-  error: Error | null;
-}
 
 export default function SignUpScreen() {
   
@@ -104,11 +98,9 @@ export default function SignUpScreen() {
             <Text style={styles.headingText}>Finances</Text>
           </View>
           <View style={styles.signUpContainer}>
-            
               <Text style={styles.title}>CashCore</Text>          
               <Text style={styles.subtitle}>Create a New Account </Text>
               <Text style={styles.description}>Let's start your journey.</Text>
-
               <View style = {styles.signUpFormContainer}>
                   <TextInput 
                       style = {styles.input}
@@ -203,7 +195,7 @@ const styles = StyleSheet.create({
     },
     signUpFormContainer: {
       justifyContent: 'center',
-      minWidth: "67%"
+      minWidth: "66%"
     },
     header: {
         marginLeft: 10
@@ -217,6 +209,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,    
         padding: 6,
         paddingLeft: 10,
+        fontSize: 15,
         fontFamily: "Inter_400Regular",
     },
     signUpBtn: {
