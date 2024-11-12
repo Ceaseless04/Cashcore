@@ -69,6 +69,8 @@ const h = StyleSheet.create({
     color: "#ffffff",
     paddingLeft: "2%",
     paddingRight: "2%",
+    fontFamily: "inter",
+    fontSize: 18,
   },
   b_c: {
     flexDirection: "row",
@@ -117,23 +119,114 @@ const block1 = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontFamily: "spaceGroteskBold",
-    fontSize: 80,
+    fontSize: 100,
   },
   c1_g_text: { //the green used within the text
     color: "#27CE78",
     textAlign: "center",
     fontFamily: "spaceGroteskBold",
-    fontSize: 80,
+    fontSize: 100,
   },
 });
 
 const block2 = StyleSheet.create({
   c2:{
-    justifyContent: "center",
     alignItems: "center",
     width: "100%",
     height: window_height,
   },
+  mission_c:{
+    paddingTop: window_width * 0.06,
+    paddingLeft: window_width * 0.04,
+    paddingRight: window_width * 0.04,
+    paddingBottom: window_width * 0.02,
+    marginTop: window_width * 0.06,
+    width: window_width,
+    height: window_height/2,
+  },
+  m_text:{
+    color: "#4cb086",
+    textAlign: "center",
+    fontFamily: "inter",
+    fontSize: 15,
+  },
+  ff_text_c:{
+    color: "#ffffff",
+    textAlign: "center",
+    fontFamily: "inter",
+    fontSize: 48,
+    fontWeight: "600",
+    paddingLeft: window_width * 0.01,
+    paddingRight: window_width * 0.01,
+    paddingTop: window_width * 0.01,
+    paddingBottom: window_width * 0.004,
+  },
+  prpt_text_c:{
+    color: "#ffffff",
+    textAlign: "center",
+    fontFamily: "inter",
+    fontSize: 15,
+    paddingRight: window_width * 0.3,
+    paddingLeft: window_width * 0.3,
+  },
+  rotator_c:{
+  }
+});
+
+// for the "Built with College Students in Mind" strip
+//===========repeating background
+const mini_block_2_5 = StyleSheet.create({
+  container:{
+    justifyContent: "center",
+    width: window_width,
+    height: window_height * 0.26,
+    marginTop: window_width * 0.09,
+    marginBottom: window_width * 0.09,
+    padding: window_width * 0.03,
+    backgroundColor: "#1aa47b"
+  },
+  title: {
+    color: "#ffffff",
+    textAlign: "center",
+    paddingBottom: window_width * 0.005,
+    fontFamily: "inter",
+    fontSize: 48,
+    fontWeight: "600",
+    textShadowColor: "rgba(255, 255, 255, 1",
+    textShadowOffset: {width: 100, height: 100},
+  },
+  prompt:{
+    color: "#ffffff",
+    textAlign: "center",
+    fontFamily: "inter",
+    fontSize: 15,
+    paddingLeft: window_width * 0.33,
+    paddingRight: window_width * 0.33,
+  }
+});
+
+const block3 = StyleSheet.create({
+  steps_cont:{
+    width: window_width,
+    height: window_height * 0.5, 
+
+  },
+  title:{
+
+  },
+  number_cont:{
+
+  },
+  num:{
+
+  },
+  prompt:{
+
+  },
+  plans_cont:{
+    width: window_width,
+    height: window_height * 0.5, 
+  }
 });
 
 //add navigation to other pages
@@ -198,7 +291,31 @@ export default function HomePage() {
 
 
       <View style={block2.c2}>
-        <Text style={block1.c1_g_text}>Testing Text</Text>
+        <View style={block2.mission_c}>
+            <Text style={block2.m_text}>Our Mission</Text>
+            <Text style={block2.ff_text_c}>Financial Freedom Starts Here!</Text>
+            <Text style={block2.prpt_text_c}>We believe money management is a crucial topic that is not covered enough in our schools, leaving individuals uninformed.  
+              We aim to offer the tools needed for you to successfully manage personal finances.
+            </Text>
+        </View>
+        <View style={block2.rotator_c}>
+          <Text style={block1.c1_g_text}>Rotate Objects Here</Text>
+        </View>
+      </View>
+
+      <View style={mini_block_2_5.container}>
+        <Text style={mini_block_2_5.title}>Built with College Students in Mind</Text>
+        <Text style={mini_block_2_5.prompt}>
+          We understand that managing finances in college can be overwhelming, 
+          which is why we created Cash Core. Our tools and resources are tailored to meet the unique challenges of student life, 
+          enabling you to take control of your finances and build a secure future!
+        </Text>
+      </View>
+
+      <View>        
+
+
+
       </View>
 
       <Jumper></Jumper>
@@ -211,6 +328,7 @@ export default function HomePage() {
 //loading fonts to be used on the hompage
 function loadFonts() {
   const [font_loaded] = useFonts({
+    "inter": require("./../assets/fonts/InterVariable.ttf"),
     "spaceGroteskBold": require("./../assets/fonts/SpaceGrotesk-Bold.otf"),
   });
 
@@ -254,7 +372,7 @@ function pulsate_gradiant() {
 }
 
 function get_circle_size() {
-  if (window_height > window_width) {
+  if ((window_height * 0.8) > (window_width * 0.4)) {
     return (window_width * 0.4)/2;
   } else {
     return (window_height * 0.8)/2;
