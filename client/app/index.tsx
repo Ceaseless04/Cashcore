@@ -11,20 +11,26 @@ import React, { useRef, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions, Animated, Easing, TouchableOpacity } from "react-native";
 
 
-import { Svg, RadialGradient, Defs, Stop, Circle } from "react-native-svg";
+
+
+import { Svg, RadialGradient, Defs, Stop, Circle, Pattern, Rect } from "react-native-svg";
 import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, but showing as errors on VSCode
 import SignUpBtnSvg from "./../assets/homepage/img/get-started.svg"; //works, but showing as errors on VSCode
 import LogInBtnSvg from "./../assets/homepage/img/login.svg";
+import GradCapSvg from "./../assets/homepage/img/graduate-cap.svg";
 
 import Jumper from "./../components/homepage/jumper";
+import GradientText from "./../components/homepage/grdnt_txt";
+import SignUpStep from "./../components/homepage/sgn_up_steps";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Link } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 //store window height and width
-const window_height = Dimensions.get("window").height;
+const window_height = Dimensions.get("window").height; //an idea would be to have h*w and then have this be the main measurement tool for all containers including text
 const window_width = Dimensions.get("window").width;
 
 //debug
@@ -185,6 +191,11 @@ const mini_block_2_5 = StyleSheet.create({
     padding: window_width * 0.03,
     backgroundColor: "#1aa47b"
   },
+  bg: {
+    ...StyleSheet.absoluteFillObject,
+    width: window_width,
+    height: window_height * 0.26,
+  },
   title: {
     color: "#ffffff",
     textAlign: "center",
@@ -206,36 +217,114 @@ const mini_block_2_5 = StyleSheet.create({
 });
 
 const block3 = StyleSheet.create({
+  container:{
+    width: window_width,
+    height: window_height,
+    justifyContent: "center",
+  },
   steps_cont:{
     width: window_width,
     height: window_height * 0.5, 
 
   },
   title:{
-
+    width: window_width,
+    height: window_height * 0.2,
+    justifyContent: "center",
   },
   number_cont:{
-
+    flexDirection: "row",
   },
-  num:{
-
-  },
-  prompt:{
-
-  },
-  plans_cont:{
+  plans_wrapper:{
     width: window_width,
-    height: window_height * 0.5, 
-  }
+    height: (window_height * 0.5),
+    justifyContent: "center", 
+    paddingTop: 40,
+  },
+  plan_title:{
+    width: window_width,
+    textAlign: "center",
+    fontFamily: "inter",
+    fontSize: 13, 
+    color: "#ffffff",
+    marginTop: 40,
+  },
+  plan_cont:{
+    flexDirection: "row",
+    justifyContent: "center",
+    width: window_width,
+    height: (window_height * 0.5) - 13,
+  },
+  free_block_wrapper:{
+    padding: 20,
+  },
+  free_block:{
+    width: window_width * 0.2085,
+    height: (window_height * 0.24) - 13,
+    borderRadius: 12, 
+  },
+  paid_block_wrapper:{
+    padding: 20,
+  },
+  paid_block:{
+    width: window_width * 0.2085,
+    height: (window_height * 0.24) - 13,
+    borderRadius: 12,
+  },
+
+
+  plan_type_text:{
+    color: "#ffffff",
+    fontFamily: "inter",
+    fontSize: 24,
+    paddingBottom: 7,
+  },
+  plan_type_desc:{
+    color: "#e9e9e9",
+    fontFamily: "inter",
+    fontSize: 14,
+  },
+  plan_cost_text:{
+    color: "#ffffff",
+    fontFamily: "inter",
+    fontSize: 24,
+  },
+  dash:{
+    color: "#ffffff",
+    fontFamily: "inter",
+    fontSize: 24,
+    textAlign: "right",
+  },
+  top_plan_block:{
+    width: window_width * 0.2085,
+    height: ((window_height * 0.24) - 13) * 0.5,
+    padding: 25,
+  },
+  bottom_plan_block:{
+    width: window_width * 0.2085,
+    height: ((window_height * 0.24) - 13) * 0.5,
+    padding: 25,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
 });
+
+//block 4
+const block4 = StyleSheet.create({
+  container:{
+    width: window_width,
+    height: window_height,
+  },
+});
+
+//block 5 final block and the skeleton will be finally done
 
 //add navigation to other pages
 
 export default function HomePage() {
 
-  
-
-  loadFonts();
+  load_fonts();
   const circle_size = get_circle_size()
 
   return (
@@ -280,7 +369,7 @@ export default function HomePage() {
                 <Stop offset="100%" stopColor="#181818"/>
               </RadialGradient>
             </Defs>
-            <Circle cx="50%" cy="50%" r = {circle_size} fill="url(#grad)"/> 
+            <Circle cx="50%" cy="50%" r={circle_size} fill="url(#grad)"/> 
           </Svg>  
           </Animated.View>
           <Text style={block1.c1_w_text}>Control</Text>
@@ -303,7 +392,14 @@ export default function HomePage() {
         </View>
       </View>
 
+
       <View style={mini_block_2_5.container}>
+        <Svg style={mini_block_2_5.bg}>
+          <Pattern id="grad-pat" x="0" y="0" patternUnits="userSpaceOnUse" width="75" height="67">
+            <GradCapSvg/>
+          </Pattern>
+          <Rect x="0" y="0" width={window_width} height={window_height * 0.26} fill="url(#grad-pat)"/>
+        </Svg>
         <Text style={mini_block_2_5.title}>Built with College Students in Mind</Text>
         <Text style={mini_block_2_5.prompt}>
           We understand that managing finances in college can be overwhelming, 
@@ -312,10 +408,74 @@ export default function HomePage() {
         </Text>
       </View>
 
-      <View>        
+
+      <View style={block3.container}>
+        <View style={block3.steps_cont}>
+          <View style={block3.title}>
+            <GradientText
+              text="Ready to Invest in Your Success?"
+              text_size={60}
+              colors={["#299f62", "#4db088"]}
+              text_weight="600"
+            />
+          </View>
+          <View style={block3.number_cont}>
+            <SignUpStep
+              value={1}
+              prompt_title="Sign up"
+              prompt="Create an account to gain access to our tools!"
+            />
+            <SignUpStep
+              value={2}
+              prompt_title="Link your bank"
+              prompt="Connect your bank account so we can provide accurate analytics."
+            />
+            <SignUpStep
+              value={3}
+              prompt_title="Choose a plan"
+              prompt="Select a plan to unlock analytics that empower you to make informed decisions."
+            />
+            <SignUpStep
+              value={4}
+              prompt_title="Own your financial future"
+              prompt="Take charge of your journey with personalized tools to achieve your goals!"
+            />
+          </View>
+        </View>        
+        <View style={block3.plans_wrapper}>
+          <Text style={block3.plan_title}>CHOOSE YOUR PLAN:</Text>
+          <View style={block3.plan_cont}>
+            <View style={block3.free_block_wrapper}>
+              <LinearGradient colors={["#7e7e7e", "#a6a2a2"]} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}} style={block3.free_block}>
+                <View style={block3.top_plan_block}>
+                  <Text style={block3.plan_type_text}>Free</Text>
+                  <Text style={block3.plan_type_desc}>Gain access to the basic insights and tools.</Text>
+                </View>
+                <View style={block3.bottom_plan_block}>
+                  <Text style={block3.plan_cost_text}>$0/month</Text>
+                  <Text style={block3.dash}>&gt;</Text>
+                </View>
+              </LinearGradient>
+            </View>
+            <View style={block3.paid_block_wrapper}>
+              <LinearGradient colors={["#299f62", "#4db088"]} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}} style={block3.paid_block}>
+                <View style={block3.top_plan_block}>
+                  <Text style={block3.plan_type_text}>Premium</Text>
+                  <Text style={block3.plan_type_desc}>Unlock all the features and insights</Text>
+                </View>
+                <View style={block3.bottom_plan_block}>
+                  <Text style={block3.plan_cost_text}>$6.99/month</Text>
+                  <Text style={block3.dash}>&gt;</Text>
+                </View>
+              </LinearGradient>
+            </View>
+          </View>
+        </View>
+      </View>
 
 
-
+      <View style={block4.container}>
+        <Text style={block1.c1_g_text}>Block4 Start</Text>
       </View>
 
       <Jumper></Jumper>
@@ -326,7 +486,7 @@ export default function HomePage() {
 }
 
 //loading fonts to be used on the hompage
-function loadFonts() {
+function load_fonts() {
   const [font_loaded] = useFonts({
     "inter": require("./../assets/fonts/InterVariable.ttf"),
     "spaceGroteskBold": require("./../assets/fonts/SpaceGrotesk-Bold.otf"),
@@ -350,13 +510,13 @@ function pulsate_gradiant() {
       Animated.sequence([
         Animated.timing(pulse_animate, {
           toValue: 1,
-          duration: 2500,
+          duration: 2560,
           easing: Easing.inOut(Easing.ease), 
           useNativeDriver: true,
         }),
         Animated.timing(pulse_animate, {
           toValue: 0,
-          duration: 2500,
+          duration: 2560,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true, 
         }),
@@ -367,7 +527,7 @@ function pulsate_gradiant() {
   //insertion of animation through opacity change
   return pulse_animate.interpolate({
     inputRange: [0, .4],
-    outputRange: [0.1, .4]
+    outputRange: [0, .4]
   });
 }
 
