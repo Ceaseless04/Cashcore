@@ -1,0 +1,13 @@
+[
+  {
+      "_id": "loan_id_001",
+      "user_id": "user_id_123",
+      "loan_type": "Mortgage",
+      "principal_amount": 200000.00,
+      "interest_rate": 3.5,
+      "term_months": 360,
+      "remaining_balance": 150000.00,
+      "created_at": "2022-01-15T09:00:00Z",
+      "updated_at": "2024-11-15T10:00:00Z"
+  }
+] 

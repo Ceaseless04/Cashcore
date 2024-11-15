@@ -1,0 +1,13 @@
+[  
+  {
+    "_id": "stock_id_001",
+    "user_id": "user_id_123",
+    "stock_symbol": "AAPL",
+    "shares_owned": 10.00,
+    "purchase_price": 150.00,
+    "current_price": 175.00,
+    "created_at": "2023-05-01T08:00:00Z",
+    "updated_at": "2024-11-15T10:00:00Z"
+  }
+]
+  
