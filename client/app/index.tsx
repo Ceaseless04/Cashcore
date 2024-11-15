@@ -3,13 +3,16 @@
   Each block will take up the space of the screen.
   All blocks are wraped up by a parent container, where its only job is to allign all given blocks
 
-  Tomorrow: Work on Block 2
+  still having a slight inaccuracy with calculating font sizes
+  need to determine with lost or gain value by when rounding
+
+  //give other text their wrappers
 
 */
 
 import React, { useRef, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions, Animated, Easing, TouchableOpacity } from "react-native";
-
+import { TextInput } from 'react-native-gesture-handler';
 
 
 
@@ -18,10 +21,12 @@ import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, bu
 import SignUpBtnSvg from "./../assets/homepage/img/get-started.svg"; //works, but showing as errors on VSCode
 import LogInBtnSvg from "./../assets/homepage/img/login.svg";
 import GradCapSvg from "./../assets/homepage/img/graduate-cap.svg";
+import MailIconSvg from "./../assets/homepage/img/mail-icon.svg";
 
 import Jumper from "./../components/homepage/jumper";
 import GradientText from "./../components/homepage/grdnt_txt";
 import SignUpStep from "./../components/homepage/sgn_up_steps";
+import PulsateCir from "@/components/homepage/pulsate_cir";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -32,6 +37,8 @@ import { LinearGradient } from "expo-linear-gradient";
 //store window height and width
 const window_height = Dimensions.get("window").height; //an idea would be to have h*w and then have this be the main measurement tool for all containers including text
 const window_width = Dimensions.get("window").width;
+
+const master_measure = Math.sqrt(window_height * window_width); 
 
 //debug
 console.log("Win_H: ", window_height);
@@ -98,13 +105,13 @@ const block1 = StyleSheet.create({
   wrapper: { //the "Control Your Finances"
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: window_width,
     height: window_height - (window_height * 0.2),
   },
   //wrap around text and gradient
   c1: { 
-    width: "40%",
-    height: "100%",
+    width: window_width * 0.4,
+    height: window_height - (window_height * 0.2),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -138,42 +145,41 @@ const block1 = StyleSheet.create({
 const block2 = StyleSheet.create({
   c2:{
     alignItems: "center",
-    width: "100%",
+    width: window_width,
     height: window_height,
   },
   mission_c:{
-    paddingTop: window_width * 0.06,
-    paddingLeft: window_width * 0.04,
-    paddingRight: window_width * 0.04,
-    paddingBottom: window_width * 0.02,
-    marginTop: window_width * 0.06,
     width: window_width,
-    height: window_height/2,
+    height: Math.round(window_height * 0.5) - 1,
+    marginTop: Math.round(master_measure * 0.2026) - 1,
   },
   m_text:{
     color: "#4cb086",
     textAlign: "center",
     fontFamily: "inter",
-    fontSize: 15,
+    fontSize: Math.round(master_measure * 0.0124) - 1,
   },
   ff_text_c:{
     color: "#ffffff",
     textAlign: "center",
     fontFamily: "inter",
-    fontSize: 48,
+    fontSize: Math.round(master_measure * 0.0395) - 1,
     fontWeight: "600",
-    paddingLeft: window_width * 0.01,
-    paddingRight: window_width * 0.01,
-    paddingTop: window_width * 0.01,
-    paddingBottom: window_width * 0.004,
+    paddingLeft: Math.round(master_measure * 0.0269) - 1,
+    paddingRight: Math.round(master_measure * 0.0269) - 1,
+    paddingTop: Math.round(master_measure * 0.0169) - 1,
+    paddingBottom: Math.round(master_measure * 0.0067) - 1,
   },
   prpt_text_c:{
+    width: Math.round(master_measure * 0.5723),
+    height: Math.round(master_measure * 0.0500),
     color: "#ffffff",
     textAlign: "center",
     fontFamily: "inter",
-    fontSize: 15,
-    paddingRight: window_width * 0.3,
-    paddingLeft: window_width * 0.3,
+    fontSize: Math.round(master_measure * 0.0124),
+    alignSelf: "center",
+    // paddingRight: Math.round(master_measure * 0.5855) - 1,
+    // paddingLeft: Math.round(master_measure * 0.5855) - 1,
   },
   rotator_c:{
   }
@@ -185,34 +191,35 @@ const mini_block_2_5 = StyleSheet.create({
   container:{
     justifyContent: "center",
     width: window_width,
-    height: window_height * 0.26,
-    marginTop: window_width * 0.09,
-    marginBottom: window_width * 0.09,
-    padding: window_width * 0.03,
+    height: Math.round(master_measure * 0.2141),
+    marginTop: Math.round(master_measure * 0.1519),
+    marginBottom: Math.round(master_measure * 0.1519),
     backgroundColor: "#1aa47b"
   },
   bg: {
     ...StyleSheet.absoluteFillObject,
     width: window_width,
-    height: window_height * 0.26,
+    height: Math.round(master_measure * 0.2141),
   },
   title: {
     color: "#ffffff",
     textAlign: "center",
-    paddingBottom: window_width * 0.005,
+    paddingBottom: Math.round(master_measure * 0.0084),
     fontFamily: "inter",
-    fontSize: 48,
+    fontSize: Math.round(master_measure * 0.0395),
     fontWeight: "600",
     textShadowColor: "rgba(255, 255, 255, 1",
     textShadowOffset: {width: 100, height: 100},
   },
   prompt:{
+    width: Math.round(master_measure * 0.4769),
+    height: Math.round(master_measure * 0.0652),
     color: "#ffffff",
     textAlign: "center",
     fontFamily: "inter",
-    fontSize: 15,
-    paddingLeft: window_width * 0.33,
-    paddingRight: window_width * 0.33,
+    fontSize: Math.round(master_measure * 0.0124),
+    alignSelf: "center",
+    
   }
 });
 
@@ -239,71 +246,71 @@ const block3 = StyleSheet.create({
     width: window_width,
     height: (window_height * 0.5),
     justifyContent: "center", 
-    paddingTop: 40,
+    paddingTop: Math.round(master_measure * 0.0330),
   },
   plan_title:{
     width: window_width,
     textAlign: "center",
     fontFamily: "inter",
-    fontSize: 13, 
+    fontSize: Math.round(master_measure * 0.0107), 
     color: "#ffffff",
-    marginTop: 40,
+    marginTop: Math.round(master_measure * 0.0330),
   },
   plan_cont:{
     flexDirection: "row",
     justifyContent: "center",
     width: window_width,
-    height: (window_height * 0.5) - 13,
+    height: (window_height * 0.5) - Math.round(master_measure * 0.0107),
   },
   free_block_wrapper:{
-    padding: 20,
+    padding: Math.round(master_measure * 0.0247),
   },
   free_block:{
-    width: window_width * 0.2085,
-    height: (window_height * 0.24) - 13,
-    borderRadius: 12, 
+    width: Math.round(master_measure * 0.3516),
+    height: Math.round(master_measure * 0.1787),
+    borderRadius: Math.round(master_measure * 0.010), 
   },
   paid_block_wrapper:{
-    padding: 20,
+    padding: Math.round(master_measure * 0.0247),
   },
   paid_block:{
-    width: window_width * 0.2085,
-    height: (window_height * 0.24) - 13,
-    borderRadius: 12,
+    width: Math.round(master_measure * 0.3516),
+    height: Math.round(master_measure * 0.1787),
+    borderRadius: Math.round(master_measure * 0.0100),
   },
 
 
   plan_type_text:{
     color: "#ffffff",
     fontFamily: "inter",
-    fontSize: 24,
-    paddingBottom: 7,
+    fontSize: Math.round(master_measure * 0.0198),
+    paddingBottom: Math.round(master_measure * 0.0058),
   },
   plan_type_desc:{
     color: "#e9e9e9",
     fontFamily: "inter",
-    fontSize: 14,
+    fontSize: Math.round(master_measure * 0.0115),
   },
   plan_cost_text:{
     color: "#ffffff",
     fontFamily: "inter",
-    fontSize: 24,
+    fontSize: Math.round(master_measure * 0.0198),
   },
   dash:{
     color: "#ffffff",
     fontFamily: "inter",
-    fontSize: 24,
+    fontSize: Math.round(master_measure * 0.0198),
     textAlign: "right",
   },
   top_plan_block:{
-    width: window_width * 0.2085,
-    height: ((window_height * 0.24) - 13) * 0.5,
-    padding: 25,
+    width: Math.round(master_measure * 0.3516),
+    height: (Math.round(master_measure * 0.1787)) * 0.5,
+    padding: Math.round(master_measure * 0.0206),
   },
   bottom_plan_block:{
-    width: window_width * 0.2085,
-    height: ((window_height * 0.24) - 13) * 0.5,
-    padding: 25,
+    width: Math.round(master_measure * 0.3516),
+    height: (Math.round(master_measure * 0.1787)) * 0.5,
+    padding: Math.round(master_measure * 0.0206),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
@@ -319,13 +326,164 @@ const block4 = StyleSheet.create({
 });
 
 //block 5 final block and the skeleton will be finally done
+const block5 = StyleSheet.create({
+  container:{
+    width: window_width,
+    height: window_height,
+  },
+  bg: {
+    ...StyleSheet.absoluteFillObject,
+    width: window_width,
+    height: window_height,
+  },
+  cta_wrapper:{
+    width: window_width,
+    height: window_height * 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cta_cont:{
+    width: Math.round(master_measure * 0.675),
+    height: Math.round(master_measure * 0.2165),
+    borderRadius: Math.round(master_measure * 0.0132),
+    paddingTop: Math.round(master_measure * 0.0330),
+    paddingLeft: Math.round(master_measure * 0.065),
+    paddingRight: Math.round(master_measure * 0.065),
+    paddingBottom: Math.round(master_measure * 0.0330),
+  },
+  cta_txt1:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0131),
+    paddingBottom: Math.round(master_measure * 0.0082) - 1,
+    color: "#ffffff",
+  },
+  cta_txt2:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.038),
+    fontWeight: "600",
+    color: "#ffffff",
+  },
+  cta_txt3:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0107),
+    color: "#ffffff",
+  },  
+  cta_btn_cont:{
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
+  start_btn:{
+    width: master_measure * 0.0930,
+    height: master_measure * 0.0321,
+    borderRadius: master_measure * 0.0082,
+    backgroundColor: "#ffffff",
+    justifyContent: "center",
+  },
+  start_txt:{
+    fontFamily: "inter",
+    fontSize: master_measure * 0.0131,
+    textAlign: "center",
+    color: "#2da167",
+  },
+  lrn_mo_btn:{
+    width: master_measure * 0.0930,
+    height: master_measure * 0.0321,
+    borderRadius: master_measure * 0.0082,
+    borderColor: "#ffffff",
+    borderWidth: master_measure * 0.00122,
+    justifyContent: "center",
+    marginLeft: master_measure * 0.0124, 
+  },
+  lrn_mo_txt:{
+    fontFamily: "inter",
+    fontSize: master_measure * 0.0131,
+    textAlign: "center",
+    color: "#ffffff",
+  },
+
+  news_letter_container:{
+    width: window_width,
+    height: window_height * 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  news_letter_wrapper:{
+    width: window_width,
+    height: Math.round(master_measure * 0.3203),
+    backgroundColor: "#222222",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  news_letter_content_container:{
+    width: Math.round(master_measure * 0.3920),
+    height: Math.round(master_measure * 0.3203),
+  },
+
+  mail_icon:{
+    position: "absolute",
+    width: Math.round(master_measure * 0.0955),
+    height: Math.round(master_measure * 0.0766),
+    top: Math.round(master_measure * 0.0766),
+    left: Math.round(master_measure * -0.0371),
+  },
+  news_letter_text_container:{
+    width: Math.round(master_measure * 0.3920),
+    height: Math.round((master_measure * 0.3203) * 0.55) - 1,
+    justifyContent: "flex-end",
+  },
+  join_text:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0296),
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  subby_wubby_prompt:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0115),
+    color:"#ffffff",
+  },
+  sublimal_container:{
+    width: Math.round(master_measure * 0.3920),
+    height: Math.round((master_measure * 0.3203) * 0.45) - 1,
+    paddingTop: Math.round(master_measure * 0.02) - 1,
+    flexDirection: "row",
+  },
+  email_text_box:{
+    width: Math.round(master_measure * 0.1878),
+    height: Math.round(master_measure * 0.0305),
+    borderColor: "#1aa47b",
+    borderWidth: Math.round(master_measure * 0.00122),
+    borderTopLeftRadius: Math.round(master_measure * 0.0082),
+    borderBottomLeftRadius: Math.round(master_measure * 0.0082),
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0115),
+    padding: Math.round(master_measure * 0.0107) - 1,
+    color: "#dddddddd",
+  },
+  subscribble_btn:{
+    width: Math.round(master_measure * 0.0889),
+    height: Math.round(master_measure * 0.0305),
+    backgroundColor: "#1aa47b",
+    borderTopRightRadius: Math.round(master_measure * 0.0082),
+    borderBottomRightRadius: Math.round(master_measure * 0.0082),
+    justifyContent: "center",
+    alignContent: "center",
+  }, 
+  slubcrybo_text:{
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0115),
+    color: "#ffffff",
+    textAlign: "center",
+  },
+});
 
 //add navigation to other pages
 
 export default function HomePage() {
 
   load_fonts();
-  const circle_size = get_circle_size()
+
 
   return (
     <ScrollView style={parent_styles.wrap_all}>
@@ -342,16 +500,16 @@ export default function HomePage() {
           </View>
 
           <View style={h.b_c}>
-            <TouchableOpacity activeOpacity={0.7}>
-              <Link href="./pages/loginPage">
+            <Link href="./pages/loginPage">
+              <TouchableOpacity activeOpacity={0.7}>
                 <LogInBtnSvg style={h.b2}/>
-              </Link>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
-              <Link href="./pages/signup">
+              </TouchableOpacity>
+            </Link>
+            <Link href="./pages/signup">
+              <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
                 <SignUpBtnSvg style={h.b1}/>
-              </Link>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </Link>
           </View>
 
           
@@ -361,17 +519,7 @@ export default function HomePage() {
 
       <View style={block1.wrapper}>
         <View style={block1.c1}>
-          <Animated.View style={[block1.gradient_container, {opacity: pulsate_gradiant()}]}>
-          <Svg style={block1.gradient}>
-            <Defs>
-              <RadialGradient id="grad" cx="50%" cy="50%" rx="50%" ry="50%" fx="50%" fy="50%">
-                <Stop offset="0%" stopColor="#307D55"/>
-                <Stop offset="100%" stopColor="#181818"/>
-              </RadialGradient>
-            </Defs>
-            <Circle cx="50%" cy="50%" r={circle_size} fill="url(#grad)"/> 
-          </Svg>  
-          </Animated.View>
+          <PulsateCir win_width={window_width} win_height={window_height}/>
           <Text style={block1.c1_w_text}>Control</Text>
           <Text style={block1.c1_g_text}>Your</Text>
           <Text style={block1.c1_w_text}>Finances</Text>
@@ -398,7 +546,7 @@ export default function HomePage() {
           <Pattern id="grad-pat" x="0" y="0" patternUnits="userSpaceOnUse" width="75" height="67">
             <GradCapSvg/>
           </Pattern>
-          <Rect x="0" y="0" width={window_width} height={window_height * 0.26} fill="url(#grad-pat)"/>
+          <Rect x="0" y="0" width={window_width} height={Math.round(master_measure * 0.2141)} fill="url(#grad-pat)"/>
         </Svg>
         <Text style={mini_block_2_5.title}>Built with College Students in Mind</Text>
         <Text style={mini_block_2_5.prompt}>
@@ -414,7 +562,7 @@ export default function HomePage() {
           <View style={block3.title}>
             <GradientText
               text="Ready to Invest in Your Success?"
-              text_size={60}
+              text_size={Math.round(master_measure * 0.0494)}
               colors={["#299f62", "#4db088"]}
               text_weight="600"
             />
@@ -475,7 +623,59 @@ export default function HomePage() {
 
 
       <View style={block4.container}>
-        <Text style={block1.c1_g_text}>Block4 Start</Text>
+        <PulsateCir win_width={window_width} win_height={window_height}/>
+      </View>
+
+
+      <View style={block5.container}>
+        
+        <Svg style={block5.bg}>
+          <Pattern id="b5-grad-pat" x="0" y="0" patternUnits="userSpaceOnUse" width="75" height="67">
+            <GradCapSvg/>
+          </Pattern>
+          <Rect x="0" y="0" width={window_width} height={window_height} fill="url(#b5-grad-pat)"/>
+        </Svg>
+        
+        <View style={block5.cta_wrapper}>
+          <LinearGradient colors={["#299f62", "#4db088"]} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}} style={block5.cta_cont}>
+            <Text style={block5.cta_txt1}>Sign Up Now</Text>
+            <Text style={block5.cta_txt2}>Ready to Elevate Your Future?</Text>
+            <Text style={block5.cta_txt3}>Join now to start navigating your cash with confidence.</Text>
+            <View style={block5.cta_btn_cont}>
+                <Link href={"/pages/signup"}>
+                  <TouchableOpacity style={block5.start_btn} activeOpacity={0.7}>
+                    <Text style={block5.start_txt}>Get Started</Text>
+                  </TouchableOpacity>
+                </Link>
+              <TouchableOpacity style={block5.lrn_mo_btn} activeOpacity={0.7}>
+                <Text style={block5.lrn_mo_txt}>Learn More</Text>
+              </TouchableOpacity>
+            </View>
+          </LinearGradient>
+        </View>
+
+        <View style={block5.news_letter_container}>
+          <View style={block5.news_letter_wrapper}>
+              <View style={block5.news_letter_content_container}>
+                <MailIconSvg style={block5.mail_icon}/>
+                <View style={block5.news_letter_text_container}>
+                  <Text style={block5.join_text}>Join Our Newsletter!</Text>
+                  <Text style={block5.subby_wubby_prompt}>Subscribe to receive updates with the latest insights, tips, and alerts.</Text>
+                </View>
+                <View style={block5.sublimal_container}>
+                    <TextInput
+                      style={block5.email_text_box}
+                      placeholder="Email address" 
+                      keyboardType="email-address"
+                    />
+                    <TouchableOpacity style={block5.subscribble_btn} activeOpacity={0.7}>
+                      <Text style={block5.slubcrybo_text}>Subscribe</Text>
+                    </TouchableOpacity>
+                </View>
+              </View>
+          </View>
+        </View>
+
       </View>
 
       <Jumper></Jumper>
