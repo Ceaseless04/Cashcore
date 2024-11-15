@@ -16,6 +16,9 @@ python manage.py runserver # run web server on localhost
 
 ----TODO:
 change settings.py, is configured to use the NoSQL database for testing. You might need to create a separate `test_settings.py` file if necessary.
+install dependencies: 
+pip install djongo
+pip install pytz
 
 	1. Create JSON file that contains the NoSQL CashCore database details
 ----EOF--------
