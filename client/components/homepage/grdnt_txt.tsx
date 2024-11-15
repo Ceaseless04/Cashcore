@@ -1,11 +1,11 @@
-import React from 'react';
-import Svg, { Text as SvgText, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
+import React from "react";
+import Svg, { Text as SvgText, Defs, LinearGradient as SvgLinearGradient, Stop } from "react-native-svg";
 
 interface GradientTextProps {
   text: string;
   text_size: number;
   text_weight: string;
-  colors: [string, string]; // Tuple for two gradient colors
+  colors: [string, string]; 
 }
 
 export default function GradientText({text, colors, text_size, text_weight} : GradientTextProps): JSX.Element {

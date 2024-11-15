@@ -26,7 +26,8 @@ import MailIconSvg from "./../assets/homepage/img/mail-icon.svg";
 import Jumper from "./../components/homepage/jumper";
 import GradientText from "./../components/homepage/grdnt_txt";
 import SignUpStep from "./../components/homepage/sgn_up_steps";
-import PulsateCir from "@/components/homepage/pulsate_cir";
+import PulsateCir from "./../components/homepage/pulsate_cir";
+import BorderGrdntBtn from "./../components/homepage/gradient_border";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -52,15 +53,20 @@ const parent_styles = StyleSheet.create({
     backgroundColor: "#181818",
     flexDirection: "column",
   },
+  centering_all:{
+    justifyContent: "center",
+    alignItems: "center",
+    
+  }
 });
 
 const h = StyleSheet.create({
   head: {
-    width: "100%", 
+    width: window_width, 
     height: "auto",
   },
   wrapper: {
-    width: "100%",
+    width: window_width,
     height: "auto",
     padding: "1%",
     display: "flex",
@@ -69,7 +75,8 @@ const h = StyleSheet.create({
     justifyContent: "space-between",
   },
   logo: {
-    width: "18%",
+    width: Math.round(master_measure * 0.2133),
+    height: Math.round(master_measure * 0.0560),
   },
   nav_text_c: {
     width: "60%",
@@ -83,21 +90,27 @@ const h = StyleSheet.create({
     paddingLeft: "2%",
     paddingRight: "2%",
     fontFamily: "inter",
-    fontSize: 18,
+    fontSize: Math.round(master_measure * 0.0132),
   },
   b_c: {
     flexDirection: "row",
     justifyContent: "center",
-    width: "18%",
+    width: Math.round(master_measure * 0.2588),
     height: "auto",
   },
-  b1: {
-    width: 100,
-    marginRight: 30,
+  signup_login_text: {
+    fontFamily: "inter",
+    fontSize: Math.round(master_measure * 0.0132),
+    textAlign: "center",
+    color: "#ffffff",
+
   },
-  b2: {
-    width: 100,
-  }
+  login_btn: {
+    paddingRight: Math.round(master_measure * 0.015),
+  },
+  signup_text: {
+    fontFamily: "inter",
+  },
 }); 
 
 //the first container on top
@@ -132,13 +145,13 @@ const block1 = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontFamily: "spaceGroteskBold",
-    fontSize: 100,
+    fontSize: Math.round(master_measure * 0.0824),
   },
   c1_g_text: { //the green used within the text
     color: "#27CE78",
     textAlign: "center",
     fontFamily: "spaceGroteskBold",
-    fontSize: 100,
+    fontSize: Math.round(master_measure * 0.0824),
   },
 });
 
@@ -391,7 +404,7 @@ const block5 = StyleSheet.create({
     height: master_measure * 0.0321,
     borderRadius: master_measure * 0.0082,
     borderColor: "#ffffff",
-    borderWidth: master_measure * 0.00122,
+    borderWidth: master_measure * 0.0012,
     justifyContent: "center",
     marginLeft: master_measure * 0.0124, 
   },
@@ -487,6 +500,7 @@ export default function HomePage() {
 
   return (
     <ScrollView style={parent_styles.wrap_all}>
+    <View style={parent_styles.centering_all}>
       
       <header style={h.head}>
         <View style={h.wrapper}>
@@ -501,13 +515,31 @@ export default function HomePage() {
 
           <View style={h.b_c}>
             <Link href="./pages/loginPage">
-              <TouchableOpacity activeOpacity={0.7}>
-                <LogInBtnSvg style={h.b2}/>
+              <TouchableOpacity style={h.login_btn} activeOpacity={0.7}>
+                <BorderGrdntBtn
+                    w={Math.round(master_measure * 0.0618)}
+                    h={Math.round(master_measure * 0.0354)}
+                    border_radius={Math.round(master_measure * 0.0082)}
+                    border_weight={Math.round(master_measure * 0.0012)}
+                    color={["#299f62", "#4db088"]}
+                    text="Login"
+                    text_style={h.signup_login_text}
+                    bg_color={parent_styles.wrap_all.backgroundColor}
+                  />  
               </TouchableOpacity>
             </Link>
             <Link href="./pages/signup">
-              <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
-                <SignUpBtnSvg style={h.b1}/>
+              <TouchableOpacity activeOpacity={0.7}>
+                <BorderGrdntBtn
+                    w={Math.round(master_measure * 0.0758)}
+                    h={Math.round(master_measure * 0.0354)}
+                    border_radius={Math.round(master_measure * 0.0082)}
+                    border_weight={Math.round(master_measure * 0.0012)}
+                    color={["#299f62", "#4db088"]}
+                    text="Sign Up"
+                    text_style={h.signup_login_text}
+                    bg_color={"transparent"}
+                  />  
               </TouchableOpacity>
             </Link>
           </View>
@@ -679,6 +711,8 @@ export default function HomePage() {
       </View>
 
       <Jumper></Jumper>
+
+    </View>
     </ScrollView>
 
     
