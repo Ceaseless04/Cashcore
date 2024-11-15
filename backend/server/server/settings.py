@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rjtc&-iwoegch_!(mkf!$d817rq@pk6u7fyxw4m&s%ks(%wcqh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False #True if you want to run the server in development mode
 
 ALLOWED_HOSTS = ["localhost"]
 CORS_ALLOW_ALL_ORIGINS = True  # For development only, to allow all origins
@@ -97,14 +97,23 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('dbName'),          # Your PostgreSQL database name
-        'USER': os.getenv('dbUser'),        # Your PostgreSQL username
-        'PASSWORD': os.getenv('dbPw'),       # Your PostgreSQL password
-        'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
-        'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
+        'ENGINE': 'djongo',
+        'NAME': 'CashCore',
+        'CLIENT': {
+            'host': 'mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster'
+        }
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.getenv('dbName'),          # Your PostgreSQL database name
+    #     'USER': os.getenv('dbUser'),        # Your PostgreSQL username
+    #     'PASSWORD': os.getenv('dbPw'),       # Your PostgreSQL password
+    #     'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
+    #     'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
+    # }
 }
 
 
