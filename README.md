@@ -3,7 +3,7 @@ mongodb-schema-test Branch information: updated 11/15/2024 by Yaohua Hu
 
 INIT Web Dev Sprint 3 - integrate with MongoDB NoSQL Notes
 
----Windows virtual environment notes---
+---Activate Windows virtual environment notes---
 
 Navigate to: PS D:\HDD\Desktop\Cashcore-main\cashcore-main\backend\server>
 
@@ -16,9 +16,16 @@ python manage.py runserver # run web server on localhost
 
 ----TODO:
 change settings.py, is configured to use the NoSQL database for testing. You might need to create a separate `test_settings.py` file if necessary.
-install dependencies: 
+1. install dependencies, on the virtual environment: 
+
+pip install python-dotenv
+pip install djangorestframework
 pip install djongo
 pip install pytz
+pip install --upgrade djangorestframework
+pip install dnspython
+pip install django-cors-headers
+
 
 	1. Create JSON file that contains the NoSQL CashCore database details
 ----EOF--------
