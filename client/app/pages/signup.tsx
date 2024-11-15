@@ -1,8 +1,9 @@
 import { StyleSheet, TouchableOpacity, View, Text, ImageBackground, Animated } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import colorPalette from '../utils/colors';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
+import { Link } from "expo-router";
 import { 
   SpaceGrotesk_700Bold,
   useFonts as useSpaceGroteskFonts 
@@ -10,10 +11,11 @@ import {
 import {
   Inter_400Regular, 
   Inter_500Medium, 
-  Inter_700Bold,
+  Inter_700Bold, 
   Inter_300Light,
   useFonts as useInterFonts  
-} from '@expo-google-fonts/inter'; 
+} from '@expo-google-fonts/inter';
+import SvgLogo from "../../assets/homepage/img/signup-login-logo.svg";
 
 export default function SignUpScreen() {
   
@@ -89,7 +91,7 @@ export default function SignUpScreen() {
         source={require("../../assets/images/bg gradient.png")}
         resizeMode="cover"
         style={{width: "100%"}}>
-      </ImageBackground>
+      </ImageBackground>      
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={styles.headingTextContainer}>
@@ -98,7 +100,7 @@ export default function SignUpScreen() {
             <Text style={styles.headingText}>Finances</Text>
           </View>
           <View style={styles.signUpContainer}>
-              <Text style={styles.title}>CashCore</Text>          
+              <Text style={styles.title}><SvgLogo></SvgLogo></Text>          
               <Text style={styles.subtitle}>Create a New Account </Text>
               <Text style={styles.description}>Let's start your journey.</Text>
               <View style = {styles.signUpFormContainer}>
@@ -128,7 +130,8 @@ export default function SignUpScreen() {
               </View>
                 <Text style={styles.haveAccountText}>
                 Already have an account? 
-                <Text style={{color:"white"}}> Login Here</Text></Text>
+                <Link style={{color:"white"}} href={"./loginPage"}> Login Here</Link>
+                </Text>
               </View>
           </View>
           <Toast/>
@@ -136,6 +139,14 @@ export default function SignUpScreen() {
       </>
   );
 }
+
+const AnimatedBackground = () => {
+  return (
+    <Canvas style={{ flex: 1 }}>
+      {/* <Circle cx={100} cy={100} r={50} color="blue" /> */}
+    </Canvas>
+  );
+};
 
 const styles = StyleSheet.create({
     container: {
