@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
 import { Widget } from "@/components/dashboard/Widget";
 import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
+import { ProfileModal } from "@/components/dashboard/profileModal";
 
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
@@ -31,20 +28,40 @@ interface ListItem {
 }
 
 export default function Dashboard(): JSX.Element {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [budgetList, setBudgetList] = useState<ListItem[]>(dummyBudget);
   const [monthlySubscription, setMonthlySubscription] =
     useState<ListItem[]>(dummyMonthlySub);
   const [transactions, setTransactions] =
     useState<ListItem[]>(dummyTransactions);
 
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => setModalVisible(false);
+
   return (
     <View style={styles.dashboardContainer}>
+      <View style={styles.navContainer}>
+        {/*temporary delete this later*/}
+        <Pressable style={styles.navButton} onPress={showModal}>
+          <Text style={styles.navText}>Profile</Text>
+        </Pressable>
+      </View>
+      <ProfileModal modalVisible={modalVisible} hideModal={hideModal} />
       <View style={styles.contentWrapper}>
         <View style={styles.topContainer}>
           <View style={styles.summaryContainers}>
-            <BalanceContainer balance={50000}/>
-            <SummaryCard title="Monthly Income:" percentage={.18} value="$4200" />
-            <SummaryCard title="Monthly Expenses:" percentage={-.10} value="$690" />
+            <BalanceContainer balance={50000} />
+            <SummaryCard
+              title="Monthly Income:"
+              percentage={0.18}
+              value="$4200"
+            />
+            <SummaryCard
+              title="Monthly Expenses:"
+              percentage={-0.1}
+              value="$690"
+            />
           </View>
 
           <View style={styles.cashFlowContainer}>
@@ -84,21 +101,38 @@ export default function Dashboard(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  dashboardContainer: { 
+  dashboardContainer: {
     flex: 1,
     justifyContent: "flex-end",
     backgroundColor: colorPalette.dark,
   },
-  contentWrapper: { 
+  contentWrapper: {
     minWidth: "100%",
     justifyContent: "flex-end",
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 25,
-    gap:  20,
-    backgroundImage: `radial-gradient(circle, rgba(40, 206, 120, .6) 5%, rgba(24, 24, 24, .8) 34%, rgba(24,24,24, .7) 130%)`,
+    gap: 20,
+    //backgroundImage: `radial-gradient(circle, rgba(40, 206, 120, .6) 5%, rgba(24, 24, 24, .8) 34%, rgba(24,24,24, .7) 130%)`,
   },
-  widgetContainer: { 
+  navContainer: {
+    // Temporary until Navbar is implemented
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  navButton: {
+    // Temporary Delete this later.
+    backgroundColor: "grey",
+    borderRadius: 10,
+    padding: 4,
+  },
+  navText: {
+    // Temporary Delete this later.
+    color: colorPalette.light,
+    fontSize: 20,
+  },
+  widgetContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
@@ -106,21 +140,20 @@ const styles = StyleSheet.create({
     width: "80%",
     minHeight: "50%",
     maxHeight: "50%",
-    marginTop: 10,
-    gap: 2,
+    marginTop: 5, // this is was at 10 before I changed it.
   },
-  topContainer: { 
+  topContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     minWidth: "80%",
   },
-  summaryContainers: { 
+  summaryContainers: {
     flexDirection: "column",
     justifyContent: "flex-start",
     minWidth: "30%",
     gap: 10,
   },
-  cashFlowContainer: { 
+  cashFlowContainer: {
     backgroundColor: `rgba(50, 50, 50, .70)`,
     boxShadow: boxShadowForContainers,
     minWidth: "65%",
@@ -128,17 +161,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
   },
-  cashFlowText: { 
+  cashFlowText: {
     color: colorPalette.light,
   },
-  cashFlowChart: { 
+  cashFlowChart: {
     color: colorPalette.light,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
     height: "100%",
   },
-  cashFlowChartText: { 
+  cashFlowChartText: {
     fontSize: 50,
     fontWeight: "bold",
     color: colorPalette.light,
