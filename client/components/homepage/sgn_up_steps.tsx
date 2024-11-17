@@ -2,7 +2,9 @@ import React from "react";
 import {View, Text, StyleSheet, Dimensions } from "react-native";
 
 const window_height = Dimensions.get("window").height; //an idea would be to have h*w and then have this be the main measurement tool for all containers including text
-const window_width = Dimensions.get("window").width;
+const window_width = Dimensions.get("window").width; 
+
+// git rid of padding and center with alignContents and justifyContents center
 
 const master_measure = Math.sqrt(window_height * window_width); 
 
