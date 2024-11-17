@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+from mongoengine import connect
+from pymongo import MongoClient
+
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,8 +30,11 @@ SECRET_KEY = 'django-insecure-rjtc&-iwoegch_!(mkf!$d817rq@pk6u7fyxw4m&s%ks(%wcqh
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #True if you want to run the server in development mode
+MONGODB_HOST = "mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/CashCore"
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "example.com"]#["localhost,MONGODB_HOST"]
+# MongoDB connection settings
+MONGODB_HOST = os.getenv('MONGODB_HOST')
 
-ALLOWED_HOSTS = ["localhost"]
 CORS_ALLOW_ALL_ORIGINS = True  # For development only, to allow all origins
 
 CORS_ALLOW_METHODS = [
@@ -95,16 +101,22 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# Access the environment variable
+MONGODB_HOST = os.getenv('MONGODB_HOST')
 DATABASES = {
 
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'CashCore',
+        'NAME': 'CashCore',  # Replace with your database name
+        'HOST': "mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster",
+        'ENFORCE_SCHEMA': False,
+        'PORT': 27017, 
         'CLIENT': {
-            'host': 'mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster'
+            'host': MONGODB_HOST,          # Replace with your MongoDB host
+                       # Replace with your MongoDB port
         }
     }
+}
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
@@ -114,8 +126,6 @@ DATABASES = {
     #     'HOST': os.getenv('dbHost'),            # Since PostgreSQL is running locally
     #     'PORT': os.getenv('dbPort'),                 # Default PostgreSQL port
     # }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

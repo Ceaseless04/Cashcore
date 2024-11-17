@@ -10,20 +10,53 @@ Navigate to: PS D:\HDD\Desktop\Cashcore-main\cashcore-main\backend\server>
 .\venv\Scripts\activate.ps1 #windows run virtual environment
 
 (venv) PS D:\HDD\Desktop\Cashcore-main\cashcore-main\backend\server> # shows virtual environment is active
-python manage.py runserver # run web server on localhost
+
+
+python manage.py runserver # run web server on localhost, or restart the web server
 
 -----------------------------EOF--------------------------
 
 ----TODO:
+1. Still work in progress, fixed JSON schemas and imported to DB, fixed MongoDB connection on settings.py, updated .env file installed additonal pymongo dependecies. 
+ ISSUE:: "POST /restapi/register/ HTTP/1.1" 400 143 (400 HTTP Error while testing on routes.rest, POST Body HTTP request: http://localhost:8000/restapi/register/
+  Content-Type: application/json)
+
+  a. Invalid Input Data: Ensure that the data being sent in the POST request is valid and meets the expected format. Add validation checks to handle invalid data gracefully.
+
+  b. Content-Type Header: Make sure the Content-Type header is set correctly in the request. For JSON data, it should be application/json.
+
+  c. Missing or Incorrect Fields: Verify that all required fields are included in the request body and that they have the correct names and types.
+
+  d. Debugging: Add logging to your view to print the received data and any validation errors.
+
+How you might add validation and logging to a Django view handling the /restapi/register/ endpoint? 
+
 change settings.py, is configured to use the NoSQL database for testing. You might need to create a separate `test_settings.py` file if necessary.
-install dependencies: 
-pip install djongo
-pip install pytz
+
+2. Install dependencies: 
+
+pip install python-dotenv 
+pip install djangorestframework 
+pip install djongo 
+pip install pytz 
+pip install --upgrade djangorestframework 
+pip install dnspython 
+pip install django-cors-headers
+pip install mongoengine
+pip install djongo pymongo
+
+Resource and Commands to import: 
+
+
+https://www.mongodb.com/resources/products/compatibilities/mongodb-and-django
+
+https://www.mongodb.com/resources/products/compatibilities/mongodb-and-django
+
 
 	1. Create JSON file that contains the NoSQL CashCore database details
 ----EOF--------
 
----connect MongoDB database creds example-----
+---connect MongoDB database credentials example-----
 
 mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster
 
@@ -42,11 +75,15 @@ To import a schema into a MongoDB NoSQL database, you can use the `mongoimport` 
 3. **Run the `mongoimport` command**: Use the following command to import your schema into MongoDB.
 
    ```sh
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection users_collection --file users_collection.json --jsonArray
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection budgets_collection --file budgets_collection.json --jsonArray
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection loans_collection --file loans_collection.json --jsonArray
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection savings_collection --file savings_collection.json --jsonArray
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection stocks_collection --file stocks_collection.json --jsonArray
+mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Users --file Users.json --jsonArray 
+
+mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Budgets --file Budgets.json --jsonArray 
+ 
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Loans --file Loans.json --jsonArray 
+ 
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Savings --file Savings.json --jsonArray 
+ 
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Stocks --file Stocks.json --jsonArray
    ```
 
    Replace `<collection_name>` with the name of the collection you want to import the schema into and `<schema_file.json>` with the name of your schema file.
