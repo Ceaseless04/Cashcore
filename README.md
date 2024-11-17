@@ -1,5 +1,5 @@
 # Cashcore
-mongodb-schema-test Branch information: updated 11/15/2024 by Yaohua Hu
+mongodb-schema-test Branch information: updated 11/17/2024 by Yaohua Hu
 
 INIT Web Dev Sprint 3 - integrate with MongoDB NoSQL Notes
 
