@@ -77,7 +77,7 @@ To import a schema into a MongoDB NoSQL database, you can use the `mongoimport` 
    ```sh
 mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Users --file Users.json --jsonArray 
 
-mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Budgets --file Budgets.json --jsonArray 
+mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Budget --file Budget.json --jsonArray 
  
  mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Loans --file Loans.json --jsonArray 
  
