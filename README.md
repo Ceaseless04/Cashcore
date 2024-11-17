@@ -50,7 +50,6 @@ Resource and Commands to import:
 
 https://www.mongodb.com/resources/products/compatibilities/mongodb-and-django
 
-https://www.mongodb.com/resources/products/compatibilities/mongodb-and-django
 
 
 	1. Create JSON file that contains the NoSQL CashCore database details
