@@ -1,36 +1,42 @@
-import react from "react";
-import {
-  Modal,
-  View,
-  Text,
-  Pressable,
-  Image,
-  Button,
-  StyleSheet,
-} from "react-native";
+import React from "react";
+import { Modal, View, Text, Pressable, StyleSheet } from "react-native";
 
 interface ProfileModalProps {
-  modalVisible: boolean;
-  hideModal: () => void;
+  isVisible: boolean;
+  onClose: () => void;
 }
 
-const ProfileModal = ({ modalVisible, hideModal }: ProfileModalProps) => {
-  if (!modalVisible) return null;
+const ProfileModal = ({
+  isVisible,
+  onClose,
+}: ProfileModalProps): JSX.Element => {
   return (
     <Modal
-      visible={modalVisible}
-      onRequestClose={hideModal}
-      animationType="slide"
+      style={styles.modalContainer}
+      visible={isVisible}
+      onRequestClose={onClose}
+      animationType="fade"
       transparent={true}
     >
       <View>
         <Text>This is the profile modal!!!!!!!!</Text>
+        <Pressable onPress={onClose}>
+          <Text>Save</Text>
+        </Pressable>
+        <Pressable onPress={onClose}>
+          <Text>Close</Text>
+        </Pressable>
       </View>
-      <Pressable onPress={hideModal}>
-        <Text>Close</Text>
-      </Pressable>
     </Modal>
   );
 };
 
 export default ProfileModal;
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

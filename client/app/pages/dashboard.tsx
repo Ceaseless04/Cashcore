@@ -5,7 +5,7 @@ import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
 import { Widget } from "@/components/dashboard/Widget";
 import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
-import { ProfileModal } from "@/components/dashboard/profileModal";
+import ProfileModal from "@/components/modals/profileModal";
 
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
@@ -46,8 +46,8 @@ export default function Dashboard(): JSX.Element {
         <Pressable style={styles.navButton} onPress={showModal}>
           <Text style={styles.navText}>Profile</Text>
         </Pressable>
+        <ProfileModal isVisible={modalVisible} onClose={hideModal} />
       </View>
-      <ProfileModal modalVisible={modalVisible} hideModal={hideModal} />
       <View style={styles.contentWrapper}>
         <View style={styles.topContainer}>
           <View style={styles.summaryContainers}>
