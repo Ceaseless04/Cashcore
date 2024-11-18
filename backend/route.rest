@@ -20,7 +20,7 @@ POST http://localhost:8000/restapi/plaidauth/
 Content-Type: application/json
 
 {
-    "userID": 6
+    "userID": 7
 }
 
 

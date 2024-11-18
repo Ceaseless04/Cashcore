@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import date, timedelta
+import os
 
 import plaid
 from plaid.api import plaid_api
@@ -27,16 +28,18 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
 
-PLAID_CLIENT_ID = '671ea861e89c32001af9f4bd'
-PLAID_SECRET = '67791e768b8d5d51121536b6c07add'
-PLAID_ENV = 'sandbox'  # 'development' or 'production' or 'sandbox'
-PLAID_PRODUCTS = ["auth", "transactions"]
+ 
+clientID = os.getenv('PLAID_CLIENT_ID')
+plaidSecret = os.getenv('PLAID_SECRET')
+plaidEnv = os.getenv('PLAID_ENV') # 'development' or 'production' or 'sandbox'
+plaidProducts = os.getenv('PLAID_PRODUCTS').split(',')
+
 
 
 configuration = Configuration(
     host=plaid.Environment.Sandbox,  # Use sandbox or production depending on your environment
     # api_key={"clientId": os.getenv("PLAID_CLIENT_ID"), "secret": os.getenv("PLAID_SECRET")}
-    api_key={"clientId": PLAID_CLIENT_ID, "secret": PLAID_SECRET}
+    api_key={"clientId": clientID, "secret": plaidSecret}
 )
 api_client = plaid.ApiClient(configuration)
 client = plaid_api.PlaidApi(api_client)
@@ -65,7 +68,8 @@ def create_link_token(request):
         print(f"\nuser_id: {user_id}")
 
         plaid_products = []
-        for product in PLAID_PRODUCTS:
+        for product in plaidProducts:
+        # for product in PLAID_PRODUCTS:
             plaid_products.append(Products(product))
 
         # Create the link token request
