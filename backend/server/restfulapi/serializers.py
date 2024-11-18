@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import CustomUser, Budget, Loan, Saving, Stock
+from .models import CustomUser, Budget, Loan, Saving, Stock, PlaidItem
 
 # Used to convert between Model Instances and JSON Objects (both ways)
 # Serialization and Deserialization (writing and reading)
@@ -74,3 +74,9 @@ class StockSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
+
+
+class PlaidItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlaidItem
+        fields = ['userID','institutionName', 'accessToken', 'itemID', 'createdAt', 'updatedAt']

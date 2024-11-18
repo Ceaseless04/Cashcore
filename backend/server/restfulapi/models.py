@@ -71,6 +71,18 @@ class Stock(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 
+# PlaidItem model
+class PlaidItem(models.Model):
+    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    institutionName = models.CharField(max_length=255, blank=True, null=True) # Example: Bank name
+    accessToken = models.CharField(max_length=255, unique=True)
+    itemID = models.CharField(max_length=255, unique=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Plaid Item for user {self.userID} - Item ID: {self.itemID}"
+
 
 
 # Regex Validator can be written for many of the Char/TextFields

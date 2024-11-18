@@ -4,4 +4,5 @@ python-dotenv==1.0.0
 requests==2.31.0
 django-cors-headers==4.3.0
 djangorestframework==3.15.2
+plaid-python==27.0.0
 #environs

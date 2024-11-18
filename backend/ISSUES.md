@@ -32,6 +32,8 @@ Plaid Environment:
 2. Development  --> real data @ real banks (but limited # of accounts)
 3. Sandbox --> fake data
 
+---
 
-
-TESTING COMMIT
+New Dependencies after Plaid for Requirements.txt:
+1. plaid-python==27.0.0 --> Django dependency
+2. "react-plaid-link": "^3.6.1" --> React dependency
