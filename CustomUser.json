@@ -1,0 +1,39 @@
+[
+  {
+    "CustomUser": {
+      "bsonType": "object",
+      "required": ["userID", "username", "fullName", "email", "password_hash", "createdAt"],
+      "properties": {
+        "userID": {
+          "bsonType": "int",
+          "description": "Primary key for the user, auto-incremented"
+        },
+        "username": {
+          "bsonType": "string",
+          "description": "Unique username for the user",
+          "maxLength": 255
+        },
+        "fullName": {
+          "bsonType": "string",
+          "description": "Full name of the user",
+          "maxLength": 255
+        },
+        "email": {
+          "bsonType": "string",
+          "description": "Unique email address of the user",
+          "maxLength": 255,
+          "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        },
+        "password_hash": {
+          "bsonType": "string",
+          "description": "Hashed password of the user"
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the user was created"
+        }
+      }
+    }
+  }
+  
+]

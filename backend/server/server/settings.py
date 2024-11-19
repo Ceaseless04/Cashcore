@@ -108,12 +108,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'CashCore',  # Replace with your database name
+        'ENFORCE_SCHEMA': False,  
         'HOST': "mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster",
-        'ENFORCE_SCHEMA': False,
+        'ENFORCE_SCHEMA': False, #trying to bypass error: "This version of djongo does not support "schema validation using CONSTRAINT" fully." with djongo
         'PORT': 27017, 
         'CLIENT': {
             'host': MONGODB_HOST,          # Replace with your MongoDB host
-                       # Replace with your MongoDB port
         }
     }
 }

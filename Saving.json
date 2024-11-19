@@ -1,0 +1,41 @@
+[
+  {
+    "Saving": {
+      "bsonType": "object",
+      "required": ["savingID", "userID", "goalName", "targetAmount", "currentAmount", "createdAt", "updatedAt"],
+      "properties": {
+        "savingID": {
+          "bsonType": "int",
+          "description": "Primary key for the saving entry, auto-incremented"
+        },
+        "userID": {
+          "bsonType": "objectId",
+          "description": "Reference to the User collection (foreign key)"
+        },
+        "goalName": {
+          "bsonType": "string",
+          "description": "Name of the savings goal",
+          "maxLength": 255
+        },
+        "targetAmount": {
+          "bsonType": "decimal",
+          "description": "The target amount for the saving goal"
+        },
+        "currentAmount": {
+          "bsonType": "decimal",
+          "description": "The current saved amount",
+          "default": 0
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the saving entry was created"
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the saving entry was last updated"
+        }
+      }
+    }
+  }
+  
+]

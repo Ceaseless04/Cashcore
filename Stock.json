@@ -1,0 +1,46 @@
+[
+  {
+    "Stock": {
+      "bsonType": "object",
+      "required": ["stocksID", "userID", "stockSymbol", "sharesOwned", "purchasePrice", "createdAt", "updatedAt"],
+      "properties": {
+        "stocksID": {
+          "bsonType": "int",
+          "description": "Primary key for the stock entry, auto-incremented"
+        },
+        "userID": {
+          "bsonType": "objectId",
+          "description": "Reference to the User collection (foreign key)"
+        },
+        "stockSymbol": {
+          "bsonType": "string",
+          "description": "Stock symbol (ticker), maximum length of 10 characters",
+          "maxLength": 10
+        },
+        "sharesOwned": {
+          "bsonType": "decimal",
+          "description": "Number of shares owned, stored as a decimal"
+        },
+        "purchasePrice": {
+          "bsonType": "decimal",
+          "description": "Purchase price per share, stored as a decimal"
+        },
+        "currentPrice": {
+          "bsonType": ["decimal", "null"],
+          "description": "Current price per share, nullable"
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the stock entry was created"
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the stock entry was last updated"
+        }
+      }
+    }
+  }
+  
+
+]
+  

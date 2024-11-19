@@ -1,0 +1,55 @@
+[
+  {
+    "Loan": {
+      "bsonType": "object",
+      "required": ["loansID", "userID", "loanType", "principalAmount", "interestRate", "termMonths", "remainingBalance", "createdAt", "updatedAt"],
+      "properties": {
+        "loansID": {
+          "bsonType": "int",
+          "description": "Primary key for the loan, auto-incremented"
+        },
+        "userID": {
+          "bsonType": "objectId",
+          "description": "Reference to the User document"
+        },
+        "loanType": {
+          "bsonType": "string",
+          "description": "Type of the loan (e.g., personal, mortgage)",
+          "maxLength": 255
+        },
+        "principalAmount": {
+          "bsonType": "decimal",
+          "description": "Principal amount of the loan",
+          "minimum": 0.00
+        },
+        "interestRate": {
+          "bsonType": "decimal",
+          "description": "Interest rate of the loan as a percentage",
+          "minimum": 0.00,
+          "maximum": 100.00
+        },
+        "termMonths": {
+          "bsonType": "int",
+          "description": "Term of the loan in months",
+          "minimum": 0
+        },
+        "remainingBalance": {
+          "bsonType": "decimal",
+          "description": "Remaining balance of the loan",
+          "minimum": 0.00
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the loan was created"
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "Timestamp when the loan was last updated"
+        }
+      }
+    }
+  }
+
+
+]
+
