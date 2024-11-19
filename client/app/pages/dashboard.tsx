@@ -28,25 +28,17 @@ interface ListItem {
 }
 
 export default function Dashboard(): JSX.Element {
-  const [modalVisible, setModalVisible] = useState(false);
-
   const [budgetList, setBudgetList] = useState<ListItem[]>(dummyBudget);
   const [monthlySubscription, setMonthlySubscription] =
     useState<ListItem[]>(dummyMonthlySub);
   const [transactions, setTransactions] =
     useState<ListItem[]>(dummyTransactions);
 
-  const showModal = () => setModalVisible(true);
-  const hideModal = () => setModalVisible(false);
-
   return (
     <View style={styles.dashboardContainer}>
       <View style={styles.navContainer}>
         {/*temporary delete this later*/}
-        <Pressable style={styles.navButton} onPress={showModal}>
-          <Text style={styles.navText}>Profile</Text>
-        </Pressable>
-        <ProfileModal isVisible={modalVisible} onClose={hideModal} />
+        <ProfileModal />
       </View>
       <View style={styles.contentWrapper}>
         <View style={styles.topContainer}>
@@ -118,7 +110,6 @@ const styles = StyleSheet.create({
   navContainer: {
     // Temporary until Navbar is implemented
     flex: 1,
-    flexDirection: "row",
     alignItems: "center",
   },
   navButton: {
