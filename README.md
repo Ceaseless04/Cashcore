@@ -1,5 +1,5 @@
 # Cashcore
-mongodb-schema-test Branch information: updated 11/17/2024 by Yaohua Hu
+mongodb-schema-test Branch information: updated 11/19/2024 by Yaohua Hu
 
 INIT Web Dev Sprint 3 - integrate with MongoDB NoSQL Notes
 
@@ -18,8 +18,63 @@ python manage.py runserver # run web server on localhost, or restart the web ser
 
 ----TODO:
 1. Still work in progress, fixed JSON schemas and imported to DB, fixed MongoDB connection on settings.py, updated .env file installed additonal pymongo dependecies. 
- ISSUE:: "POST /restapi/register/ HTTP/1.1" 400 143 (400 HTTP Error while testing on routes.rest, POST Body HTTP request: http://localhost:8000/restapi/register/
-  Content-Type: application/json)
+ ISSUE::
+
+1. Send POST request to application endpoint to test on route.rest:
+POST http://localhost:8000/restapi/register/
+Content-Type: application/json
+
+{
+    "username": "username6",
+    "email": "name6@gmail.com",
+    "first_name": "Sam",
+    "last_name": "Posh",
+    "password": "username6"
+}
+
+Response 500 server error, data is not submitted to the database
+
+   HTTP/1.1 500 Internal Server Error
+Date: Tue, 19 Nov 2024 06:20:42 GMT
+Server: WSGIServer/0.2 CPython/3.10.7
+Content-Type: text/html; charset=utf-8
+Vary: origin, Cookie
+X-Frame-Options: DENY
+Content-Length: 145
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Server Error (500)</title>
+</head>
+<body>
+  <h1>Server Error (500)</h1><p></p>
+</body>
+</html>
+
+2. (venv) PS D:\HDD\Documents\GitHub\Cashcore\backend\server> python manage.py test
+   
+Error in testing indicates an issue with Djongo, the database adapter you we are using to connect Django to MongoDB. Specifically, Djongo struggles to process a specific SQL statement (INSERT INTO "django_migrations") during migrations or test database creation. django_migrations can be found on MongoDB Atlas
+ Found 1 test(s).
+Creating test database for alias 'default'...
+This version of djongo does not support "schema validation using CONSTRAINT" fully. Visit https://nesdis.github.io/djongo/support/
+Traceback (most recent call last):
+"""
+djongo.exceptions.SQLDecodeError:
+
+        Keyword: None
+        Sub SQL: None
+        FAILED SQL: ('INSERT INTO "django_migrations" ("app", "name", "applied") VALUES (%(0)s, %(1)s, %(2)s)',)
+        Params: (['contenttypes', '0001_initial', datetime.datetime(2024, 11, 19, 6, 22, 52, 924652)],)
+        Version: 1.3.7
+""""
+djongo.database.DatabaseError
+"""
+django.db.utils.DatabaseError
 
   a. Invalid Input Data: Ensure that the data being sent in the POST request is valid and meets the expected format. Add validation checks to handle invalid data gracefully.
 
@@ -74,15 +129,15 @@ To import a schema into a MongoDB NoSQL database, you can use the `mongoimport` 
 3. **Run the `mongoimport` command**: Use the following command to import your schema into MongoDB.
 
    ```sh
-mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Users --file Users.json --jsonArray 
+mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection CustomUser --file CustomUser.json --jsonArray 
 
 mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Budget --file Budget.json --jsonArray 
  
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Loans --file Loans.json --jsonArray 
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Loan --file Loan.json --jsonArray 
  
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Savings --file Savings.json --jsonArray 
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Saving --file Saving.json --jsonArray 
  
- mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Stocks --file Stocks.json --jsonArray
+ mongoimport --uri "mongodb+srv://<db_user>:<db_password>@cashcorecluster.58uqg.mongodb.net/CashCore" --collection Stock --file Stock.json --jsonArray
    ```
 
    Replace `<collection_name>` with the name of the collection you want to import the schema into and `<schema_file.json>` with the name of your schema file.
