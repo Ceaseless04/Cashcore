@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 
 from mongoengine import connect
 from pymongo import MongoClient
+import mongoengine
+#mongoengine.connect(db=CashCore, host=cashcorecluster-shard-00-00.58uqg.mongodb.net, username=WDI_Admin, password=number1best_team) #connect to MongoDB using mongoengine API instead, to integrate with Django
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -104,19 +106,29 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Access the environment variable
 MONGODB_HOST = os.getenv('MONGODB_HOST')
 DATABASES = {
-
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'CashCore',  # Replace with your database name
-        'ENFORCE_SCHEMA': False,  
-        'HOST': "mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster",
-        'ENFORCE_SCHEMA': False, #trying to bypass error: "This version of djongo does not support "schema validation using CONSTRAINT" fully." with djongo
-        'PORT': 27017, 
-        'CLIENT': {
-            'host': MONGODB_HOST,          # Replace with your MongoDB host
+     'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'CashCore',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/CashCore',
+                'username': 'WDI_Admin',
+                'password': 'number1best_team',
+                'authMechanism': 'SCRAM-SHA-1',
         }
-    }
-}
+    # 'default': {
+    #     'ENGINE': 'djongo',
+    #     'NAME': 'CashCore',  # Replace with your database name
+    #     'ENFORCE_SCHEMA': False,  
+    #     'HOST': "mongodb+srv://WDI_Admin:number1best_team@cashcorecluster.58uqg.mongodb.net/?retryWrites=true&w=majority&appName=CashCoreCluster",
+    #     'ENFORCE_SCHEMA': False, #trying to bypass error: This version of djongo does not support "schema validation using CONSTRAINT" fully." with djongo
+    #     'PORT': 27017, 
+    #     'CLIENT': {
+    #         'host': MONGODB_HOST,          # Replace with your MongoDB host
+    #     }
+    # }
+                }
+            }
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
