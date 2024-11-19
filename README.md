@@ -18,7 +18,9 @@ python manage.py runserver # run web server on localhost, or restart the web ser
 
 ----TODO:
 1. Still work in progress, fixed JSON schemas and imported to DB, fixed MongoDB connection on settings.py, updated .env file installed additonal pymongo dependecies. 
- ISSUE::
+ 
+ 
+ISSUE::
 
 1. Send POST request to application endpoint to test on route.rest:
 POST http://localhost:8000/restapi/register/
