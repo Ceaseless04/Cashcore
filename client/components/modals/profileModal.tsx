@@ -6,8 +6,10 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
-  Platform,
+  Image,
 } from "react-native";
+import { Link } from "expo-router";
+// import fonts and import icons for settings and logout
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const ProfileModal = (): JSX.Element => {
@@ -33,11 +35,17 @@ const ProfileModal = (): JSX.Element => {
               style={styles.modalContent}
               onPress={(e) => e.stopPropagation()}
             >
-              <Text style={[styles.text, styles.titleText]}>Donald Trump</Text>
-              <Text style={[styles.text]}>@donaldtrump47</Text>
+              <View style={styles.profileCircle}>
+                <Image
+                  source={require("../../assets/homepage/img/pepe.jpeg")}
+                  style={{ width: 100, height: 100, borderRadius: 50 }}
+                />
+              </View>
+              <Text style={[styles.text, styles.titleText]}>Pepe</Text>
+              <Text style={{ color: "#D5D5D5" }}>@donaldtrump47</Text>
               <View style={styles.inputContainers}>
                 <Text style={styles.text}>Name</Text>
-                <View
+                <View // Top textbox container
                   style={{
                     flex: 1,
                     flexDirection: "row",
@@ -81,19 +89,42 @@ const ProfileModal = (): JSX.Element => {
                   placeholderTextColor="#D5D5D5"
                 />
               </View>
+              <View // create styles for line
+                style={{
+                  width: "100%",
+                  backgroundColor: "#979797",
+                  height: 1,
+                  marginTop: 20,
+                }}
+              />
               <View style={styles.bottomContainer}>
-                <Pressable
-                  style={[styles.button, styles.cancelButton]}
-                  onPress={hideModal}
-                >
-                  <Text style={styles.text}>Cancel</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.saveButton, styles.button]}
-                  onPress={hideModal}
-                >
-                  <Text style={styles.text}>Save Changes</Text>
-                </Pressable>
+                <View>
+                  <Link
+                    style={{ color: "#D5D5D5", marginBottom: 10 }}
+                    href="/pages/loginPage"
+                  >
+                    {/* TODO:  change link later*/}
+                    Settings
+                  </Link>
+                  <Link style={{ color: "#D5D5D5" }} href="/pages/signup">
+                    {/* TODO: change link later */}
+                    Logout
+                  </Link>
+                </View>
+                <View style={styles.bottomContainer2}>
+                  <Pressable
+                    style={[styles.button, styles.cancelButton]}
+                    onPress={hideModal}
+                  >
+                    <Text style={styles.text}>Cancel</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.saveButton, styles.button]}
+                    onPress={hideModal}
+                  >
+                    <Text style={styles.text}>Save Changes</Text>
+                  </Pressable>
+                </View>
               </View>
             </Pressable>
           </Pressable>
@@ -130,6 +161,15 @@ const styles = StyleSheet.create({
     maxWidth: "40%",
     backgroundColor: "#181818",
   },
+  profileCircle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#D5D5D5",
+    alignSelf: "center",
+    position: "absolute",
+    top: -50,
+  },
   inputContainers: {
     flex: 1,
     flexDirection: "row",
@@ -141,22 +181,31 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 20,
     width: "100%",
+  },
+  bottomContainer2: {
+    flexDirection: "row",
+    gap: 10,
   },
   shortTextInput: {
     width: "30%",
     padding: 8,
-    borderWidth: 0,
-    backgroundColor: "#2C2C2C",
+    borderWidth: 1,
+    borderColor: "#979797",
+    // backgroundColor: "#2C2C2C",
     borderRadius: 10,
+    outlineStyle: "none",
   },
   longTextInput: {
     padding: 8,
-    width: "58%",
-    borderWidth: 0,
-    backgroundColor: "#2C2C2C",
+    width: "57.5%",
+    borderWidth: 1,
+    borderColor: "#979797",
+    // backgroundColor: "#2C2C2C",
     borderRadius: 10,
+    outlineStyle: "none",
   },
   saveButton: {
     backgroundColor: "#299f62", // TODO: change to theme color
@@ -180,6 +229,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 24,
     fontWeight: "bold",
+    marginTop: 40,
   },
   text: {
     color: "white",
