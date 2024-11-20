@@ -11,8 +11,25 @@ import {
 import { Link } from "expo-router";
 // import fonts and import icons for settings and logout
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { Settings, LogOut } from "lucide-react-native";
 
-const ProfileModal = (): JSX.Element => {
+interface ProfileModalProps {
+  firstName: string;
+  lastName: string;
+  username: string;
+  phoneNumber: string;
+  email: string;
+}
+
+const testUser: ProfileModalProps = {
+  firstName: "Pepe",
+  lastName: "The Frog",
+  username: "donaldtrump47",
+  phoneNumber: "3056994020",
+  email: "greatestpresident@gmail.com",
+};
+
+const ProfileModal = ({firstName, lastName, username, phoneNumber, email}: ProfileModalProps): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const showModal = () => setModalVisible(true);
@@ -41,26 +58,19 @@ const ProfileModal = (): JSX.Element => {
                   style={{ width: 100, height: 100, borderRadius: 50 }}
                 />
               </View>
-              <Text style={[styles.text, styles.titleText]}>Pepe</Text>
-              <Text style={{ color: "#D5D5D5" }}>@donaldtrump47</Text>
+              <Text style={[styles.text, styles.titleText]}>{firstName}</Text>
+              <Text style={{ color: "#D5D5D5" }}>@{username}</Text>
               <View style={styles.inputContainers}>
                 <Text style={styles.text}>Name</Text>
-                <View // Top textbox container
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    justifyContent: "flex-end",
-                    gap: 10,
-                  }}
-                >
+                <View style={styles.inputWrapper}>
                   <TextInput
                     style={[styles.text, styles.shortTextInput]}
-                    placeholder="First Name"
+                    placeholder={firstName}
                     placeholderTextColor="#D5D5D5"
                   />
                   <TextInput
                     style={[styles.text, styles.shortTextInput]}
-                    placeholder="Last Name"
+                    placeholder={lastName}
                     placeholderTextColor="#D5D5D5"
                   />
                 </View>
@@ -69,7 +79,7 @@ const ProfileModal = (): JSX.Element => {
                 <Text style={styles.text}>Username</Text>
                 <TextInput
                   style={[styles.text, styles.longTextInput]}
-                  placeholder="greatestpresident"
+                  placeholder={username}
                   placeholderTextColor="#D5D5D5"
                 />
               </View>
@@ -77,7 +87,7 @@ const ProfileModal = (): JSX.Element => {
                 <Text style={styles.text}>Phone Number</Text>
                 <TextInput
                   style={[styles.text, styles.longTextInput]}
-                  placeholder="3056994020"
+                  placeholder={phoneNumber}
                   placeholderTextColor="#D5D5D5"
                 />
               </View>
@@ -85,7 +95,7 @@ const ProfileModal = (): JSX.Element => {
                 <Text style={styles.text}>Email Address</Text>
                 <TextInput
                   style={[styles.text, styles.longTextInput]}
-                  placeholder="greatestpresident@gmail.com"
+                  placeholder={email}
                   placeholderTextColor="#D5D5D5"
                 />
               </View>
@@ -99,16 +109,17 @@ const ProfileModal = (): JSX.Element => {
               />
               <View style={styles.bottomContainer}>
                 <View>
-                  <Link
-                    style={{ color: "#D5D5D5", marginBottom: 10 }}
-                    href="/pages/loginPage"
-                  >
-                    {/* TODO:  change link later*/}
-                    Settings
+                  <Link href="/pages/loginPage">
+                    <View style={styles.pageLinks}>
+                      <Settings color="#D5D5D5"/>
+                      <Text style={{color: "#D5D5D5"}}>Settings</Text>
+                    </View>
                   </Link>
-                  <Link style={{ color: "#D5D5D5" }} href="/pages/signup">
-                    {/* TODO: change link later */}
-                    Logout
+                  <Link href="/pages/signup">
+                    <View style={styles.pageLinks}>
+                      <LogOut color="#D5D5D5"/>
+                      <Text style={{color: "#D5D5D5"}}>Logout</Text>
+                    </View>
                   </Link>
                 </View>
                 <View style={styles.bottomContainer2}>
@@ -158,7 +169,7 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
     height: "auto",
-    maxWidth: "40%",
+    maxWidth: "50%",
     backgroundColor: "#181818",
   },
   profileCircle: {
@@ -171,12 +182,33 @@ const styles = StyleSheet.create({
     top: -50,
   },
   inputContainers: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 20,
-    width: "100%",
+  },
+  inputWrapper: {
+    width: '65%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 10,
+  },
+  shortTextInput: {
+    flex: 1,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: "#979797",
+    borderRadius: 10,
+    outlineStyle: "none",
+  },
+  longTextInput: {
+    padding: 8,
+    width: '65%',
+    borderWidth: 1,
+    borderColor: "#979797",
+    borderRadius: 10,
+    outlineStyle: "none",
   },
   bottomContainer: {
     flexDirection: "row",
@@ -188,24 +220,6 @@ const styles = StyleSheet.create({
   bottomContainer2: {
     flexDirection: "row",
     gap: 10,
-  },
-  shortTextInput: {
-    width: "30%",
-    padding: 8,
-    borderWidth: 1,
-    borderColor: "#979797",
-    // backgroundColor: "#2C2C2C",
-    borderRadius: 10,
-    outlineStyle: "none",
-  },
-  longTextInput: {
-    padding: 8,
-    width: "57.5%",
-    borderWidth: 1,
-    borderColor: "#979797",
-    // backgroundColor: "#2C2C2C",
-    borderRadius: 10,
-    outlineStyle: "none",
   },
   saveButton: {
     backgroundColor: "#299f62", // TODO: change to theme color
@@ -230,6 +244,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 40,
+  },
+  pageLinks: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    gap: 5,
   },
   text: {
     color: "white",
