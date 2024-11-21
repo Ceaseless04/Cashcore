@@ -6,7 +6,10 @@
   still having a slight inaccuracy with calculating font sizes
   need to determine with lost or gain value by when rounding
 
-  //give other text their wrappers
+  //working on rotator 
+
+  notes:::::
+  //change value of string to number instead from SummaryCard component
 
 */
 
@@ -16,10 +19,8 @@ import { TextInput } from 'react-native-gesture-handler';
 
 
 
-import { Svg, RadialGradient, Defs, Stop, Circle, Pattern, Rect } from "react-native-svg";
-import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, but showing as errors on VSCode
-import SignUpBtnSvg from "./../assets/homepage/img/get-started.svg"; //works, but showing as errors on VSCode
-import LogInBtnSvg from "./../assets/homepage/img/login.svg";
+import { Svg, Pattern, Rect } from "react-native-svg";
+import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, but showing as errors/warnings
 import GradCapSvg from "./../assets/homepage/img/graduate-cap.svg";
 import MailIconSvg from "./../assets/homepage/img/mail-icon.svg";
 
@@ -27,7 +28,11 @@ import Jumper from "./../components/homepage/jumper";
 import GradientText from "./../components/homepage/grdnt_txt";
 import SignUpStep from "./../components/homepage/sgn_up_steps";
 import PulsateCir from "./../components/homepage/pulsate_cir";
+import Carousel from "./../components/homepage/carousel";
 import BorderGrdntBtn from "./../components/homepage/gradient_border";
+import TransactionCard from "./../components/homepage/dashboard_mod/transactions_card";
+import { BalanceContainer } from "./../components/dashboard/BalanceContainer";
+import { SummaryCard } from "./../components/homepage/dashboard_mod/summary_card";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -163,8 +168,9 @@ const block2 = StyleSheet.create({
   },
   mission_c:{
     width: window_width,
-    height: Math.round(window_height * 0.5) - 1,
-    marginTop: Math.round(master_measure * 0.2026) - 1,
+    height: window_height * 0.5,
+    paddingTop: Math.round(master_measure * 0.1),
+    // marginTop: Math.round(master_measure * 0.2026) - 1,
   },
   m_text:{
     color: "#4cb086",
@@ -195,7 +201,14 @@ const block2 = StyleSheet.create({
     // paddingRight: Math.round(master_measure * 0.5855) - 1,
     // paddingLeft: Math.round(master_measure * 0.5855) - 1,
   },
-  rotator_c:{
+
+
+  //set wrapper from the outside to fit into carousel seats
+  rotator_object_wrapper:{
+    width: Math.round(master_measure * .3162),
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   }
 });
 
@@ -498,6 +511,32 @@ export default function HomePage() {
 
   load_fonts();
 
+  //array of items for carousel
+  //it needs to be size of 4 or returns blank -> used in 2nd block
+  const component_array = [
+    <View style={block2.rotator_object_wrapper}>
+      <SummaryCard
+        title={"Monthly Income"}
+        percentage={0}
+        value="$2000"
+      />
+      <SummaryCard
+        title={"Monthly Income"}
+        percentage={.18}
+        value={"$4200"}
+      />
+      <SummaryCard
+        title={"Monthly Expenses"}
+        percentage={-.1}
+        value={"$690"}
+      />
+    </View>,  
+    <View style={block2.rotator_object_wrapper}>
+      <TransactionCard/>
+    </View>,
+    <Text>Test 3</Text>,
+    <Text>Test 4</Text>,
+  ];
 
   return (
     <ScrollView style={parent_styles.wrap_all}>
@@ -568,9 +607,11 @@ export default function HomePage() {
               We aim to offer the tools needed for you to successfully manage personal finances.
             </Text>
         </View>
-        <View style={block2.rotator_c}>
-          <Text style={block1.c1_g_text}>Rotate Objects Here</Text>
-        </View>
+        <Carousel
+          component_array={component_array}
+          carousel_width={window_width}
+          carousel_height={block2.c2.height * 0.5}
+        />
       </View>
 
 
@@ -735,44 +776,3 @@ function load_fonts() {
 
 }
 
-//animates through changing opacity
-function pulsate_gradiant() {
-  const pulse_animate = useRef(new Animated.Value(0)).current;
-
-  //attributes for the animation
-  useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulse_animate, {
-          toValue: 1,
-          duration: 2560,
-          easing: Easing.inOut(Easing.ease), 
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulse_animate, {
-          toValue: 0,
-          duration: 2560,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true, 
-        }),
-      ])
-    ).start();
-  }, [pulse_animate]);
-
-  //insertion of animation through opacity change
-  return pulse_animate.interpolate({
-    inputRange: [0, .4],
-    outputRange: [0, .4]
-  });
-}
-
-function get_circle_size() {
-  if ((window_height * 0.8) > (window_width * 0.4)) {
-    return (window_width * 0.4)/2;
-  } else {
-    return (window_height * 0.8)/2;
-  }
-}
-
-
-//debug button css

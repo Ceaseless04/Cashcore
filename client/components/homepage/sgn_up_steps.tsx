@@ -12,8 +12,9 @@ const s = StyleSheet.create({
     container:{
         width: Math.round(window_width * 0.25) - 1,
         height: Math.round(window_height * 0.5),
-        paddingRight: Math.round(master_measure * 0.068) - 1,
-        paddingLeft: Math.round(master_measure * 0.068) - 1,
+        alignItems: "center",
+        // paddingRight: Math.round(window_width * 0.0470) - 1,
+        // paddingLeft: Math.round(window_width * 0.0470) - 1,
     },
     numba_cont:{
 
@@ -24,7 +25,7 @@ const s = StyleSheet.create({
         fontWeight: "bold",
         color: "#ffffff",
         opacity: 0.4,
-        marginLeft: Math.round(master_measure * .0195),
+        marginRight: Math.round(master_measure * .179),
     },
     prmpt_cont:{
         width: Math.round(master_measure * 0.2619),

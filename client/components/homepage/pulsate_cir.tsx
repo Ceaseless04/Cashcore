@@ -37,7 +37,7 @@ export default function PulsateCir({win_width, win_height} : CirProps){
             </Defs>
             <Circle cx="50%" cy="50%" r={cir_size} fill="url(#grad)"/> 
           </Svg>  
-          </Animated.View>
+        </Animated.View>
     );
 }
 
@@ -52,11 +52,15 @@ function get_cir_size(ww: number, wh: number){
 }
 
 function pulsate_gradiant() {
+    //useRef = mutable reference 
+    // Animated.Value(0) = gives the value of 0 tp be interpolated through later 
+    //current = unwraps the refernce and gets the new object inside
     const pulse_animate = useRef(new Animated.Value(0)).current;
   
     //attributes for the animation
     useEffect(() => {
       Animated.loop(
+        //loop takes array sequence as an args
         Animated.sequence([
           Animated.timing(pulse_animate, {
             toValue: 1,
@@ -71,12 +75,12 @@ function pulsate_gradiant() {
             useNativeDriver: true, 
           }),
         ])
-      ).start();
+      ).start(); //start loop
     }, [pulse_animate]);
   
     //insertion of animation through opacity change
     return pulse_animate.interpolate({
-      inputRange: [0, .4],
-      outputRange: [0, .4]
+      inputRange: [0, 0.4],
+      outputRange: [0, 0.4]
     });
   }
