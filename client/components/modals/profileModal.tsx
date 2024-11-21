@@ -21,14 +21,6 @@ interface ProfileModalProps {
   email: string;
 }
 
-const testUser: ProfileModalProps = {
-  firstName: "Pepe",
-  lastName: "The Frog",
-  username: "donaldtrump47",
-  phoneNumber: "3056994020",
-  email: "greatestpresident@gmail.com",
-};
-
 const ProfileModal = ({firstName, lastName, username, phoneNumber, email}: ProfileModalProps): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
 

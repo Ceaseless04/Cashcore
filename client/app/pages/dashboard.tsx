@@ -38,7 +38,7 @@ export default function Dashboard(): JSX.Element {
     <View style={styles.dashboardContainer}>
       <View style={styles.navContainer}>
         {/*temporary delete this later*/}
-        <ProfileModal />
+        <ProfileModal firstName="Pepe" lastName="The Frog" username="donaldtrump47" phoneNumber="3056994020" email="greatestPresident@gmail.com"/>
       </View>
       <View style={styles.contentWrapper}>
         <View style={styles.topContainer}>
