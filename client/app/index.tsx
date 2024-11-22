@@ -11,6 +11,8 @@
   notes:::::
   //change value of string to number instead from SummaryCard component
 
+  GOTO jumper.tsx TO ADD NEW LINKS TO NEW PAGES FOR FASTER TRAVERSAL
+
 */
 
 import React, { useRef, useEffect } from "react";
@@ -31,6 +33,8 @@ import PulsateCir from "./../components/homepage/pulsate_cir";
 import Carousel from "./../components/homepage/carousel";
 import BorderGrdntBtn from "./../components/homepage/gradient_border";
 import TransactionCard from "./../components/homepage/dashboard_mod/transactions_card";
+import SavingsCard from "./../components/homepage/dashboard_mod/savings_card";
+import BudgetMeter from "./../components/homepage/dashboard_mod/budget_meter";
 import { BalanceContainer } from "./../components/dashboard/BalanceContainer";
 import { SummaryCard } from "./../components/homepage/dashboard_mod/summary_card";
 
@@ -530,12 +534,18 @@ export default function HomePage() {
         percentage={-.1}
         value={"$690"}
       />
-    </View>,  
+    </View>,
+
     <View style={block2.rotator_object_wrapper}>
       <TransactionCard/>
     </View>,
-    <Text>Test 3</Text>,
-    <Text>Test 4</Text>,
+
+    <View style={block2.rotator_object_wrapper}>
+      <SavingsCard/>
+    </View>,
+    <View style={block2.rotator_object_wrapper}>
+      <BudgetMeter/>
+    </View>,
   ];
 
   return (

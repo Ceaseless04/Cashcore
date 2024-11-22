@@ -62,12 +62,12 @@ export default function Carousel({component_array, carousel_width, carousel_heig
     }
 
     //for debugging
-    let colors: string[] = ["#dd2020", "#2020dd", "#dddd20", "#20dd20"];
+    // let colors: string[] = ["#dd2020", "#2020dd", "#dddd20", "#20dd20"];
 
     //build animated views
     let animated_views: React.ReactNode[] = Array.from({length: comp_arr_size}, ()=> <Animated.View/>);
     for(var i: number = 0; i < animated_views.length; ++i){
-        animated_views[i] =  <Animated.View key={i} style={[s.rotator_object_container, {backgroundColor: colors[i % 4]}, {right: horsee_arr[i][0]}, {opacity: horsee_arr[i][1]}]}>{component_array[i]}</Animated.View>;
+        animated_views[i] =  <Animated.View key={i} style={[s.rotator_object_container, {right: horsee_arr[i][0]}, {opacity: horsee_arr[i][1]}]}>{component_array[i]}</Animated.View>;
     }
 
     return (

@@ -16,7 +16,7 @@ const s = StyleSheet.create({
     container:{
         width: Math.round(master_measure * 0.3212),
         height: Math.round(master_measure * 0.3212),
-        backgroundColor: "#3e3e3e",
+        backgroundColor: "#323232",
         borderRadius: Math.round(master_measure * 0.0206),
         flexDirection: "column",
         alignItems: "center", 
