@@ -1,5 +1,5 @@
 
-### ----------- PLAIDITEM TESTING -----------
+### ----------- PLAID TESTING -----------
 
 ### class PlaidItemListCreate(generics.ListCreateAPIView)
 
@@ -23,13 +23,15 @@ Content-Type: application/json
     "userID": 7
 }
 
+### Sandbox Limitations --> auth, transactions, etc. returns the same JSON no matter the access code you use.
 
 
 
 
 
 
-### ----------- RESGITER & LOGIN TESTING -----------
+
+### ----------- REGISTER & LOGIN TESTING -----------
 
 ### class RegisterView(generics.CreateAPIView)
 

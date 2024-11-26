@@ -19,9 +19,9 @@ from plaid.model.transactions_sync_request import TransactionsSyncRequest
 from plaid.model.transactions_get_request import TransactionsGetRequest
 from plaid.model.auth_get_request import AuthGetRequest
 
-from ..models import PlaidItem
+from ..models import PlaidItem, Transaction
 from django.contrib.auth.models import User
-from ..serializers import PlaidItemSerializer
+from ..serializers import PlaidItemSerializer, TransactionSerializer
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -68,8 +68,7 @@ def create_link_token(request):
         print(f"\nuser_id: {user_id}")
 
         plaid_products = []
-        for product in plaidProducts:
-        # for product in PLAID_PRODUCTS:
+        for product in plaidProducts: # Convert to Product objects
             plaid_products.append(Products(product))
 
         # Create the link token request
@@ -238,7 +237,7 @@ def fetch_auth(request):
 
 
 
-### ----------- Get Transactions Associated with UserID -----------
+### ----------- Get Transactions Associated with UserID && Save to DB -----------
 
 
 
@@ -284,7 +283,25 @@ def fetch_transactions(request):
         transactions = transactions_response.get('transactions', []) # .get(key, default) --> returns [] in case KeyError occurs
         total_transactions = transactions_response.get('total_transactions', 0)
 
-        return Response({'transactions': transactions,'total_transactions': total_transactions}, status=status.HTTP_200_OK)
+
+        for t in transactions:
+            transaction_data = {
+                'userID': plaid_item.userID.pk, # Pass the primary key of the user
+                'accountID': t.get('account_id', ''),
+                'companyName': t.get('merchant_name') or 'Unknown',
+                'amount': t.get('amount', 0),
+                'categories': t.get('category', []),
+            }
+            # print(f"\n\n\n{transaction_data}\n\n\n")
+
+            serializer = TransactionSerializer(data=transaction_data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+        return Response({'message': 'Transactions Saved Successfully!', 'transactions': transactions, 'total_transactions': total_transactions}, status=status.HTTP_200_OK)
 
     except Exception as e:
         print(f"Error fetching transactions: {str(e)}")
