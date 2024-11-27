@@ -15,8 +15,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo-google-fonts/inter": "^0.2.3",
-    "@expo-google-fonts/space-grotesk": "^0.2.3",
     "@expo/vector-icons": "^14.0.3",
     "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/native": "^6.1.18",
@@ -46,8 +44,7 @@
     "react-native-toast-message": "^2.2.1",
     "react-native-web": "^0.19.12",
     "react-router-native": "^6.28.0",
-    "tailwindcss": "^3.4.14",
-    "@shopify/react-native-skia": "1.2.3"
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
