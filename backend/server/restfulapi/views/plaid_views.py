@@ -60,12 +60,17 @@ client = plaid_api.PlaidApi(api_client)
 def create_link_token(request):
     print("\n\n\ncreate_link_token -- REACHED\n")
     try:
+        data = json.loads(request.body)
+        user = User.objects.get(username=data['username'])
+        if not user:
+            raise Http404("User does not exist")
+        
         print(f"\nRequest Headers: {request.headers}")
         print(f"\nRequest Body: {request.body.decode('utf-8')}")
         # Generate a unique user ID for the link token, for example, using the authenticated user's ID
         # user_id = request.user.id if request.user.is_authenticated else "guest_user"
-        user_id = 18762
-        print(f"\nuser_id: {user_id}")
+        # user_id = 18762
+        # print(f"\nuser_id: {user_id}")
 
         plaid_products = []
         for product in plaidProducts: # Convert to Product objects
@@ -78,7 +83,7 @@ def create_link_token(request):
             country_codes=list(map(lambda x: CountryCode(x), ["US"])), 
             language="en",
             user=LinkTokenCreateRequestUser(
-                client_user_id=str(user_id)
+                client_user_id=str(user)
             )
         )
 
@@ -112,20 +117,28 @@ def set_access_token(request):
     print("\n\n\n\n\n\n\nset_access_token -- REACHED")
     # print(f"Request Headers: {request.headers}")
     # print(f"Request Body: {request.body.decode('utf-8')}")
-    data = json.loads(request.body)
-    public_token = data.get("public_token")
-    user_id = data.get("user_id")
-    metadata = data.get("metadata")
+    # data = json.loads(request.body)
+    # public_token = data.get("public_token")
+    # user_id = data.get("user_id")
+    # metadata = data.get("metadata")
 
-    print(f"\n\n{json.dumps(metadata, indent=4)}")
+    # print(f"\n\n{json.dumps(metadata, indent=4)}")
 
 
-    if not User.objects.filter(pk=user_id).exists():
-        # print("\n\nUser Does Not Exist Reached!\n\n")
-        return Response({"message": f"User with userID:{user_id} doesn't exist."}, status=status.HTTP_404_NOT_FOUND)
+    # if not User.objects.filter(pk=user_id).exists():
+    #     # print("\n\nUser Does Not Exist Reached!\n\n")
+    #     return Response({"message": f"User with userID:{user_id} doesn't exist."}, status=status.HTTP_404_NOT_FOUND)
 
 
     try:
+        data = json.loads(request.body)
+        public_token = data['public_token']
+        user = User.objects.get(username=data['username'])
+        if not user:
+            return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        metadata = data['metadata']
+
+
         exchange_request = ItemPublicTokenExchangeRequest(public_token=public_token)
         exchange_response = client.item_public_token_exchange(exchange_request)
         access_token = exchange_response['access_token']
@@ -137,7 +150,7 @@ def set_access_token(request):
 
         # Save PlaidItem to the DB --> allows us to reuse access_token to make requests on User<id>'s behalf
         plaid_item = {
-            "userID": user_id,
+            "userID": user,
             "accessToken": access_token,
             "itemID": item_id,
             "institutionName": metadata['institution']['name']
