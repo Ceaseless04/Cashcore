@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 
@@ -24,9 +24,9 @@ export default function BudgetWidget() {
           <Text style={styles.title}>Budget</Text>
           <Text style={styles.subtitle}>Total budget for November 2024.</Text>
         </View>
-        <TouchableOpacity style={styles.menuButton}>
+        <Pressable style={styles.menuButton}>
           <Text style={styles.menuIcon}>⋮</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View style={styles.content}>
         <Text style={styles.totalBudget}>${totalBudget.toLocaleString()}</Text>
@@ -50,8 +50,7 @@ export default function BudgetWidget() {
             />
           </Svg>
           <View style={styles.remainingContainer}>
-            <Text style={styles.remainingAmount}>${remaining.toLocaleString()}</Text>
-            <Text style={styles.remainingLabel}>Remaining</Text>
+            <Text style={styles.remainingAmount}>{`${remaining.toLocaleString()} Remaining`}</Text>
           </View>
         </View>
       </View>
@@ -73,12 +72,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   title: {
-    // fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
   },
   subtitle: {
-    // fontSize: 14,
+    fontSize: 13,
     color: '#A1A1AA',
     marginTop: 4,
   },
@@ -86,8 +85,8 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   menuIcon: {
-    // fontSize: 24,
-    color: '#A1A1AA',
+    fontSize: 13,
+    color: 'white',
   },
   content: {
     alignItems: 'center',
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   totalBudget: {
-    // fontSize: 40,
+    fontSize: 32,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 16,
@@ -116,9 +115,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   remainingAmount: {
-    // fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontSize: 13,
+    // fontWeight: 'bold',
+    color: '#A1A1AA',
   },
   remainingLabel: {
     // fontSize: 14,
