@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 
 const Navbar = () => {
-  const route = useRouter();
   const [linkToken, setLinkToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPlaidModal, setShowPlaidModal] = useState(false);
