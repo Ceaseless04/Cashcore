@@ -141,6 +141,7 @@ function ratio(val: number){
 
 }
 
+//basically the left half is 0 to -180 and the right side is 0 to 180
 function polar_to_cartesian(center_x: number, center_y: number, radius: number, angle_in_degrees: number) {
   var angle_in_radians: number = (angle_in_degrees-90) * Math.PI / 180.0;
 

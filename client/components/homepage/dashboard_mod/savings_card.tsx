@@ -1,6 +1,6 @@
 import React, {} from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
-import { Svg, Path, Defs, LinearGradient, Stop, Line } from "react-native-svg";
+import { Svg, Line } from "react-native-svg";
 
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";

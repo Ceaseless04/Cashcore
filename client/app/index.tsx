@@ -15,7 +15,7 @@
 
 */
 
-import React, { useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions, Animated, Easing, TouchableOpacity } from "react-native";
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -35,8 +35,9 @@ import BorderGrdntBtn from "./../components/homepage/gradient_border";
 import TransactionCard from "./../components/homepage/dashboard_mod/transactions_card";
 import SavingsCard from "./../components/homepage/dashboard_mod/savings_card";
 import BudgetMeter from "./../components/homepage/dashboard_mod/budget_meter";
-import { BalanceContainer } from "./../components/dashboard/BalanceContainer";
 import { SummaryCard } from "./../components/homepage/dashboard_mod/summary_card";
+import UpcomingPaymentCard from "./../components/homepage/budget_mod/upcoming_payments_card";
+import PerformanceCard from "./../components/homepage/budget_mod/monthy_chart";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -51,9 +52,9 @@ const window_width = Dimensions.get("window").width;
 const master_measure = Math.sqrt(window_height * window_width); 
 
 //debug
-console.log("Win_H: ", window_height);
-console.log("Win_W: ", window_width);
-console.log("Win_Added: ", window_width * .049);
+// console.log("Win_H: ", window_height);
+// console.log("Win_W: ", window_width);
+// console.log("Win_Added: ", window_width * .049);
 
 
 const parent_styles = StyleSheet.create({
@@ -354,6 +355,56 @@ const block4 = StyleSheet.create({
     width: window_width,
     height: window_height,
   },
+  top_container:{
+    width: window_width,
+    height: window_height * 0.2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  plus_text:{
+    fontFamily: "inter",
+    fontSize: ratio(20),
+    fontWeight: 500,
+    color: "#ffffff",
+    marginTop: -ratio(60),
+  },
+
+
+  bottom_container:{
+    width: window_width,
+    height: window_height * 0.8,
+    marginTop: ratio(100),
+    flexDirection: "row",
+  },
+  upcoming_container:{
+    width: window_width * 0.5,
+    height: window_height * 0.8,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    left: ratio(200),
+  },
+  performance_container:{
+    width: window_width * 0.5,
+    height: window_height * 0.8,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    top: ratio(70),
+    right: ratio(150), 
+  },
+  title:{
+    fontFamily: "inter",
+    fontSize: ratio(24), 
+    color: "#ffffff",
+    paddingLeft: ratio(20),
+
+  },
+  subtitle:{
+    fontFamily: "inter",
+    fontSize: ratio(13), 
+    color: "#979797",
+    paddingLeft: ratio(20),
+  },
+  
 });
 
 //block 5 final block and the skeleton will be finally done
@@ -509,9 +560,47 @@ const block5 = StyleSheet.create({
   },
 });
 
+const f = StyleSheet.create({
+  f_container:{
+    width: window_width,
+    height: ratio(300),
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  links_container:{
+    width: ratio(492),
+    height: ratio(91),
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center", 
+
+  },
+  logo_container:{
+    width: ratio(111) + 2,
+    height: ratio(29) + 2,
+  },
+  text:{ 
+    fontFamily: "inter",
+    color: "#ffffff",
+    fontSize: ratio(13),
+    textAlign: "center",
+
+  },
+  copyright_container:{
+    width: ratio(492),
+    height: ratio(59),
+    justifyContent: "center",
+    alignItems: "center",
+
+  },
+});
 //add navigation to other pages
 
 export default function HomePage() {
+
+  //storing email
+  const [email, set_email] = useState<string>("");
 
   load_fonts();
 
@@ -708,6 +797,39 @@ export default function HomePage() {
 
       <View style={block4.container}>
         <PulsateCir win_width={window_width} win_height={window_height}/>
+        
+        <View style={block4.top_container}>
+          <View style={{width: window_width, height: window_height * .2, marginBottom: 20}}>
+            <GradientText
+                text="+2,000"
+                text_size={ratio(100)}
+                colors={["#299f62", "#4db088"]}
+                text_weight="600"
+              />
+            </View>
+            <Text style={block4.plus_text}>Students are already using Cash Core to budget better.</Text>
+        </View>
+
+        <View style={block4.bottom_container}>
+          <View style={block4.upcoming_container}>
+            <UpcomingPaymentCard/>
+            <View>
+              <Text style={block4.title}>Keep Track of any upcoming payments</Text>
+              <Text style={block4.subtitle}>Stay on top of payments and steer clear of late fees.</Text>
+            </View>
+          </View>
+
+          <View style={block4.performance_container}>
+            <PerformanceCard/>
+            <View>
+              <Text style={block4.title}>View your monthly budget</Text>
+              <Text style={block4.subtitle}>Get an idea of where you're at for the month.</Text>
+            </View>
+          </View>
+        
+        </View>
+
+        
       </View>
 
 
@@ -749,16 +871,39 @@ export default function HomePage() {
                 <View style={block5.sublimal_container}>
                     <TextInput
                       style={block5.email_text_box}
+                      value={email} //something is happening here
+                      onChangeText={(text) => set_email(text)}
                       placeholder="Email address" 
                       keyboardType="email-address"
                     />
-                    <TouchableOpacity style={block5.subscribble_btn} activeOpacity={0.7}>
+                    <TouchableOpacity style={block5.subscribble_btn} activeOpacity={0.7} onPress={() => store_email(email)}>
                       <Text style={block5.slubcrybo_text}>Subscribe</Text>
                     </TouchableOpacity>
                 </View>
               </View>
           </View>
         </View>
+
+      </View>
+
+      <View style={f.f_container}>
+        <View style={f.links_container}>
+          <View>
+            <SvgLogo style={{width: ratio(111), height: ratio(29)}}/>
+          </View>
+          
+          <Text style={f.text}>Privacy Policy</Text>
+          
+          <Text style={f.text}>FAQ</Text>
+        
+          <Text style={f.text}>Contact Us</Text>
+          
+        </View>
+
+        <View style={f.copyright_container}>
+          <Text style={f.text}>©CashCore 2024. All rights reserved.</Text>
+        </View> 
+
 
       </View>
 
@@ -786,3 +931,22 @@ function load_fonts() {
 
 }
 
+//storing email to be used for backend
+function store_email(email: string) {
+  console.log(email);
+  //here we validate the email 
+  //and communicate with the backend
+
+}
+
+//determining size of items dependent on user screen size
+function ratio(val: number) : number{
+
+  var result: number = 0;
+  var og_ratio: number = Math.sqrt(1440 * 1024);
+  result = val / og_ratio;
+  result = master_measure * result;
+  
+  return Math.round(result);
+
+}
