@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+
+import React, { useState, useRef } from 'react';
+import { View, Text, StyleSheet, anResponder, Animated} from 'react-native';
 
 import { Link } from "expo-router";
 

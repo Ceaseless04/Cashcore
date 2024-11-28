@@ -1,7 +1,8 @@
 Django>=4.2.16
 psycopg2==2.9.7
 python-dotenv==1.0.0
-requests==2.31.0
+requests==2.32.2
 django-cors-headers==4.3.0
 djangorestframework==3.15.2
+plaid-python==27.0.0
 #environs

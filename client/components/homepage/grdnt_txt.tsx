@@ -14,6 +14,9 @@ export default function GradientText({text, colors, text_size, text_weight} : Gr
     //react native is so great we need to convert the text into an svg just so we could actually use it as a gradient
     return (   
         <Svg style={{height: "100%", width: "100%",}}>
+
+<!--         <Svg height="100%" width="100%"> -->
+
         <Defs>
             <SvgLinearGradient id="txt-grad" x1="0" y1="0.5" x2="1" y2="0.5">
             <Stop offset="0%" stopColor={colors[0]} stopOpacity="1" />

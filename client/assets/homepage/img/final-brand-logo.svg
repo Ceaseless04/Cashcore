@@ -6,6 +6,14 @@
     </radialGradient>
   </defs>
 <g opacity="0.4" filter="url(#filter0_f_694_140)">
+
+<!--  main branch
+ <stop offset="15%" style="stop-color:#27CE78;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#181818;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+<g opacity="0.3" filter="url(#filter0_f_694_140)">
+ -->
 <circle cx="177" cy="41" r="16" fill="url(#circleGradient)"/>
 </g>
 <g opacity="0.3" filter="url(#filter1_f_694_140)">

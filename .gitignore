@@ -7,4 +7,5 @@ backend/server/server/__pycache__
 backend/server/restfulapi/__pycache__
 backend/server/restfulapi/views/__pycache__
 
-backend/venv
+backend/server/server/venv/
+backend/server/server/env

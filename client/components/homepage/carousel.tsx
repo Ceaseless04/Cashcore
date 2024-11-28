@@ -146,17 +146,19 @@ function move(initial_pos: number, initial_opacity: number, comp_arr_size: numbe
                                         useNativeDriver: false,
                                     }),
                                 ]);
-            
+            console.log("I: move", i);
         } else {
             anim_sequence[i] = Animated.timing((new_anim_move), {
                                 toValue: reallign(),
                                 duration: 1000,
                                 useNativeDriver: false,
                               });
-                         
+
+            console.log("I: delay", i);                
         }
     }
- 
+    console.log("This is running");
+
     //curr_pos middle, opacity is 1 
     //curr_pos not in middle but is between 1 and 4 opcaity is 0.5
     //curr_pos < 1 or curr_pos > 4 opacity is 0
