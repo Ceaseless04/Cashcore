@@ -3,7 +3,7 @@ import { View, Text, PanResponder, Animated, StyleSheet } from 'react-native';
 
 import { Link } from "expo-router";
 
-export default function DebugRouter() {
+export default function Jumper() {
 
   return (
     <View style={styles.container}>
@@ -12,7 +12,6 @@ export default function DebugRouter() {
         <Link href="/pages/loginPage"> Login Page </Link>
         <Link href="/pages/signup"> Sign Up Page </Link>
         <Link href="/pages/dashboard"> Dash Board</Link>
-      
       </View>
     </View>
   );

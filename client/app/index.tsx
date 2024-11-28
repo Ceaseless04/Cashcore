@@ -1,7 +1,7 @@
 /*
   The page will be organized in the way that each container could be considered as blocks stack on top of one another.
   Each block will take up the space of the screen.
-  All blocks are wraped up by a parent container, where its only job is to allign all given blocks
+  All blocks are wrapped up by a parent container, where its only job is to allign all given blocks
 
   Tomorrow: Work on Block 2
 
@@ -15,6 +15,8 @@ import { Svg, RadialGradient, Defs, Stop, Circle } from "react-native-svg";
 import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, but showing as errors on VSCode
 import SignUpBtnSvg from "./../assets/homepage/img/get-started.svg"; //works, but showing as errors on VSCode
 import LogInBtnSvg from "./../assets/homepage/img/login.svg";
+
+import Navbar from "@/components/navbar";
 
 import Jumper from "./../components/homepage/jumper";
 
@@ -148,36 +150,9 @@ export default function HomePage() {
   return (
     <ScrollView style={parent_styles.wrap_all}>
       
-      <header style={h.head}>
-        <View style={h.wrapper}>
-          
-          <SvgLogo style={h.logo}></SvgLogo>
-          
-          <View style={h.nav_text_c}>
-              <Text style={h.nav_text}>About</Text>
-              <Text style={h.nav_text}>Resources</Text>
-              <Text style={h.nav_text}>Contact Us</Text>
-          </View>
-
-          <View style={h.b_c}>
-            <TouchableOpacity activeOpacity={0.7}>
-              <Link href="./pages/loginPage">
-                <LogInBtnSvg style={h.b2}/>
-              </Link>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
-              <Link href="./pages/signup">
-                <SignUpBtnSvg style={h.b1}/>
-              </Link>
-            </TouchableOpacity>
-          </View>
-
-          
-        </View>       
-      </header>
-
-
-      <View style={block1.wrapper}>
+      <Navbar />
+      
+      <View style={block1.wrapper}> {/* Hero Section */}
         <View style={block1.c1}>
           <Animated.View style={[block1.gradient_container, {opacity: pulsate_gradiant()}]}>
           <Svg style={block1.gradient}>
@@ -195,16 +170,14 @@ export default function HomePage() {
           <Text style={block1.c1_w_text}>Finances</Text>
         </View>
       </View>
-
-
-      <View style={block2.c2}>
+      
+      <View style={block2.c2}> {/* Text Section */}
         <Text style={block1.c1_g_text}>Testing Text</Text>
       </View>
 
-      <Jumper></Jumper>
-    </ScrollView>
+      <Jumper /> {/* Random Box on the Bottom for Routing */}
 
-    
+    </ScrollView>
   );
 }
 
@@ -263,3 +236,42 @@ function get_circle_size() {
 
 
 //debug button css
+
+
+
+
+
+
+
+
+
+{/* <nav style={h.head}>
+      
+        <View style={h.wrapper}>
+
+          <SvgLogo style={h.logo} /> 
+          
+
+          <View style={h.nav_text_c}> 
+              <Text style={h.nav_text}>About</Text>
+              <Text style={h.nav_text}>Resources</Text>
+              <Text style={h.nav_text}>Contact Us</Text>
+          </View>
+     
+          
+          <View style={h.b_c}> 
+            <TouchableOpacity activeOpacity={0.7}>
+              <Link href="./pages/loginPage">
+                <LogInBtnSvg style={h.b2}/>
+              </Link>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
+              <Link href="./pages/signup">
+                <SignUpBtnSvg style={h.b1}/>
+              </Link>
+            </TouchableOpacity>
+          </View>
+          
+        </View>  
+
+      </nav> */}

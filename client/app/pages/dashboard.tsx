@@ -7,6 +7,8 @@ import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
 import ProfileModal from "@/components/modals/profileModal";
 
+import Navbar from "@/components/navbar";
+
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
 const dummyMonthlySub: ListItem[] = [
@@ -36,6 +38,7 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <View style={styles.dashboardContainer}>
+      <Navbar />
       <View style={styles.navContainer}>
         {/*temporary delete this later*/}
         <ProfileModal firstName="Pepe" lastName="The Frog" username="donaldtrump47" phoneNumber="3056994020" email="greatestPresident@gmail.com"/>
