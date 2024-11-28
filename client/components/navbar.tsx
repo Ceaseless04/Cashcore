@@ -109,7 +109,7 @@ const Navbar = () => {
         ))}
       </View>
 
-      {/* Single Button */}
+      {/* Plaid Link Button */}
       <TouchableOpacity
         onPress={linkToken ? () => setShowPlaidModal(true) : fetchLinkToken}
         disabled={isLoading}

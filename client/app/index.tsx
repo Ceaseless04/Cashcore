@@ -150,7 +150,41 @@ export default function HomePage() {
   return (
     <ScrollView style={parent_styles.wrap_all}>
       
-      <Navbar />
+      {/* <Navbar /> */}
+
+      <nav style={h.head}>
+      
+        <View style={h.wrapper}>
+
+          <SvgLogo style={h.logo} /> 
+          
+
+          <View style={h.nav_text_c}> 
+              <Text style={h.nav_text}>About</Text>
+              <Text style={h.nav_text}>Resources</Text>
+              <Text style={h.nav_text}>Contact Us</Text>
+              <Link href='/pages/dashboard'>
+                <Text style={h.nav_text}>Dashboard </Text>
+              </Link>
+          </View>
+     
+          
+          <View style={h.b_c}> 
+            <TouchableOpacity activeOpacity={0.7}>
+              <Link href="./pages/loginPage">
+                <LogInBtnSvg style={h.b2}/>
+              </Link>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
+              <Link href="./pages/signup">
+                <SignUpBtnSvg style={h.b1}/>
+              </Link>
+            </TouchableOpacity>
+          </View>
+          
+        </View>  
+
+      </nav>
       
       <View style={block1.wrapper}> {/* Hero Section */}
         <View style={block1.c1}>
@@ -245,33 +279,3 @@ function get_circle_size() {
 
 
 
-{/* <nav style={h.head}>
-      
-        <View style={h.wrapper}>
-
-          <SvgLogo style={h.logo} /> 
-          
-
-          <View style={h.nav_text_c}> 
-              <Text style={h.nav_text}>About</Text>
-              <Text style={h.nav_text}>Resources</Text>
-              <Text style={h.nav_text}>Contact Us</Text>
-          </View>
-     
-          
-          <View style={h.b_c}> 
-            <TouchableOpacity activeOpacity={0.7}>
-              <Link href="./pages/loginPage">
-                <LogInBtnSvg style={h.b2}/>
-              </Link>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={SignUpBtnSvg.onPress} activeOpacity={0.7}>
-              <Link href="./pages/signup">
-                <SignUpBtnSvg style={h.b1}/>
-              </Link>
-            </TouchableOpacity>
-          </View>
-          
-        </View>  
-
-      </nav> */}
