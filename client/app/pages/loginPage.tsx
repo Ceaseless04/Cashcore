@@ -29,7 +29,7 @@ export default function loginPage() {
   return (
     <>
       <ImageBackground
-        source={require("../../depreciated/assets/images/bg gradient.png")}
+        source={require("../../assets/images/bg gradient.png")}
         resizeMode="cover"
         style={{ width: "100%" }}
       ></ImageBackground>
