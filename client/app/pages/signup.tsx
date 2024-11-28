@@ -17,6 +17,7 @@ import {
 } from '@expo-google-fonts/inter';
 import SvgLogo from "../../assets/homepage/img/signup-login-logo.svg";
 
+
 export default function SignUpScreen() {
   
   const [spaceGroteskLoaded] = useSpaceGroteskFonts({
@@ -88,7 +89,8 @@ export default function SignUpScreen() {
   return (
     <>
       <ImageBackground
-        source={require("../../assets/images/bg gradient.png")}
+        source={require('../../depreciated/assets/images/bg gradient.png')}
+        // source={require('../../assets/images/bg gradient.png')}
         resizeMode="cover"
         style={{width: "100%"}}>
       </ImageBackground>      
