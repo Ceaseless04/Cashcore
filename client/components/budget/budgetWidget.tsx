@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
+import { ellipsisVertical } from "lucide-react-native";
 
 export default function BudgetWidget() {
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
@@ -20,13 +21,13 @@ export default function BudgetWidget() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View>
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Budget</Text>
-          <Text style={styles.subtitle}>Total budget for November 2024.</Text>
+          <Pressable style={styles.menuButton}>
+            <Text style={styles.menuIcon}>⋮</Text>
+          </Pressable>
         </View>
-        <Pressable style={styles.menuButton}>
-          <Text style={styles.menuIcon}>⋮</Text>
-        </Pressable>
+        <Text style={styles.subtitle}>Total budget for November 2024.</Text>
       </View>
       <View style={styles.content}>
         <Text style={styles.totalBudget}>${totalBudget.toLocaleString()}</Text>
@@ -67,19 +68,22 @@ const styles = StyleSheet.create({
     // width: '100%',
   },
   header: {
+    flexDirection: 'column',
+    marginBottom: 16,
+  },
+  titleContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: colorPalette.light,
   },
   subtitle: {
     fontSize: 13,
     color: '#A1A1AA',
-    marginTop: 4,
   },
   menuButton: {
     padding: 8,
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   totalBudget: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    color: colorPalette.light,
     marginBottom: 16,
   },
   graphContainer: {
@@ -117,10 +121,6 @@ const styles = StyleSheet.create({
   remainingAmount: {
     fontSize: 13,
     // fontWeight: 'bold',
-    color: '#A1A1AA',
-  },
-  remainingLabel: {
-    // fontSize: 14,
-    color: '#A1A1AA',
+    color: colorPalette.light,
   },
 });
