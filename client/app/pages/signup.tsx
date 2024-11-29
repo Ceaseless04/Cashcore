@@ -17,6 +17,7 @@ import {
 } from '@expo-google-fonts/inter';
 import SvgLogo from "../../assets/homepage/img/signup-login-logo.svg";
 
+
 export default function SignUpScreen() {
   
   const [spaceGroteskLoaded] = useSpaceGroteskFonts({

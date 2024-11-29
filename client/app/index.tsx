@@ -131,7 +131,7 @@ const block1 = StyleSheet.create({
     height: window_height - (window_height * 0.2),
   },
   //wrap around text and gradient
-  c1: { 
+  c1: {
     width: window_width,
     height: window_height - (window_height * 0.2),
     alignItems: "center",
@@ -482,7 +482,6 @@ const block5 = StyleSheet.create({
     textAlign: "center",
     color: "#ffffff",
   },
-
   news_letter_container:{
     width: window_width,
     height: window_height * 0.5,
@@ -500,7 +499,6 @@ const block5 = StyleSheet.create({
     width: Math.round(master_measure * 0.3920),
     height: Math.round(master_measure * 0.3203),
   },
-
   mail_icon:{
     position: "absolute",
     width: Math.round(master_measure * 0.0955),
