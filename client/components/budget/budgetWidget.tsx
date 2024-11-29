@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, StyleSheet, Modal, TextInput } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
@@ -10,15 +10,27 @@ type WebPressableCallBackType = {
 };
 
 export default function BudgetWidget() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editedBudget, setEditedBudget] = useState('2000');
+
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
   const totalBudget = 2000;
   const remaining = 1222;
   const spent = totalBudget - remaining;
   const spentPercentage = (spent / totalBudget) * 100;
 
+  const handleSaveBudget = () => {
+    // TODO: Add API call to save budget
+    const newBudget = parseFloat(editedBudget);
+    if (!isNaN(newBudget) && newBudget > 0) {
+      // Update budget logic here
+      setIsModalVisible(false);
+    }
+  };
+
   // Calculate the SVG arc path for the semi-circle
   const size = 300; // Fixed size that will scale with container
-  const strokeWidth = 30;
+  const strokeWidth = 30; // Reduced from 30
   const radius = (size / 2) - (strokeWidth / 2);
   const circumference = radius * Math.PI;
   const strokeDashoffset = circumference - (spentPercentage / 100) * circumference;
@@ -29,12 +41,11 @@ export default function BudgetWidget() {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Budget</Text>
           <Pressable 
-            style={({ hovered }: WebPressableCallBackType) => [
+            style={({ pressed }) => [
               styles.menuButton,
-              hovered && styles.menuButtonHovered
+              pressed && styles.menuButtonHovered
             ]}
-            onHoverIn={() => {}}
-            onHoverOut={() => {}}
+            onPress={() => setIsModalVisible(true)}
           >
             <EllipsisVertical size={13} color={colorPalette.light} />
           </Pressable>
@@ -48,14 +59,14 @@ export default function BudgetWidget() {
             <Path
               d={`M ${strokeWidth / 2},${size / 2} A ${radius},${radius} 0 0,1 ${size - strokeWidth / 2},${size / 2}`}
               fill="none"
-              stroke="rgba(255, 255, 255, 0.2)"
+              stroke={colorPalette.light}
               strokeWidth={strokeWidth}
               strokeLinecap="round"
             />
             <Path
               d={`M ${strokeWidth / 2},${size / 2} A ${radius},${radius} 0 0,1 ${size - strokeWidth / 2},${size / 2}`}
               fill="none"
-              stroke="#10B981"
+              stroke={colorPalette.green}
               strokeWidth={strokeWidth}
               strokeLinecap="round"
               strokeDasharray={`${circumference} ${circumference}`}
@@ -67,6 +78,42 @@ export default function BudgetWidget() {
           </View>
         </View>
       </View>
+      
+      {/* Edit Budget Modal */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Edit Budget</Text>
+            <TextInput
+              style={styles.input}
+              value={editedBudget}
+              onChangeText={setEditedBudget}
+              keyboardType="numeric"
+              placeholder="Enter new budget amount"
+              placeholderTextColor={'#979797'}
+            />
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.button, styles.saveButton]}
+                onPress={handleSaveBudget}
+              >
+                <Text style={styles.buttonText}>Save</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.cancelButton]}
+                onPress={() => setIsModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>Cancel</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -134,5 +181,55 @@ const styles = StyleSheet.create({
     fontSize: 13,
     // fontWeight: 'bold',
     color: colorPalette.light,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: colorPalette.medium,
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    maxWidth: 400,
+  },
+  modalTitle: {
+    color: colorPalette.light,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  input: {
+    color: colorPalette.light,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+    fontSize: 16,
+    outlineStyle: 'none',
+    borderColor: '#979797',
+    borderWidth: 1,
+  },
+  modalButtons: {
+    flexDirection: 'column',
+    gap: 10,
+  },
+  button: {
+    padding: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#FF0004',
+  },
+  saveButton: {
+    backgroundColor: colorPalette.green,
+  },
+  buttonText: {
+    color: colorPalette.light,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
