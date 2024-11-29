@@ -19,9 +19,8 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, ScrollView, Dimensions, Animated, Easing, TouchableOpacity } from "react-native";
 import { TextInput } from 'react-native-gesture-handler';
 
-
-
 import { Svg, Pattern, Rect } from "react-native-svg";
+
 import SvgLogo from "./../assets/homepage/img/final-brand-logo.svg"; //works, but showing as errors/warnings
 import GradCapSvg from "./../assets/homepage/img/graduate-cap.svg";
 import MailIconSvg from "./../assets/homepage/img/mail-icon.svg";
@@ -78,18 +77,18 @@ const h = StyleSheet.create({
   wrapper: {
     width: window_width,
     height: "auto",
-    padding: "1%",
+    padding: ratio(20),
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   logo: {
-    width: Math.round(master_measure * 0.2133),
+    width: Math.round(master_measure * 0.2588),
     height: Math.round(master_measure * 0.0560),
   },
   nav_text_c: {
-    width: "60%",
+    width: window_width - (Math.round(master_measure * 0.2588) * 2) - (ratio(20) * 2),
     flexDirection: "row", 
     height: "auto",
     justifyContent: "center",
@@ -133,7 +132,7 @@ const block1 = StyleSheet.create({
   },
   //wrap around text and gradient
   c1: { 
-    width: window_width * 0.4,
+    width: window_width,
     height: window_height - (window_height * 0.2),
     alignItems: "center",
     justifyContent: "center",
@@ -605,7 +604,6 @@ export default function HomePage() {
   load_fonts();
 
   //array of items for carousel
-  //it needs to be size of 4 or returns blank -> used in 2nd block
   const component_array = [
     <View style={block2.rotator_object_wrapper}>
       <SummaryCard
@@ -641,7 +639,7 @@ export default function HomePage() {
     <ScrollView style={parent_styles.wrap_all}>
     <View style={parent_styles.centering_all}>
       
-      <header style={h.head}>
+      <View style={h.head}>
         <View style={h.wrapper}>
           
           <SvgLogo style={h.logo}></SvgLogo>
@@ -685,7 +683,7 @@ export default function HomePage() {
 
           
         </View>       
-      </header>
+      </View>
 
 
       <View style={block1.wrapper}>

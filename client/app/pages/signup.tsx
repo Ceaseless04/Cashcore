@@ -88,7 +88,7 @@ export default function SignUpScreen() {
   return (
     <>
       <ImageBackground
-        source={require("../../assets/images/bg gradient.png")}
+        source={require("../../assets/signup/img/bg_gradient.png")}
         resizeMode="cover"
         style={{width: "100%"}}>
       </ImageBackground>      
