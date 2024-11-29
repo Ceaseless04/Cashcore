@@ -2,7 +2,12 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
-import { ellipsisVertical } from "lucide-react-native";
+import { EllipsisVertical } from "lucide-react-native";
+
+type WebPressableCallBackType = {
+  hovered?: boolean;
+  pressed?: boolean;
+};
 
 export default function BudgetWidget() {
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
@@ -23,8 +28,15 @@ export default function BudgetWidget() {
       <View style={styles.header}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Budget</Text>
-          <Pressable style={styles.menuButton}>
-            <Text style={styles.menuIcon}>⋮</Text>
+          <Pressable 
+            style={({ hovered }: WebPressableCallBackType) => [
+              styles.menuButton,
+              hovered && styles.menuButtonHovered
+            ]}
+            onHoverIn={() => {}}
+            onHoverOut={() => {}}
+          >
+            <EllipsisVertical size={13} color={colorPalette.light} />
           </Pressable>
         </View>
         <Text style={styles.subtitle}>Total budget for November 2024.</Text>
@@ -87,10 +99,10 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     padding: 8,
+    borderRadius: 8,
   },
-  menuIcon: {
-    fontSize: 13,
-    color: 'white',
+  menuButtonHovered: {
+    backgroundColor: '#A1A1AA',
   },
   content: {
     alignItems: 'center',
