@@ -28,6 +28,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
 
+
  
 clientID = os.getenv('PLAID_CLIENT_ID')
 plaidSecret = os.getenv('PLAID_SECRET')
@@ -306,6 +307,7 @@ def fetch_transactions(request):
     except Exception as e:
         print(f"Error fetching transactions: {str(e)}")
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
         
