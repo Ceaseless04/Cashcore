@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal, TextInput } from 'react-native';
-import Svg, { Path, Circle } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
 
-type WebPressableCallBackType = {
-  hovered?: boolean;
-  pressed?: boolean;
-};
+// type WebPressableCallBackType = {
+//   hovered?: boolean;
+//   pressed?: boolean;
+// };
 
 export default function BudgetWidget() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -99,16 +99,16 @@ export default function BudgetWidget() {
             />
             <View style={styles.modalButtons}>
               <Pressable
-                style={[styles.button, styles.saveButton]}
-                onPress={handleSaveBudget}
-              >
-                <Text style={styles.buttonText}>Save</Text>
-              </Pressable>
-              <Pressable
                 style={[styles.button, styles.cancelButton]}
                 onPress={() => setIsModalVisible(false)}
               >
                 <Text style={styles.buttonText}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.saveButton]}
+                onPress={handleSaveBudget}
+              >
+                <Text style={styles.buttonText}>Save</Text>
               </Pressable>
             </View>
           </View>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: '80%',
-    maxWidth: 400,
+    maxWidth: 300,
   },
   modalTitle: {
     color: colorPalette.light,
@@ -204,8 +204,9 @@ const styles = StyleSheet.create({
   },
   input: {
     color: colorPalette.light,
-    padding: 10,
-    borderRadius: 5,
+    padding: 12,
+    borderRadius: 10,
+    marginVertical: 15,
     marginBottom: 15,
     fontSize: 16,
     outlineStyle: 'none',
@@ -213,16 +214,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   modalButtons: {
-    flexDirection: 'column',
-    gap: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
-    padding: 12,
-    borderRadius: 5,
+    paddingHorizontal: 22,
+    paddingVertical: 9,
+    borderRadius: 10,
     alignItems: 'center',
   },
   cancelButton: {
-    backgroundColor: '#FF0004',
+    borderWidth: 1,
+    borderColor: '#979797',
   },
   saveButton: {
     backgroundColor: colorPalette.green,
