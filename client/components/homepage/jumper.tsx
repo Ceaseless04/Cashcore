@@ -12,7 +12,7 @@ export default function DebugRouter() {
         <Link href="/pages/loginPage"> Login Page </Link>
         <Link href="/pages/signup"> Sign Up Page </Link>
         <Link href="/pages/dashboard"> Dash Board</Link>
-      
+        <Link href="/pages/forgotPassword"> Forgot Password </Link>
       </View>
     </View>
   );
