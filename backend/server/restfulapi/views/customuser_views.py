@@ -6,6 +6,8 @@ from ..models import CustomUser
 from ..serializers import CustomUserSerializer
 from django.http import Http404
 
+from django.http import HttpResponseRedirect # import added for http redirect when user is deleted, or direct to delete user page
+
 
 # Include cors --> so that frontend can make requests (possibly will have to do)
 
@@ -47,7 +49,13 @@ class CustomUserDetail(APIView):
     def delete(self, request, pk, format=None): #WORKS --> Delete 1 (cascade is working)
         user = self.get_object(pk)
         user.delete()
-        return Response({"message": f"User {pk} Successfully Deleted."}, status=status.HTTP_204_NO_CONTENT)
+        return HttpResponseRedirect("http://localhost:8081/pages/deleteaccountsuccess") #redirects to delete account success page, when account is deleted
+        # return Response({"message": f"User {pk} Successfully Deleted."}, status=status.HTTP_204_NO_CONTENT)
     
     def patch(self, request, pk, format=None): #Probably not needed
         return Response({"message": "Patch not implemented yet"})
+    
+    def request_delete(self, request, pk, format=None): # method that directs to http://localhost:8081/pages/deleteaccount when a user wants to delete their account
+        return HttpResponseRedirect("http://localhost:8081/pages/deleteaccount")
+    
+    
