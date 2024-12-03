@@ -9,14 +9,24 @@ type WebPressableCallBackType = {
   pressed?: boolean;
 };
 
-export default function BudgetWidget() {
+interface BudgetWidgetProps {
+  totalBudget: number;
+  currentSavings: number;
+  onBudgetUpdate: (newBudget: number) => void;
+}
+
+export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdate}: BudgetWidgetProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editedBudget, setEditedBudget] = useState('2000');
+  const [editedBudget, setEditedBudget] = useState(totalBudget.toString());
   const [isAnimating, setIsAnimating] = useState(false);
 
+  useEffect(() => {
+    setEditedBudget(totalBudget.toString());
+  }, [totalBudget]);
+
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
-  const totalBudget = 2000;
-  const remaining = 778;
+  // const totalBudget = 2000;
+  const remaining = totalBudget - currentSavings;
   const spent = totalBudget - remaining;
   const spentPercentage = (spent / totalBudget) * 100;
 
@@ -25,11 +35,13 @@ export default function BudgetWidget() {
   }, []);
 
   const handleSaveBudget = () => {
-    // TODO: Add API call to save budget
     const newBudget = parseFloat(editedBudget);
     if (!isNaN(newBudget) && newBudget > 0) {
-      // Update budget logic here
+      onBudgetUpdate(newBudget);
       setIsModalVisible(false);
+      // Reset animation for the updated value
+      setIsAnimating(false);
+      setTimeout(() => setIsAnimating(true), 50);
     }
   };
 

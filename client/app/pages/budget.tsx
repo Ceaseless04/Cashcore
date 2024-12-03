@@ -1,18 +1,28 @@
-import { View, Text, StyleSheet } from "react-native";
-import BudgetWidget from "@/components/budget/budgetWidget";
+import { View, StyleSheet } from 'react-native';
+import BudgetWidget from '@/components/budget/budgetWidget';
+import { useState } from 'react';
 import colorPalette from "../utils/colors";
 
-const Budget = () => {
+export default function Budget() {
+  const [totalBudget, setTotalBudget] = useState(4000);
+  const currentSavings = 3020;
+
+  const handleBudgetUpdate = (newBudget: number) => {
+    setTotalBudget(newBudget);
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.contentWrapper}>
-        <BudgetWidget />
+        <BudgetWidget 
+          totalBudget={totalBudget} 
+          currentSavings={currentSavings} 
+          onBudgetUpdate={handleBudgetUpdate}
+        />
       </View>
     </View>
   );
-};
-
-export default Budget;
+}
 
 const styles = StyleSheet.create({
   mainContainer: {
