@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet, Modal, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable, StyleSheet, Modal, TextInput, Animated } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
@@ -12,12 +12,17 @@ type WebPressableCallBackType = {
 export default function BudgetWidget() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editedBudget, setEditedBudget] = useState('2000');
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
   const totalBudget = 2000;
-  const remaining = 1222;
+  const remaining = 778;
   const spent = totalBudget - remaining;
   const spentPercentage = (spent / totalBudget) * 100;
+
+  useEffect(() => {
+    setIsAnimating(true);
+  }, []);
 
   const handleSaveBudget = () => {
     // TODO: Add API call to save budget
@@ -70,11 +75,14 @@ export default function BudgetWidget() {
               strokeWidth={strokeWidth}
               strokeLinecap="round"
               strokeDasharray={`${circumference} ${circumference}`}
-              strokeDashoffset={strokeDashoffset}
+              strokeDashoffset={isAnimating ? strokeDashoffset : circumference}
+              style={{
+                transition: 'stroke-dashoffset 1s ease-in-out',
+              }}
             />
           </Svg>
           <View style={styles.remainingContainer}>
-            <Text style={styles.remainingAmount}>{`${remaining.toLocaleString()} Remaining`}</Text>
+            <Text style={styles.remainingAmount}>{`$${remaining.toLocaleString()} Remaining`}</Text>
           </View>
         </View>
       </View>
