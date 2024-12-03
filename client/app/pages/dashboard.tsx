@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
@@ -82,8 +82,9 @@ export default function Dashboard(): JSX.Element {
 const styles = StyleSheet.create({
   dashboardContainer: { 
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     backgroundColor: colorPalette.dark,
+    // backgroundColor: 'white'
   },
   contentWrapper: { 
     minWidth: "100%",
