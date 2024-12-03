@@ -4,10 +4,10 @@ import Svg, { Path } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
 
-// type WebPressableCallBackType = {
-//   hovered?: boolean;
-//   pressed?: boolean;
-// };
+type WebPressableCallBackType = {
+  hovered?: boolean;
+  pressed?: boolean;
+};
 
 export default function BudgetWidget() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -41,9 +41,9 @@ export default function BudgetWidget() {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Budget</Text>
           <Pressable 
-            style={({ pressed }) => [
+            style={({ hovered }: WebPressableCallBackType) => [
               styles.menuButton,
-              pressed && styles.menuButtonHovered
+              hovered && styles.menuButtonHovered
             ]}
             onPress={() => setIsModalVisible(true)}
           >
