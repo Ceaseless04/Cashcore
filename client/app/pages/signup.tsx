@@ -1,10 +1,36 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, ImageBackground, Animated } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import colorPalette from '../utils/colors';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
+import { Link } from "expo-router";
+import { 
+  SpaceGrotesk_700Bold,
+  useFonts as useSpaceGroteskFonts 
+} from '@expo-google-fonts/space-grotesk';
+import {
+  Inter_400Regular, 
+  Inter_500Medium, 
+  Inter_700Bold, 
+  Inter_300Light,
+  useFonts as useInterFonts  
+} from '@expo-google-fonts/inter';
+import SvgLogo from "../../assets/homepage/img/signup-login-logo.svg";
+
 
 export default function SignUpScreen() {
+  
+  const [spaceGroteskLoaded] = useSpaceGroteskFonts({
+    SpaceGrotesk_700Bold,
+  });
+
+  const [interLoaded] = useInterFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+    Inter_300Light,
+  });
+
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,66 +87,74 @@ export default function SignUpScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.headingTextContainer}>
-          <Text style={styles.headingText}>Control</Text>
-          <Text style={[styles.headingText, {color: colorPalette.green}]}>Your</Text>
-          <Text style={styles.headingText}>Finances</Text>
+    <>
+      <ImageBackground
+        source={require('../../depreciated/assets/images/bg gradient.png')}
+        // source={require('../../assets/images/bg gradient.png')}
+        resizeMode="cover"
+        style={{width: "100%"}}>
+      </ImageBackground>      
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.headingTextContainer}>
+            <Text style={styles.headingText}>Control</Text>
+            <Text style={[styles.headingText, {color: colorPalette.green}]}>Your</Text>
+            <Text style={styles.headingText}>Finances</Text>
+          </View>
+          <View style={styles.signUpContainer}>
+              <Text style={styles.title}><SvgLogo></SvgLogo></Text>          
+              <Text style={styles.subtitle}>Create a New Account </Text>
+              <Text style={styles.description}>Let's start your journey.</Text>
+              <View style = {styles.signUpFormContainer}>
+                  <TextInput 
+                      style = {styles.input}
+                      placeholder = "Name"
+                      value={userName}
+                      onChangeText={setUserName}
+                  />
+                  <TextInput 
+                      style = {styles.input}
+                      placeholder = "Email"
+                      value={email}
+                      onChangeText={setEmail}
+                      keyboardType='email-address'
+                  />
+                  <TextInput 
+                      style = {styles.input}
+                      placeholder = "Password"
+                      value={password}
+                      onChangeText={setPassword}
+                      secureTextEntry
+                  />
+                  <TouchableOpacity style={styles.signUpBtn} onPress={signUp}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                  </TouchableOpacity>
+              </View>
+                <Text style={styles.haveAccountText}>
+                Already have an account? 
+                <Link style={{color:"white"}} href={"./loginPage"}> Login Here</Link>
+                </Text>
+              </View>
+          </View>
+          <Toast/>
         </View>
-        <View style={styles.signUpContainer}>
-          
-            <Text style={styles.title}>CashCore</Text>          
-            <Text style={styles.subtitle}>Create a New Account </Text>
-            <Text style={styles.description}>Let's start your journey.  </Text>
-
-            <View style = {styles.signUpFormContainer}>
-                <TextInput 
-                    style = {styles.input}
-                    placeholder = "Name"
-                    value={userName}
-                    onChangeText={setUserName}
-                />
-                <TextInput 
-                    style = {styles.input}
-                    placeholder = "Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType='email-address'
-                />
-                <TextInput 
-                    style = {styles.input}
-                    placeholder = "Password"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                />
-               <TouchableOpacity style={styles.signUpBtn} onPress={signUp}>
-                  <Text style={styles.buttonText}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
-              <Text style={styles.haveAccountText}>
-              Already have an account? 
-              <Text style={{color:"white"}}> Login Here</Text></Text>
-            </View>
-        </View>
-      </View>
+      </>
   );
 }
+
+const AnimatedBackground = () => {
+  return (
+    <Canvas style={{ flex: 1 }}>
+      {/* <Circle cx={100} cy={100} r={50} color="blue" /> */}
+    </Canvas>
+  );
+};
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: "black",
-      backgroundImage: 
-        `radial-gradient(at 28% 6%, hsla(170,79%,36%,0.84) 0px, transparent 50%),
-        radial-gradient(at 83% 19%, hsla(124,54%,45%,1) 0px, transparent 50%),
-        radial-gradient(at 81% 74%, hsla(180,79%,36%,0.55) 0px, transparent 50%),
-        radial-gradient(at 84% 91%, hsla(71,46%,64%,0.59) 0px, transparent 50%),
-        radial-gradient(at 54% 46%, hsla(175,79%,31%,1) 0px, transparent 50%),
-        radial-gradient(at 12% 76%, hsla(84,66%,48%,0.55) 0px, transparent 50%)`,
     },
     innerContainer: {
       alignItems: 'center',
@@ -134,8 +168,8 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
     headingText: {
-      fontSize: 70,
-      fontFamily: "Arial",
+      fontSize: 75,
+      fontFamily: "SpaceGrotesk_700Bold",
       fontWeight: 'bold',
       color: "white",
     },
@@ -145,30 +179,36 @@ const styles = StyleSheet.create({
       minWidth: '45%',
       minHeight: "100%",
       alignItems: 'center',
-      backgroundColor: `rgba(70, 70, 70, .64)`,
-      boxShadow: "rgba(0, 0, 0, .2) 0px 7px 29px 0px"  
+      backgroundColor: `rgba(70, 70, 70, .60)`,
+      shadowColor: '#171717',
+      shadowOffset: {width: 2, height: 2},
+      shadowOpacity: 0.2,
+      shadowRadius: 9, 
     },
     title: {
       color: 'white', 
       fontSize: 45,
       fontWeight: 'bold',
-      marginBottom: 30,
+      marginBottom: 50,
       marginTop: 20,
+      fontFamily: "SpaceGrotesk_700Bold",
+
     },
     subtitle: {
       fontSize: 25,
-      fontWeight: 'bold',
+      fontFamily: "Inter_700Bold",
       color: 'white',
       marginBottom: 20,
     },
     description: {
       color: 'white',
-      marginBottom: 30,
-      fontSize: 18
+      marginBottom: 25,
+      fontSize: 16,
+      fontFamily: "Inter_400Regular",
     },
     signUpFormContainer: {
       justifyContent: 'center',
-      minWidth: "67%"
+      minWidth: "66%"
     },
     header: {
         marginLeft: 10
@@ -180,23 +220,32 @@ const styles = StyleSheet.create({
         borderColor: "#979797",
         width: '100%',
         borderWidth: 1,    
-        padding: 4,
+        padding: 6,
         paddingLeft: 10,
+        fontSize: 15,
+        fontFamily: "Inter_400Regular",
     },
     signUpBtn: {
       backgroundColor: colorPalette.green,
       alignItems: "center",
-      borderRadius: 3,
+      borderRadius: 4,
       paddingTop: 3,
       paddingBottom: 6,
       marginBottom: 20,
+      shadowColor: '#171717',
+      shadowOffset: {width: 1, height: 1},
+      shadowOpacity: 0.1,
+      shadowRadius: 6, 
     },
     buttonText: {
       fontSize: 19,
+      paddingTop: 3,
       color: 'white',
+      fontFamily: "Inter_500Medium",
     },
     haveAccountText: {
       color: 'lightgrey',
       fontSize: 14,    
+      fontFamily: "Inter_300Light",
     }
   });

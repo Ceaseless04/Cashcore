@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
 import { Widget } from "@/components/dashboard/Widget";
