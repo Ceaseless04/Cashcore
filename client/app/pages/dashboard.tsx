@@ -5,6 +5,7 @@ import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
 import { Widget } from "@/components/dashboard/Widget";
 import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
+import Navbar from "@/components/Navbar";
 
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
@@ -34,7 +35,9 @@ export default function Dashboard(): JSX.Element {
     useState<ListItem[]>(dummyTransactions);
 
   return (
-    <View style={styles.dashboardContainer}>
+    <View>
+      <Navbar />
+      <View style={styles.dashboardContainer}>
       <View style={styles.contentWrapper}>
         <View style={styles.topContainer}>
           <View style={styles.summaryContainers}>
@@ -76,6 +79,7 @@ export default function Dashboard(): JSX.Element {
         </View>
       </View>
     </View>
+    </View>
   );
 }
 
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: colorPalette.dark,
+    // marginTop: 64
     // backgroundColor: 'white'
   },
   contentWrapper: { 
