@@ -105,9 +105,9 @@ const Navbar = () => {
         <View style={styles.navLinks}>
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/budget">Budgeting</NavLink>
-          <NavLink {/*to="/savings"*/}>Savings</NavLink>
-          <NavLink {/*to="/loans"*/}>Loans</NavLink>
-          <NavLink {/*to="/settings"*/}>Settings</NavLink>
+          <NavLink to="/savings">Savings</NavLink>
+          <NavLink to="/loans">Loans</NavLink>
+          <NavLink to="/settings">Settings</NavLink>
         </View>
 
         {/* Plaid Button */}
