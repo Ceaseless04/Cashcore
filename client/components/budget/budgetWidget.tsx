@@ -27,8 +27,7 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
   // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
   // const totalBudget = 2000;
   const remaining = totalBudget - currentSavings;
-  const spent = totalBudget - remaining;
-  const spentPercentage = (spent / totalBudget) * 100;
+  const spentPercentage = (currentSavings / totalBudget) * 100;
 
   useEffect(() => {
     setIsAnimating(true);

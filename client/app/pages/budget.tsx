@@ -5,6 +5,7 @@ import colorPalette from "../utils/colors";
 
 export default function Budget() {
   const [totalBudget, setTotalBudget] = useState(4000);
+  // This will later come from an API
   const currentSavings = 3020;
 
   const handleBudgetUpdate = (newBudget: number) => {
