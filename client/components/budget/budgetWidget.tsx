@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, Modal, TextInput, Animated } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Modal, TextInput } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
@@ -13,6 +13,7 @@ interface BudgetWidgetProps {
   totalBudget: number;
   currentSavings: number;
   onBudgetUpdate: (newBudget: number) => void;
+  // onSavingsUpdate: (newSavings: number) => void; // Add this to props 
 }
 
 export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdate}: BudgetWidgetProps) {
@@ -24,8 +25,6 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
     setEditedBudget(totalBudget.toString());
   }, [totalBudget]);
 
-  // Calculate the percentage spent (for this example: $778 spent of $2000 = 39%)
-  // const totalBudget = 2000;
   const remaining = totalBudget - currentSavings;
   const spentPercentage = (currentSavings / totalBudget) * 100;
 
@@ -33,6 +32,8 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
     setIsAnimating(true);
   }, []);
 
+  // Function to handle saving the edited budget
+  // Might need to update this to include savings !!!!! for animation when savings update
   const handleSaveBudget = () => {
     const newBudget = parseFloat(editedBudget);
     if (!isNaN(newBudget) && newBudget > 0) {
