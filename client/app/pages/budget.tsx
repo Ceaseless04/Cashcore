@@ -4,9 +4,9 @@ import { useState } from 'react';
 import colorPalette from "../utils/colors";
 
 export default function Budget() {
-  const [totalBudget, setTotalBudget] = useState(4000);
-  // This will later come from an API
-  const currentSavings = 3020;
+  const [totalBudget, setTotalBudget] = useState(4000); //This is just a placeholder value 
+  
+  const currentSavings = 3020; // This is just a placeholder value replace with API I think, and add useState for this
 
   const handleBudgetUpdate = (newBudget: number) => {
     setTotalBudget(newBudget);
@@ -16,7 +16,7 @@ export default function Budget() {
     <View style={styles.mainContainer}>
       <View style={styles.contentWrapper}>
         <BudgetWidget 
-          totalBudget={totalBudget} 
+          totalBudget={totalBudget}
           currentSavings={currentSavings} 
           onBudgetUpdate={handleBudgetUpdate}
         />
