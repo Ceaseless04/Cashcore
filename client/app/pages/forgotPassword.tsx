@@ -26,8 +26,8 @@ import {
         >   
             {/* <ForgotPassword></ForgotPassword>  */}
             {/* <ForgotPasswordNumber></ForgotPasswordNumber> */}
-            {/* <SetNewPassword> </SetNewPassword> */}
-            <Success> </Success>
+            <SetNewPassword> </SetNewPassword>
+            {/* <Success> </Success> */}
 
         </View>
 

@@ -1,3 +1,4 @@
+
 import {
     StyleSheet,
     Text,
@@ -5,12 +6,39 @@ import {
     TextInput,
     ImageBackground,
     Button,
+    TouchableOpacity,
+    Alert,
   } from "react-native";
   import colorPalette from "@/app/utils/colors";
 
 import React, { useState } from "react";
 
 export function SetNewPassword(){
+
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const handleResetPassword = async () => {
+        try {
+            const response = await fetch("localhost:8081/restapi/password-reset/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/JSON"
+                },
+                body: JSON.stringify({ password })
+            })
+           if(response.ok){
+            Alert.alert("Password successfully changed")
+           }
+           else{const errorData = await response.json();
+            Alert.alert("Error", errorData.message || "Something went wrong");}
+        }
+        catch (error){
+            Alert.alert("Error, die")
+        }       
+        
+    }
+
 
     return(
         <>
@@ -19,26 +47,40 @@ export function SetNewPassword(){
                 <Text style={styles.textTitle}>Set New Password</Text>
                 <Text style={styles.text}>Set your new password, must be at least 8 characters </Text>
 
-
                 <View style={styles.inputsContainer}>
                     <View style={styles.emailContainer}>
                         <Text style={styles.emailheader}>Password</Text> 
-                        <TextInput style={styles.input} secureTextEntry={true}/>                     
+                        <TextInput 
+                            style={styles.input} 
+                            secureTextEntry={true}
+                            value={password}
+                            onChangeText={setPassword}                            
+                        />                     
                     </View>
 
                     <View style={styles.emailContainer}>
                         <Text style={styles.emailheader}>Confirm Password</Text> 
-                        <TextInput style={styles.input} secureTextEntry={true}/>                     
+                        <TextInput 
+                        style={styles.input}              
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword} 
+                        secureTextEntry={true}
+                        />                     
                     </View>
                 </View>
 
 
 
-                <Text style={styles.widgetActionButton}>Reset Password</Text>
+                {/* <Text style={styles.widgetActionButton}>Reset Password</Text> */}
+
+            <TouchableOpacity onPress={handleResetPassword}>
+            <Text style={styles.widgetActionButton}>Reset Password</Text>
+            </TouchableOpacity>
+
 
                 {/* <Button title="Reset Password "></Button> */}
 
-                <View style={styles.backToLogin}>
+                <View style={styles.backToLogin} >
                     <Text style={styles.loginText}>Back to login </Text>                
                 </View>
             </View>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import customuser_views, user_views, budget_views, loan_views, saving_views, stock_views, login_views, register_views
+from .views import customuser_views, user_views, budget_views, loan_views, saving_views, stock_views, login_views, register_views, resetpassword_views
 
 
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('stocks/<int:pk>/', stock_views.StockDetail.as_view(), name='stock-detail-view'),
     path('stocks/<str:user>/', stock_views.StockUserDetail.as_view(), name='stock-user-get-view'),
     path('register/', register_views.RegisterView.as_view(), name='register-view'),
-    path('login/', login_views.LoginView.as_view(), name='login-view')
+    path('login/', login_views.LoginView.as_view(), name='login-view'),
+    path('password-reset/', resetpassword_views.ResetPasswordView.as_view(), name='password_reset')
 ]
