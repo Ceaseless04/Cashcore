@@ -39,11 +39,11 @@ POST http://localhost:8000/restapi/register/
 Content-Type: application/json
 
 {
-    "username": "username11",
-    "email": "name11@gmail.com",
-    "first_name": "Elvis",
-    "last_name": "Posh",
-    "password": "username11"
+    "username": "pj",
+    "email": "pricingjacob@gmail.com",
+    "first_name": "Jacob",
+    "last_name": "Price",
+    "password": "user1234"
 }
 
 ### class LoginView(APIView)
@@ -52,8 +52,8 @@ POST http://localhost:8000/restapi/login/
 Content-Type: application/json
 
 {
-    "username": "username6",
-    "password": "username6"
+    "username": "pj",
+    "password": "user1234"
 }
 
 
