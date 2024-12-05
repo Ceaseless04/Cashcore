@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import BudgetWidget from '@/components/budget/budgetWidget';
 import SavingsWidget from '@/components/budget/savingsWidget';
-import PaymentsWidget from '@/components/budget/paymentsWidget';
+import PaymentsWidget, { Payment } from '@/components/budget/paymentsWidget';
+import PerformanceWidget, { performanceData } from '@/components/budget/performanceWidget';
 import colorPalette from "../utils/colors";
-import { Payment } from '@/components/budget/budgetWidget';
 
 export default function Budget() {
   const [totalBudget, setTotalBudget] = useState(4000); //This is just a placeholder value 
@@ -22,7 +22,25 @@ export default function Budget() {
     { title: 'Rent', amount: 1750, status: 'pending' },
     { title: 'Utilities', amount: 200, status: 'paid' },
     { title: 'Gym Membership', amount: 45, status: 'pending' },
-  ]
+  ];
+
+  const performanceData: performanceData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [
+      {
+        label: 'Income',
+        data: [2000, 2500, 2000, 2800, 2200, 1800, 2400, 3000, 1800, 2200, 2600, 2400],
+        backgroundColor: '#27CE78',
+        borderRadius: 5,
+      },
+      {
+        label: 'Expense',
+        data: [-1500, -1800, -2200, -1900, -1600, -1500, -2000, -2200, -1400, -1800, -1900, -1600],
+        backgroundColor: '#4DD0E1',
+        borderRadius: 5,
+      },
+    ],
+  };
 
   const handleBudgetUpdate = (newBudget: number) => {
     setTotalBudget(newBudget);
@@ -30,30 +48,28 @@ export default function Budget() {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.contentWrapper}>
-        <BudgetWidget 
-          totalBudget={totalBudget}
-          currentSavings={currentSavings} 
-          onBudgetUpdate={handleBudgetUpdate}
-        />
-        <SavingsWidget savingsGoals={savingsGoals}/>
-        <PaymentsWidget upcomingPayments={upcomingPayments}/>
-      </View>
+      <BudgetWidget 
+        totalBudget={totalBudget}
+        currentSavings={currentSavings} 
+        onBudgetUpdate={handleBudgetUpdate}
+      />
+      <SavingsWidget savingsGoals={savingsGoals}/>
+      <PaymentsWidget upcomingPayments={upcomingPayments}/>
+      <PerformanceWidget performanceData={performanceData} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
+    // marginTop: 50,
     flex: 1,
-    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
     alignItems: "center",
+    padding: 10,
     backgroundColor: colorPalette.dark,
-  },
-  contentWrapper: {
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
   },
   text: {},
 });
