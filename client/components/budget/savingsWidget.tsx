@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import colorPalette from '@/app/utils/colors';
 import { EllipsisVertical } from "lucide-react-native";
@@ -19,6 +19,12 @@ interface SavingsWidgetProps {
 }
 
 const SavingsWidget = ({savingsGoals}: SavingsWidgetProps) => {
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    setIsAnimating(true);
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -50,7 +56,10 @@ const SavingsWidget = ({savingsGoals}: SavingsWidgetProps) => {
               <View 
                 style={[
                   styles.progressBar, 
-                  { width: `${(goal.current/goal.goal) * 100}%` }
+                  { 
+                    width: isAnimating ? `${(goal.current/goal.goal) * 100}%` : '0%',
+                    transition: 'width 1s ease-in-out',
+                  }
                 ]} 
               />
             </View>
@@ -129,8 +138,8 @@ const styles = StyleSheet.create({
     },
     progressBar: {
       height: '100%',
-      backgroundColor: '#22C55E', // primary-green
-      borderRadius: 999,
+      backgroundColor: colorPalette.green,
+      borderRadius: 4,
     },
   });
   

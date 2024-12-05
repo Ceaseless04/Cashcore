@@ -48,21 +48,25 @@ export default function Budget() {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.widgetContainer}>
-        <BudgetWidget 
-          totalBudget={totalBudget}
-          currentSavings={currentSavings} 
-          onBudgetUpdate={handleBudgetUpdate}
-        />
+      <View style={styles.topRow}>
+        <View style={styles.widgetContainer}>
+          <BudgetWidget 
+            totalBudget={totalBudget}
+            currentSavings={currentSavings} 
+            onBudgetUpdate={handleBudgetUpdate}
+          />
+        </View>
+        <View style={styles.widgetContainer}>
+          <SavingsWidget savingsGoals={savingsGoals}/>
+        </View>
+        <View style={styles.widgetContainer}>
+          <PaymentsWidget upcomingPayments={upcomingPayments}/>
+        </View>
       </View>
-      <View style={styles.widgetContainer}>
-        <SavingsWidget savingsGoals={savingsGoals}/>
-      </View>
-      <View style={styles.widgetContainer}>
-        <PaymentsWidget upcomingPayments={upcomingPayments}/>
-      </View>
-      <View style={styles.widgetContainer}>
-        <PerformanceWidget performanceData={performanceData} />
+      <View style={styles.bottomRow}>
+        <View style={styles.performanceContainer}>
+          <PerformanceWidget performanceData={performanceData} />
+        </View>
       </View>
     </View>
   );
@@ -71,17 +75,34 @@ export default function Budget() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    alignItems: "flex-start",
+    flexDirection: "column",
     backgroundColor: colorPalette.dark,
     gap: 20,
+    padding: 40,
+  },
+  topRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: 20,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  bottomRow: {
+    width: '90%',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   widgetContainer: {
-    width: '45%',
-    maxWidth: 340,
+    width: '30%',
+    minWidth: 280,
+    maxWidth: 320,
     aspectRatio: 1,
+    height: 320,
   },
-  text: {},
+  performanceContainer: {
+    width: '100%',
+    height: 320,
+  },
 });

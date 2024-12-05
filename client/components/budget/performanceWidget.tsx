@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'rgba(255, 255, 255, 0.5)',
     fontSize: 14,
-    marginBottom: 24,
   },
   chartContainer: {
     flex: 1,
