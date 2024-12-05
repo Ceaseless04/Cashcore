@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const SavingsWidget = () => {
-  const [savingsGoals , setSavingsGoals] = useState([
-    { title: 'House Downpayment', current: 3200, goal: 5000 },
-    { title: 'Emergency Fund', current: 24, goal: 75 },
-    { title: 'New laptop', current: 253, goal: 2000 },
-    { title: 'Investments', current: 45, goal: 150 },
-  ]);
+interface SavingsGoal {
+  title: string;
+  current: number;
+  goal: number;
+}
 
+interface SavingsWidgetProps {
+  savingsGoals: SavingsGoal[];
+}
+
+const SavingsWidget = ({savingsGoals}: SavingsWidgetProps) => {
   return (
     <View style={styles.container}>
       {/* Header */}

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import BudgetWidget from '@/components/budget/budgetWidget';
 import SavingsWidget from '@/components/budget/savingsWidget';
+import PaymentsWidget from '@/components/budget/paymentsWidget';
 import colorPalette from "../utils/colors";
+import { Payment } from '@/components/budget/budgetWidget';
 
 export default function Budget() {
   const [totalBudget, setTotalBudget] = useState(4000); //This is just a placeholder value 
@@ -14,6 +16,13 @@ export default function Budget() {
     { title: 'New laptop', current: 253, goal: 2000 },
     { title: 'Investments', current: 45, goal: 150 },
   ];
+
+  const upcomingPayments: Payment[] = [
+    { title: 'Wifi', amount: 65, status: 'pending' },
+    { title: 'Rent', amount: 1750, status: 'pending' },
+    { title: 'Utilities', amount: 200, status: 'paid' },
+    { title: 'Gym Membership', amount: 45, status: 'pending' },
+  ]
 
   const handleBudgetUpdate = (newBudget: number) => {
     setTotalBudget(newBudget);
@@ -28,6 +37,7 @@ export default function Budget() {
           onBudgetUpdate={handleBudgetUpdate}
         />
         <SavingsWidget savingsGoals={savingsGoals}/>
+        <PaymentsWidget upcomingPayments={upcomingPayments}/>
       </View>
     </View>
   );
