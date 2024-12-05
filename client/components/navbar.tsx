@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Platform } from 'react-native';
-import { Link, usePathname, Href } from 'expo-router';
+import { Link, usePathname, Href, useRouter } from 'expo-router';
 // import { usePlaidLink } from 'react-native-plaid-link-sdk';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const isActiveLink = (path: string) => pathname === path;
   // const [linkToken, setLinkToken] = useState<string | null>(null);
   // const [isLoading, setIsLoading] = useState(false);
@@ -77,29 +78,28 @@ const Navbar = () => {
   }; */
 
   const NavLink = ({ to, children }: { to: Href<string>; children: React.ReactNode }) => (
-    <Link href={to}>
-      <TouchableOpacity style={[styles.navLink, isActiveLink(to) && styles.activeLink]}>
-        <Text style={[styles.navLinkText, isActiveLink(to) && styles.activeNavLinkText]}>
-          {children}
-        </Text>
-      </TouchableOpacity>
-    </Link>
+    <TouchableOpacity 
+      style={[styles.navLink, isActiveLink(to) && styles.activeLink]}
+      onPress={() => router.push(to)}
+    >
+      <Text style={[styles.navLinkText, isActiveLink(to) && styles.activeNavLinkText]}>
+        {children}
+      </Text>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.navbar}>
       <View style={styles.container}>
         {/* Logo */}
-        <Link href="/">
-          <TouchableOpacity style={styles.logo}>
-            <Text style={styles.logoText}>
-              <Text style={styles.greenText}>C</Text>
-              <Text style={styles.whiteText}>ash</Text>
-              <Text style={styles.greenText}>C</Text>
-              <Text style={styles.whiteText}>ore</Text>
-            </Text>
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity style={styles.logo} onPress={() => router.push("/")}>
+          <Text style={styles.logoText}>
+            <Text style={styles.greenText}>C</Text>
+            <Text style={styles.whiteText}>ash</Text>
+            <Text style={styles.greenText}>C</Text>
+            <Text style={styles.whiteText}>ore</Text>
+          </Text>
+        </TouchableOpacity>
 
         {/* Navigation Links */}
         <View style={styles.navLinks}>
