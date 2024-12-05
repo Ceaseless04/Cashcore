@@ -110,20 +110,6 @@ const Navbar = () => {
           <NavLink to="/settings">Settings</NavLink>
         </View>
 
-        {/* User Profile */}
-        <View style={styles.profileContainer}>
-          <View style={styles.avatarContainer}>
-            {/* <Image
-              source={require('@/assets/avatar-placeholder.png')}
-              style={styles.avatar}
-            /> */}
-          </View>
-          <View style={styles.userInfo}>
-            <Text style={styles.userName}>Jane Doe</Text>
-            <Text style={styles.userEmail}>janedoe123@gmail.com</Text>
-          </View>
-        </View>
-
         {/* Plaid Button */}
         {/* <TouchableOpacity
           style={[styles.plaidButton, isLoading && styles.disabledButton]}
@@ -136,6 +122,20 @@ const Navbar = () => {
             <Text style={styles.plaidButtonText}>Connect Bank</Text>
           )}
         </TouchableOpacity> */}
+
+        {/* User Profile */}
+        <View style={styles.profileContainer}>
+          <View style={styles.avatarContainer}>
+            {/* <Image
+              source={}
+              style={styles.avatar}
+            /> */}
+          </View>
+          <View style={styles.userInfo}>
+            <Text style={styles.userName}>Jane Doe</Text>
+            <Text style={styles.userEmail}>janedoe123@gmail.com</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
