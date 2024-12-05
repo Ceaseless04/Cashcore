@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import customuser_views, user_views, budget_views, loan_views, saving_views, stock_views, login_views, register_views, resetpassword_views
+from .views import customuser_views, user_views, budget_views, loan_views, saving_views, stock_views, login_views, register_views, plaid_views
 
 
 
@@ -29,5 +29,9 @@ urlpatterns = [
     path('stocks/<str:user>/', stock_views.StockUserDetail.as_view(), name='stock-user-get-view'),
     path('register/', register_views.RegisterView.as_view(), name='register-view'),
     path('login/', login_views.LoginView.as_view(), name='login-view'),
-    path('password-reset/', resetpassword_views.ResetPasswordView.as_view(), name='password_reset')
+    path("create_link_token/", plaid_views.create_link_token, name="create_link_token"),
+    path("set_access_token/", plaid_views.set_access_token, name="set_access_token"),
+    path("plaiditems/", plaid_views.PlaidItemListCreate.as_view(), name="plaiditem-listcreate-view"),
+    path("plaidtransactions/", plaid_views.fetch_transactions, name="plaid_fetch_transactions"),
+    path("plaidauth/", plaid_views.fetch_auth, name="plaid_fetch_auth")   
 ]
