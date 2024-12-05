@@ -8,6 +8,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import NotFound
 from django.http import Http404
 
+import os
+import plaid
+from plaid.configuration import Configuration
+
+from plaid.models import PlaidItem
 
 # added for Account Delete Access token
 from rest_framework.decorators import api_view
@@ -17,6 +22,22 @@ from plaid.api import plaid_api
 from plaid.model.item_remove_request import ItemRemoveRequest
 
 # Include cors --> so that frontend can make requests (possibly will have to do)
+
+clientID = os.getenv('PLAID_CLIENT_ID')
+plaidSecret = os.getenv('PLAID_SECRET')
+plaidEnv = os.getenv('PLAID_ENV') # 'development' or 'production' or 'sandbox'
+plaidProducts = os.getenv('PLAID_PRODUCTS').split(',')
+
+
+
+configuration = Configuration(
+    host=plaid.Environment.Sandbox,  # Use sandbox or production depending on your environment
+    # api_key={"clientId": os.getenv("PLAID_CLIENT_ID"), "secret": os.getenv("PLAID_SECRET")}
+    api_key={"clientId": clientID, "secret": plaidSecret}
+)
+api_client = plaid.ApiClient(configuration)
+client = plaid_api.PlaidApi(api_client)
+
 
 # Issues:
 # 1) pk in url is negative --> crashes
