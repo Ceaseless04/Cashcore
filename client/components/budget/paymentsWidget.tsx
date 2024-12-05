@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import colorPalette from '@/app/utils/colors';
+import { EllipsisVertical } from 'lucide-react-native';
+
+type WebPressableCallBackType = {
+  hovered?: boolean;
+  pressed?: boolean;
+};
 
 export interface Payment {
     title: string;
@@ -16,13 +23,21 @@ const PaymentsWidget = ({upcomingPayments}: PaymentsWidgetProps) => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>Upcoming Payments</Text>
-        <TouchableOpacity>
-          <Text style={styles.menuButton}>•••</Text>
-        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Upcoming Payments</Text>
+          <Pressable 
+            style={({ hovered }: WebPressableCallBackType) => [
+              styles.menuButton,
+              hovered && styles.menuButtonHovered
+            ]}
+            // onPress={() => setIsModalVisible(true)}
+          >
+            <EllipsisVertical size={13} color={colorPalette.light} />
+          </Pressable>
+        </View>
+        <Text style={styles.subtitle}>Payments due this month.</Text>
       </View>
       
-      <Text style={styles.subtitle}>Payments due this month.</Text>
       
       {/* Payments List */}
       <View style={styles.paymentsList}>
@@ -47,33 +62,36 @@ const PaymentsWidget = ({upcomingPayments}: PaymentsWidgetProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(243, 244, 246, 0.7)',
-    borderRadius: 24,
+    flex: 1,
+    backgroundColor: colorPalette.medium,
+    borderRadius: 25,
     padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   header: {
+    flexDirection: 'column',
+    marginBottom: 16,
+  },
+  titleContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   title: {
     color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   menuButton: {
-    color: 'rgba(255, 255, 255, 0.5)',
-    fontSize: 16,
+    padding: 8,
+    borderRadius: 8,
+  },
+  menuButtonHovered: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   subtitle: {
     color: 'rgba(255, 255, 255, 0.5)',
-    fontSize: 14,
-    marginBottom: 24,
+    fontSize: 13,
+    marginBottom: 16,
   },
   paymentsList: {
     gap: 12,

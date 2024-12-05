@@ -140,11 +140,10 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
 
 const styles = StyleSheet.create({
   container: {
-    aspectRatio: 1,
+    flex: 1,
     backgroundColor: colorPalette.medium,
     padding: 20,
-    borderRadius: 20,
-    // width: '100%',
+    borderRadius: 25,
   },
   header: {
     flexDirection: 'column',
@@ -162,14 +161,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 13,
-    color: '#A1A1AA',
+    color: 'rgba(255, 255, 255, 0.5)',
   },
   menuButton: {
     padding: 8,
     borderRadius: 8,
   },
   menuButtonHovered: {
-    backgroundColor: '#A1A1AA',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   content: {
     alignItems: 'center',

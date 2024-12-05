@@ -1,26 +1,32 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { EllipsisVertical } from 'lucide-react-native';
 import colorPalette from '@/app/utils/colors';
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,  
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-  );
+  CategoryScale,
+  LinearScale,  
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
+
+type WebPressableCallBackType = {
+  hovered?: boolean;
+  pressed?: boolean;
+};
 
 export interface performanceData {
-    labels: string[];
-    datasets: {
-      label: 'Income' | 'Expense';
-      data: number[];
-      backgroundColor: string;
-      borderRadius: number;
-    }[];
+  labels: string[];
+  datasets: {
+    label: 'Income' | 'Expense';
+    data: number[];
+    backgroundColor: string;
+    borderRadius: number;
+  }[];
 }
 
 interface PerformanceWidgetProps {
@@ -29,65 +35,73 @@ interface PerformanceWidgetProps {
 
 
 const performanceOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    datasets: {
-      bar: {
-        maxBarThickness: 40,
-      }
+  responsive: true,
+  maintainAspectRatio: false,
+  datasets: {
+    bar: {
+      maxBarThickness: 40,
+    }
+  },
+  scales: {
+    x: {
+      stacked: true,
+      grid: {
+        display: false,
+      },
+      ticks: {
+        color: '#ffffff',
+      },
     },
-    scales: {
-      x: {
-        stacked: true,
-        grid: {
-          display: false,
-        },
-        ticks: {
+    y: {
+      grid: {
+        color: 'rgba(255, 255, 255, 0.1)',
+      },
+      ticks: {
+        color: '#ffffff',
+        callback: function(value) {
+          return value === 0 || value === 3000 || value === -3000 ? value : ''; // also adjusted to fit the max and min
+        }
+      },
+      min: -3000, // will be adjusted to max + 100
+      max: 3000, // will be adjusted to min - 100
+    },
+  },
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top', //was 'left' before
+      labels: {
           color: '#ffffff',
-        },
-      },
-      y: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
-        },
-        ticks: {
-          color: '#ffffff',
-          callback: function(value) {
-            return value === 0 || value === 3000 || value === -3000 ? value : ''; // also adjusted to fit the max and min
-          }
-        },
-        min: -3000, // will be adjusted to max + 100
-        max: 3000, // will be adjusted to min - 100
+          padding: 20,
+          boxWidth: 15,
+          boxHeight: 15,
+          usePointStyle: true,
+          pointStyle: 'rectRounded',
       },
     },
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top', //was 'left' before
-        labels: {
-            color: '#ffffff',
-            padding: 20,
-            boxWidth: 15,
-            boxHeight: 15,
-            usePointStyle: true,
-            pointStyle: 'rectRounded',
-        },
-      },
-    },
-  };
+  },
+};
 
 const PerformanceWidget = ({ performanceData }: PerformanceWidgetProps) => {
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>Performance</Text>
-        <TouchableOpacity>
-          <Text style={styles.menuButton}>•••</Text>
-        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Performance</Text>
+          <Pressable 
+              style={({ hovered }: WebPressableCallBackType) => [
+                styles.menuButton,
+                hovered && styles.menuButtonHovered
+              ]}
+              // onPress={() => setIsModalVisible(true)}
+            >
+              <EllipsisVertical size={13} color={colorPalette.light} />
+            </Pressable>
+        </View>
+        <Text style={styles.subtitle}>Your budget performance so far this year.</Text>
       </View>
       
-      <Text style={styles.subtitle}>Your budget performance so far this year.</Text>
       
       {/* Chart Container */}
       <View style={styles.chartContainer}>
@@ -99,17 +113,16 @@ const PerformanceWidget = ({ performanceData }: PerformanceWidgetProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.55,
-    backgroundColor: 'rgba(243, 244, 246, 0.7)',
-    borderRadius: 24,
+    flex: 1,
+    backgroundColor: colorPalette.medium,
+    borderRadius: 25,
     padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   header: {
+    flexDirection: 'column',
+    marginBottom: 16,
+  },
+  titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -120,8 +133,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   menuButton: {
-    color: 'rgba(255, 255, 255, 0.5)',
-    fontSize: 16,
+    padding: 8,
+    borderRadius: 8,
+  },
+  menuButtonHovered: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   subtitle: {
     color: 'rgba(255, 255, 255, 0.5)',

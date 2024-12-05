@@ -48,28 +48,40 @@ export default function Budget() {
 
   return (
     <View style={styles.mainContainer}>
-      <BudgetWidget 
-        totalBudget={totalBudget}
-        currentSavings={currentSavings} 
-        onBudgetUpdate={handleBudgetUpdate}
-      />
-      <SavingsWidget savingsGoals={savingsGoals}/>
-      <PaymentsWidget upcomingPayments={upcomingPayments}/>
-      <PerformanceWidget performanceData={performanceData} />
+      <View style={styles.widgetContainer}>
+        <BudgetWidget 
+          totalBudget={totalBudget}
+          currentSavings={currentSavings} 
+          onBudgetUpdate={handleBudgetUpdate}
+        />
+      </View>
+      <View style={styles.widgetContainer}>
+        <SavingsWidget savingsGoals={savingsGoals}/>
+      </View>
+      <View style={styles.widgetContainer}>
+        <PaymentsWidget upcomingPayments={upcomingPayments}/>
+      </View>
+      <View style={styles.widgetContainer}>
+        <PerformanceWidget performanceData={performanceData} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // marginTop: 50,
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    alignItems: "center",
-    padding: 10,
+    alignItems: "flex-start",
     backgroundColor: colorPalette.dark,
+    gap: 20,
+  },
+  widgetContainer: {
+    width: '45%',
+    maxWidth: 340,
+    aspectRatio: 1,
   },
   text: {},
 });
