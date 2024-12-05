@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Platform, Image } from 'react-native';
 import { Link, usePathname, Href, useRouter } from 'expo-router';
 // import { usePlaidLink } from 'react-native-plaid-link-sdk';
 
@@ -110,6 +110,20 @@ const Navbar = () => {
           <NavLink to="/settings">Settings</NavLink>
         </View>
 
+        {/* User Profile */}
+        <View style={styles.profileContainer}>
+          <View style={styles.avatarContainer}>
+            {/* <Image
+              source={require('@/assets/avatar-placeholder.png')}
+              style={styles.avatar}
+            /> */}
+          </View>
+          <View style={styles.userInfo}>
+            <Text style={styles.userName}>Jane Doe</Text>
+            <Text style={styles.userEmail}>janedoe123@gmail.com</Text>
+          </View>
+        </View>
+
         {/* Plaid Button */}
         {/* <TouchableOpacity
           style={[styles.plaidButton, isLoading && styles.disabledButton]}
@@ -184,6 +198,36 @@ const styles = StyleSheet.create({
   },
   activeNavLinkText: {
     color: '#FFFFFF',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 24,
+  },
+  avatarContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#4B5563',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  userInfo: {
+    flexDirection: 'column',
+  },
+  userName: {
+    color: '#FFFFFF',
+    fontSize: 14,
+  },
+  userEmail: {
+    color: '#9CA3AF',
+    fontSize: 12,
   },
   /* plaidButton: {
     backgroundColor: '#22C55E',
