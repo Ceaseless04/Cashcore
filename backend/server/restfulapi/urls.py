@@ -33,5 +33,6 @@ urlpatterns = [
     path("set_access_token/", plaid_views.set_access_token, name="set_access_token"),
     path("plaiditems/", plaid_views.PlaidItemListCreate.as_view(), name="plaiditem-listcreate-view"),
     path("plaidtransactions/", plaid_views.fetch_transactions, name="plaid_fetch_transactions"),
+    path('deleteaccount/', views.delete_account, name='delete_account'), # route to delete account view
     path("plaidauth/", plaid_views.fetch_auth, name="plaid_fetch_auth")   
 ]

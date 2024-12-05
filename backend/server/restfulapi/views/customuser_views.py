@@ -7,6 +7,10 @@ from ..serializers import CustomUserSerializer
 from django.http import Http404
 
 from django.http import HttpResponseRedirect # import added for http redirect when user is deleted, or direct to delete user page
+# added imoports for Account Delete in views.py for users
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import CustomUser
 
 
 # Include cors --> so that frontend can make requests (possibly will have to do)
@@ -58,4 +62,46 @@ class CustomUserDetail(APIView):
     def request_delete(self, request, pk, format=None): # method that directs to http://localhost:8081/pages/deleteaccount when a user wants to delete their account
         return HttpResponseRedirect("http://localhost:8081/pages/deleteaccount")
     
+    # This method does the following: Create an API endpoint in the backend that will handle the account deletion request.
+    @csrf_exempt
+    def delete_account(request):
+        if request.method == 'POST':
+            user_id = request.POST.get('user_id')
+            try:
+                user = CustomUser.objects.get(id=user_id)
+                user.delete()
+                return JsonResponse({'status': 'success', 'message': 'Account deleted successfully.'})
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'User does not exist.'})
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
     
+    # TODO: Frontend Request: Make a request from the frontend to this backend endpoint when the user wants to delete their account. (in JavaScript)
+    # The deleteAccount function sends a POST request to the backend endpoint with the user ID.
+#       It handles the response and updates the UI accordingly.
+
+#     function deleteAccount(userId) {
+#     fetch('http://localhost:8000/api/deleteaccount/', {
+#         method: 'POST',
+#         headers: {
+#             'Content-Type': 'application/x-www-form-urlencoded',
+#         },
+#         body: `user_id=${userId}`
+#     })
+#     .then(response => response.json())
+#     .then(data => {
+#         if (data.status === 'success') {
+#             alert('Account deleted successfully.');
+#             // Redirect or update the UI as needed
+#         } else {
+#             alert('Error: ' + data.message);
+#         }
+#     })
+#     .catch(error => {
+#         console.error('Error:', error);
+#     });
+# }
+
+# // Example usage
+# deleteAccount(1); // Replace 1 with the actual user ID
+        
+        
