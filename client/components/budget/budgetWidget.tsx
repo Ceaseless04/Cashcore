@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal, TextInput } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import colorPalette from '@/app/utils/colors';
-import { EllipsisVertical } from "lucide-react-native";
+import { EllipsisVertical, X } from "lucide-react-native";
 
 type WebPressableCallBackType = {
   hovered?: boolean;
@@ -108,7 +108,18 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Edit Budget</Text>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Set Budget</Text>
+              <Pressable
+                style={({ hovered }) => [
+                  styles.closeButton,
+                  hovered && styles.closeButtonHovered,
+                ]}
+                onPress={() => setIsModalVisible(false)}
+              >
+                <X size={13} color={colorPalette.light} />
+              </Pressable>
+            </View>
             <TextInput
               style={styles.input}
               value={editedBudget}
@@ -117,13 +128,7 @@ export default function BudgetWidget({totalBudget, currentSavings, onBudgetUpdat
               placeholder="Enter new budget amount"
               placeholderTextColor={'#979797'}
             />
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={[styles.button, styles.cancelButton]}
-                onPress={() => setIsModalVisible(false)}
-              >
-                <Text style={styles.buttonText}>Cancel</Text>
-              </Pressable>
+            <View style={styles.modalButtonsCenter}>
               <Pressable
                 style={[styles.button, styles.saveButton]}
                 onPress={handleSaveBudget}
@@ -213,38 +218,49 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '80%',
     maxWidth: 300,
+    gap: 10,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    width: '100%',
   },
   modalTitle: {
     color: colorPalette.light,
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 15,
     textAlign: 'center',
+  },
+  closeButton: {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: 'transparent',
+    marginBottom: 10,
+  },
+  closeButtonHovered: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   input: {
     color: colorPalette.light,
     padding: 12,
     borderRadius: 10,
-    marginVertical: 15,
-    marginBottom: 15,
     fontSize: 16,
     outlineStyle: 'none',
     borderColor: '#979797',
     borderWidth: 1,
   },
-  modalButtons: {
+  modalButtonsCenter: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     paddingHorizontal: 22,
     paddingVertical: 9,
     borderRadius: 10,
     alignItems: 'center',
-  },
-  cancelButton: {
-    borderWidth: 1,
-    borderColor: '#979797',
   },
   saveButton: {
     backgroundColor: colorPalette.green,

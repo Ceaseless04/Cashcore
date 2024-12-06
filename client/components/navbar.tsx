@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Platform, Image } from 'react-native';
-import { Link, usePathname, Href, useRouter } from 'expo-router';
+import { usePathname, Href, useRouter } from 'expo-router';
 // import { usePlaidLink } from 'react-native-plaid-link-sdk';
 
 const Navbar = () => {

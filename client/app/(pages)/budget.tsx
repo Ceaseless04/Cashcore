@@ -10,19 +10,19 @@ export default function Budget() {
   const [totalBudget, setTotalBudget] = useState(4000); //This is just a placeholder value 
   const currentSavings = 3020; // This is just a placeholder value replace with API I think, and add useState for this
 
-  const savingsGoals =  [
+  const [savingsGoals, setSavingsGoals] = useState([
     { title: 'House Downpayment', current: 3200, goal: 5000 },
     { title: 'Emergency Fund', current: 24, goal: 75 },
     { title: 'New laptop', current: 253, goal: 2000 },
     { title: 'Investments', current: 45, goal: 150 },
-  ];
+  ]);
 
-  const upcomingPayments: Payment[] = [
+  const [upcomingPayments, setUpcomingPayments] = useState<Payment[]>([
     { title: 'Wifi', amount: 65, status: 'pending' },
     { title: 'Rent', amount: 1750, status: 'pending' },
     { title: 'Utilities', amount: 200, status: 'paid' },
     { title: 'Gym Membership', amount: 45, status: 'pending' },
-  ];
+  ]);
 
   const performanceData: performanceData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -46,6 +46,30 @@ export default function Budget() {
     setTotalBudget(newBudget);
   };
 
+  const handleAddSavingsGoal = (title: string, goalAmount: number) => {
+    setSavingsGoals(prev => [...prev, { title, current: 0, goal: goalAmount }]);
+  };
+
+  const handleEditGoal = (index: number, title: string, goalAmount: number) => {
+    setSavingsGoals(prev => {
+      const updatedGoals = [...prev];
+      updatedGoals[index] = { ...updatedGoals[index], title, goal: goalAmount };
+      return updatedGoals;
+    });
+  };
+
+  const handleDeleteGoal = (index: number) => {
+    setSavingsGoals(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAddPayment = (payment: Payment) => {
+    setUpcomingPayments(prev => [...prev, payment]);
+  };
+
+  const handleDeletePayment = (index: number) => {
+    setUpcomingPayments(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.topRow}>
@@ -57,10 +81,19 @@ export default function Budget() {
           />
         </View>
         <View style={styles.widgetContainer}>
-          <SavingsWidget savingsGoals={savingsGoals}/>
+          <SavingsWidget 
+            savingsGoals={savingsGoals}
+            onAddGoal={handleAddSavingsGoal}
+            onEditGoal={handleEditGoal}
+            onDeleteGoal={handleDeleteGoal}
+          />
         </View>
         <View style={styles.widgetContainer}>
-          <PaymentsWidget upcomingPayments={upcomingPayments}/>
+          <PaymentsWidget 
+            upcomingPayments={upcomingPayments}
+            onAddPayment={handleAddPayment}
+            onDeletePayment={handleDeletePayment}
+          />
         </View>
       </View>
       <View style={styles.bottomRow}>
