@@ -6,6 +6,10 @@ import { Widget } from "@/components/dashboard/Widget";
 import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
 
+//import expo router
+import { useLocalSearchParams } from "expo-router";
+
+
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
 const dummyMonthlySub: ListItem[] = [
@@ -27,6 +31,14 @@ interface ListItem {
 }
 
 export default function Dashboard(): JSX.Element {
+
+  console.log("Before the call");
+  const {username} = useLocalSearchParams();
+
+  console.log("HERE IS THE USERNAME", username);
+
+
+
   const [budgetList, setBudgetList] = useState<ListItem[]>(dummyBudget);
   const [monthlySubscription, setMonthlySubscription] =
     useState<ListItem[]>(dummyMonthlySub);

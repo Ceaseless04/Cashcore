@@ -8,23 +8,52 @@ import {
 import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+//add routing
+import { useRouter } from "expo-router"; 
+
+//we are going to add sessions and tokenization now
+//we import AsyncStorage which will securely store our token
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 export default function loginPage() {
   const [username, SetUserName] = useState("");
   const [password, SetPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({username: "", password: ""});
 
-  const onLoginButtonPress = () => {
-    let errors = {};
+  const router = useRouter();
 
-    if (!username) errors.username = "Username is required!";
-    if (!password) errors.password = "Password is required!";
+  const onLoginButtonPress = async () => {
 
-    //validation here
+    if (!username) {
+      setErrors({username: "Username is required!", password: errors.password}); 
+      return
+    }
+    if (!password) {
+      setErrors({username: errors.password, password: "Password is required!"}); 
+      return
+    }
 
-    setErrors(errors); //if invalid user login attempt
+    const res = await fetch('http://localhost:8000/restapi/login/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: username, password: password }) // TODO: Change to current user
+    })
+    const data = await res.json();
+    // console.log(data)
 
-    return Object.keys(errors).length === 0;
+    const pass_username: string = username;
+
+    if (data.message == "Login successful!") {
+      setErrors({username: data.message, password: ""})
+      console.log("RIGHT HERE",pass_username);
+      router.replace(`/pages/dashboard?username=${pass_username}`);
+    } else {
+      setErrors({username: data.message, password: ""})
+    }
+
   };
+  
 
   return (
     <>
@@ -230,3 +259,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+

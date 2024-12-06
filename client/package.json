@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "@react-three/fiber": "^8.17.10",
     "@shopify/react-native-skia": "1.2.3",
+    "axios": "^1.7.9",
     "expo": "^51.0.37",
     "expo-app-loading": "^2.1.1",
     "expo-constants": "~16.0.2",
@@ -50,7 +51,8 @@
     "react-plaid-link": "^3.6.1",
     "react-router-native": "^6.28.0",
     "tailwindcss": "^3.4.14",
-    "three": "^0.170.0"
+    "three": "^0.170.0",
+    "@react-native-async-storage/async-storage": "1.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
