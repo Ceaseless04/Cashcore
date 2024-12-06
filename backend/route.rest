@@ -1,5 +1,37 @@
 
-### ----------- RESGITER & LOGIN TESTING -----------
+### ----------- PLAID TESTING -----------
+
+### class PlaidItemListCreate(generics.ListCreateAPIView)
+
+GET http://localhost:8000/restapi/plaiditems/
+
+### def fetch_transactions(request) 
+
+POST http://localhost:8000/restapi/plaidtransactions/
+Content-Type: application/json
+
+{
+    "userID": 7
+}
+
+### def fetch_auth(request)
+
+POST http://localhost:8000/restapi/plaidauth/
+Content-Type: application/json
+
+{
+    "userID": 7
+}
+
+### Sandbox Limitations --> auth, transactions, etc. returns the same JSON no matter the access code you use.
+
+
+
+
+
+
+
+### ----------- REGISTER & LOGIN TESTING -----------
 
 ### class RegisterView(generics.CreateAPIView)
 
@@ -7,11 +39,11 @@ POST http://localhost:8000/restapi/register/
 Content-Type: application/json
 
 {
-    "username": "username6",
-    "email": "name6@gmail.com",
-    "first_name": "Sam",
+    "username": "username11",
+    "email": "name11@gmail.com",
+    "first_name": "Elvis",
     "last_name": "Posh",
-    "password": "username6"
+    "password": "username11"
 }
 
 ### class LoginView(APIView)
@@ -50,7 +82,7 @@ PUT http://localhost:8000/restapi/users/2/
 Content-Type: application/json
 
 {
-    "username": "username3",
+    "username": "username",
     "email": "name3@gmail.com",
     "first_name": "John",
     "last_name": "Lennon",
@@ -358,25 +390,6 @@ DELETE http://localhost:8000/restapi/customusers/1/
 
 PATCH http://localhost:8000/restapi/customusers/15/
 
-
-
-
-
-
-
-
-
-
-
-
-### Custiom -- Login -- API
-
-POST http://localhost:8000/restapi/login/
-Content-Type: application/json
-
-{
-    "username": "username--2",
-    "password": "username2"
-}
+###
 
 

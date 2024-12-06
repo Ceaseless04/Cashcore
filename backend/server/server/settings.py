@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-rjtc&-iwoegch_!(mkf!$d817rq@pk6u7fyxw4m&s%ks(%wcqh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 CORS_ALLOW_ALL_ORIGINS = True  # For development only, to allow all origins
 
 CORS_ALLOW_METHODS = [
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'restfulapi',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

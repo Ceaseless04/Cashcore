@@ -1,4 +1,5 @@
 import React from "react";
+import { JumpingTransition } from "react-native-reanimated";
 import Svg, { Text as SvgText, Defs, LinearGradient as SvgLinearGradient, Stop } from "react-native-svg";
 
 interface GradientTextProps {
@@ -12,7 +13,7 @@ export default function GradientText({text, colors, text_size, text_weight} : Gr
   
     //react native is so great we need to convert the text into an svg just so we could actually use it as a gradient
     return (   
-        <Svg height="100%" width="100%">
+        <Svg style={{height: "100%", width: "100%",}}>
         <Defs>
             <SvgLinearGradient id="txt-grad" x1="0" y1="0.5" x2="1" y2="0.5">
             <Stop offset="0%" stopColor={colors[0]} stopOpacity="1" />
@@ -27,6 +28,7 @@ export default function GradientText({text, colors, text_size, text_weight} : Gr
             x="50%"
             y="50%"
             textAnchor="middle"
+            alignmentBaseline="center"
         >
             {text}
         </SvgText>

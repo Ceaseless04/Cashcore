@@ -31,3 +31,37 @@ Plaid Environment:
 1. Production --> Unlimited Access to real data (but billed for usage)
 2. Development  --> real data @ real banks (but limited # of accounts)
 3. Sandbox --> fake data
+
+---
+
+New Dependencies after Plaid Integration for Requirements.txt:
+1. plaid-python==27.0.0 --> Django dependency
+2. "react-plaid-link": "^3.6.1" --> React dependency
+
+
+---
+
+Plan of Attack for Next Sprint:
+
+Services Required:
+1. Monthly Income
+2. Monthly Expenses
+3. Budgets --> savings goal<int>, current spending<int>
+4. Monthly subscriptions (recurring transactions)
+5. Transactions (All)
+
+Services Plaid Provides:
+    "assets",
+    "balance",
+    "signal",
+    "identity",
+    "identity_match",
+    "income_verification",
+    "liabilities",
+    "recurring_transactions",
+    "auth",
+    "transactions"
+
+
+Plaid Sandbox Limitations:
+    auth, transactions, etc. returns the same JSON no matter the access_code you use.
