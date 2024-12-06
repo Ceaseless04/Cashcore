@@ -40,14 +40,15 @@ export default function loginPage() {
       body: JSON.stringify({ username: username, password: password }) // TODO: Change to current user
     })
     const data = await res.json();
-    // console.log(data)
+    console.log(data);
 
-    const pass_username: string = username;
+
 
     if (data.message == "Login successful!") {
       setErrors({username: data.message, password: ""})
-      console.log("RIGHT HERE",pass_username);
-      router.replace(`/pages/dashboard?username=${pass_username}`);
+      //get token from json data and store it
+      await AsyncStorage.setItem("auth_token", data.token);
+      router.replace("/pages/dashboard"); //go to dashboard page
     } else {
       setErrors({username: data.message, password: ""})
     }

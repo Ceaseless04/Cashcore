@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { BalanceContainer } from "@/components/dashboard/BalanceContainer";
 import { Widget } from "@/components/dashboard/Widget";
 import colorPalette from "../utils/colors";
 import { boxShadowForContainers } from "../utils/dashboardContainerBoxShadow";
 
-//import expo router
-import { useLocalSearchParams } from "expo-router";
+//global user data //
+let dash_user_data: null;
 
+
+//import expo router
+import { useRouter } from "expo-router";
+
+//import ability to get token
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+//We store captured user data here
+
+//above is 'global' due to below being... 'global'?
 
 const dummyBudget: ListItem[] = [{ name: "House Down Payment", amount: 2281 }];
 
@@ -31,13 +41,37 @@ interface ListItem {
 }
 
 export default function Dashboard(): JSX.Element {
+  //get loa
+  const [user_data, set_user_date] = useState(null); //null type? //unsafe :( //no Option<B)>?
+  const [is_authenticated, set_is_authenticated] = useState(false); // Track authentication status
 
-  console.log("Before the call");
-  const {username} = useLocalSearchParams();
+  //summon router object
+  const router = useRouter();
 
-  console.log("HERE IS THE USERNAME", username);
+  //lets get the token first
+  //makes sure it is only called once... suuuuuuure
 
+  useEffect(() => { //called before renders
+    auth_token(set_user_date, set_is_authenticated);
+  }, []);
 
+  //temp check as i feel is_authenticated is being consumed
+  const temp_do_load = is_authenticated; 
+  //return dummy page, just exit out of this method, which does not matter since we will be rerouting back loginPage
+  console.log("Is_token_auth: ", is_authenticated);
+  useEffect(() => {
+    if (!is_authenticated) {
+      router.replace("/pages/loginPage");
+    }
+  }, [is_authenticated, router]);
+
+  if (!temp_do_load){
+    return <ActivityIndicator size="large" />; //just a loading page
+  } 
+
+  //for debugging print out user data and see if it works
+  dash_user_data = user_data;
+  console.log("User Data: ", dash_user_data);
 
   const [budgetList, setBudgetList] = useState<ListItem[]>(dummyBudget);
   const [monthlySubscription, setMonthlySubscription] =
@@ -104,7 +138,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingBottom: 25,
     gap:  20,
-    backgroundImage: `radial-gradient(circle, rgba(40, 206, 120, .6) 5%, rgba(24, 24, 24, .8) 34%, rgba(24,24,24, .7) 130%)`,
+    // backgroundImage: `radial-gradient(circle, rgba(40, 206, 120, .6) 5%, rgba(24, 24, 24, .8) 34%, rgba(24,24,24, .7) 130%)`,
   },
   widgetContainer: { 
     flexDirection: "row",
@@ -130,7 +164,7 @@ const styles = StyleSheet.create({
   },
   cashFlowContainer: { 
     backgroundColor: `rgba(50, 50, 50, .70)`,
-    boxShadow: boxShadowForContainers,
+    // boxShadow: boxShadowForContainers,
     minWidth: "65%",
     maxWidth: "60%",
     borderRadius: 10,
@@ -152,3 +186,40 @@ const styles = StyleSheet.create({
     color: colorPalette.light,
   },
 });
+
+
+async function auth_token(set_user_data: any, set_is_authenticated: any){
+
+  //get 
+  const token = await AsyncStorage.getItem("auth_token");
+
+  if (!token ){
+    set_is_authenticated(false);
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:8000/restapi/dashboard/", { //change depending on the backend views
+      method: "GET", 
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      set_is_authenticated(false);
+      return;
+    }
+
+    const data = await response.json();
+    //return true, set_user_data, and set loading
+    set_user_data(data);
+    set_is_authenticated(true);
+    return;
+  } catch (e) {
+    console.error("Unable to get user data", e);
+    set_is_authenticated(false);
+    return;
+  }
+
+}
