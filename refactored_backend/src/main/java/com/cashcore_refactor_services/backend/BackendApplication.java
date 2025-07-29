@@ -1,4 +1,4 @@
-package com.cashcore.backend;
+package com.cashcore_refactor_services.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

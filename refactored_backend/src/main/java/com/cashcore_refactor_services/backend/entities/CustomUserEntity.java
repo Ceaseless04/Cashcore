@@ -1,4 +1,4 @@
-package com.cashcore.backend.entities;
+package com.cashcore_refactor_services.backend.entities;
 
 import java.time.LocalDateTime;
 
